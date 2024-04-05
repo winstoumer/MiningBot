@@ -1,3 +1,16 @@
+:root {
+  --tg-theme-bg-color: var(--tg-theme-bg-color, #FFFFFF); /* Значение по умолчанию #FFFFFF */
+  --tg-theme-secondary-bg-color: var(--tg-theme-secondary-bg-color, #FFFFFF); /* Значение по умолчанию #F2F3F5 */
+}
+
+.bg-color {
+  background-color: var(--tg-theme-bg-color);
+}
+
+.secondary-bg-color {
+  background-color: var(--tg-theme-secondary-bg-color);
+}
+
 html, body, #root {
   height: 100%;
 }
