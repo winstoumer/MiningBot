@@ -1,26 +1,27 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './home.scss';
 
 const Home: React.FC = () => {
-    useEffect(() => {
-    // Проверяем, существует ли объект Telegram в window
-    if ('Telegram' in window) {
-      // Приводим window к любому типу, чтобы избежать проблем с типами TypeScript
-      const telegramWindow = window as any;
+    // Используем useState для хранения и обновления значения счетчика
+  const [count, setCount] = useState<number>(0.000001);
 
-      // Проверяем, существует ли объект WebApp в Telegram
-      if (telegramWindow.Telegram.WebApp) {
-        // Вызываем метод expand
-        telegramWindow.Telegram.WebApp.expand();
-      }
-    }
-  }, []);
+  useEffect(() => {
+    // Функция для обновления счетчика
+    const updateCounter = () => {
+      setCount((prevCount) => parseFloat((prevCount + 0.000001).toFixed(6)));
+    };
+
+    // Устанавливаем таймер для обновления счетчика каждую миллисекунду
+    const timerId = setTimeout(updateCounter, 1);
+
+    // Очищаем таймер, когда компонент будет размонтирован
+    return () => clearTimeout(timerId);
+  }, [count]); // Зависимость от текущего значения счетчика
     return <div>
     <div className="content">
         <div className="balance">
             <div className="title-block">Total balance (CLO)</div>
             <div className="total-balance">
-                <span>CLO </span>
                 2000
             </div>
         </div>
@@ -31,7 +32,7 @@ const Home: React.FC = () => {
                 </div>
                 <div className="">
                    <div className="token">
-                       <span id="counter">0.000001</span>
+                       <span id="counter">{count}</span>
                    </div>
                    <div className="info-mine-count">
                        (0.1 coin per hour)
