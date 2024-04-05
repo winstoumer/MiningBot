@@ -3,13 +3,19 @@ import './home.scss';
 
 const Home: React.FC = () => {
     useEffect(() => {
-    // Проверяем, доступен ли объект Telegram WebApp API
-    if (window.Telegram?.WebApp) {
-      // Развернуть WebApp на весь экран
-      window.Telegram.WebApp.expand();
+    // Проверяем, существует ли объект Telegram в window
+    if ('Telegram' in window) {
+      // Приводим window к любому типу, чтобы избежать проблем с типами TypeScript
+      const telegramWindow = window as any;
+
+      // Проверяем, существует ли объект WebApp в Telegram
+      if (telegramWindow.Telegram.WebApp) {
+        // Вызываем метод expand
+        telegramWindow.Telegram.WebApp.expand();
+      }
     }
-  }, []); // Пустой массив зависимостей означает, что эффект выполнится один раз после первого рендеринг
-  return <div>
+  }, []);
+    return <div>
     <div className="content">
         <div className="balance">
             <div className="title-block">Total balance (CLO)</div>
