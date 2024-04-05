@@ -9,9 +9,9 @@ export default defineConfig({
     outDir: 'docs'
   },
   // @ts-ignore
-  base: process.env.GH_PAGES ? '/MiningBot/' : './',
+  base: process.env.GH_PAGES ? '/' : './',
   server: {
-    // port: 3000,
+  port: 3000,
     fs: {
       allow: ['../sdk', './'],
     },
