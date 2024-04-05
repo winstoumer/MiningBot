@@ -1,0 +1,72 @@
+.balance {
+    color: #1F1F1F;
+    font-size: 50px;
+    font-weight: 900;
+    line-height: 32px;
+}
+
+.title-block {
+    color: gray;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.total-balance {
+    padding: 15px 0;
+}
+
+.general-token {
+    padding: 20px 0;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 1.5fr 0.5fr;
+    gap: 30px;
+}
+
+.info-mine-count {
+    font-size: 14px;
+    color: #A894B5;
+}
+
+.set-mining {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-weight: 300;
+    color: #1F1F1F;
+}
+
+#counter {
+    color: #463F4B;
+}
+
+.prm-set {
+    color: #463F4B;
+}
+
+.token-title {
+    color: gray;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.token {
+    font-size: 36px;
+    font-weight: 900;
+}
+
+.watch-machine {
+    display: flex;
+    width: 320px;
+    height: 320px;
+    border-radius: 20px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.img-comp {
+    width: 100%;
+    border-radius: 20px;
+}

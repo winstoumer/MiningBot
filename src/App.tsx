@@ -3,7 +3,12 @@ import {THEME, TonConnectUIProvider} from "@tonconnect/ui-react";
 import {Header} from "./components/Header/Header";
 import {TxForm} from "./components/TxForm/TxForm";
 import {Footer} from "./components/Footer/Footer";
+import {Navigation} from "./components/Navigation/Navigation";
 import {TonProofDemo} from "./components/TonProofDemo/TonProofDemo";
+import React from 'react';
+   import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+   import Home from './pages/Home';
+   import Market from './pages/Market';
 
 function App() {
   return (
@@ -37,10 +42,14 @@ function App() {
           }}
       >
         <div className="app">
-            <Header />
-            <TxForm />
-            <TonProofDemo />
-            <Footer />
+            <Router>
+        <Header />
+                <Navigation />
+         <Routes>
+           <Route path="/" element={<Home />} />
+           <Route path="/market" element={<Market />} />
+         </Routes>
+       </Router>
         </div>
       </TonConnectUIProvider>
   )

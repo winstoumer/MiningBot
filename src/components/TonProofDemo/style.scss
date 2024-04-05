@@ -8,7 +8,7 @@
   padding: 20px;
 
   h3 {
-    color: white;
+    color: black;
     opacity: 0.8;
   }
 
@@ -21,7 +21,7 @@
   }
 
   &__error {
-    color: rgba(102,170,238,0.91);
+    color: red;
     font-size: 18px;
     line-height: 20px;
   }
@@ -33,7 +33,7 @@
     cursor: pointer;
 
     background-color: rgba(102,170,238,0.91);
-    color: white;
+    color: black;
     font-size: 16px;
     line-height: 20px;
 
