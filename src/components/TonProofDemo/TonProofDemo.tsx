@@ -79,7 +79,7 @@ export const TonProofDemo = () => {
 					Call backend getAccountInfo()
 				</button>
 			) : (
-				<div className="ton-proof-demo__error">Connect wallet to call API</div>
+				<div className="ton-proof-demo__error">Connect wallet</div>
 			)}
 			<ReactJson src={data} name="response" theme="ocean" />
 		</div>
