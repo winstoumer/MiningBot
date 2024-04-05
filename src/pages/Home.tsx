@@ -7,7 +7,7 @@ const Home: React.FC = () => {
         <div className="balance">
             <div className="title-block">Total balance (CLO)</div>
             <div className="total-balance">
-                <span>CLO</span>
+                <span>CLO </span>
                 2000
             </div>
         </div>
