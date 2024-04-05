@@ -6,9 +6,9 @@
 }
 
 .title-block {
-    color: gray;
+    color: #203036;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 300;
 }
 
 .total-balance {
@@ -16,8 +16,7 @@
 }
 
 .general-token {
-    padding: 20px 0;
-    background-color: white;
+    padding: 12px 20px;
     display: grid;
     grid-template-columns: 1.5fr 0.5fr;
     gap: 30px;
@@ -25,29 +24,29 @@
 
 .info-mine-count {
     font-size: 14px;
-    color: #A894B5;
+    color: #3E99BD;
 }
 
 .set-mining {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
     font-weight: 300;
     color: #1F1F1F;
 }
 
 #counter {
-    color: #463F4B;
+    color: #24282A;
 }
 
 .prm-set {
-    color: #463F4B;
+    color: #24282A;
 }
 
 .token-title {
-    color: gray;
+    color: #203036;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 300;
 }
 
 .token {

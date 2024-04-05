@@ -25,6 +25,11 @@ const Home: React.FC = () => {
                 2000
             </div>
         </div>
+        <div className="content-machine">
+            <div className="watch-machine">
+                <img src="https://i.ibb.co/4p2tJP6/Designer-8.jpg" className="img-comp" />
+            </div>
+        </div>
         <div className="general-token">
             <div className="set-mining">
                 <div className="token-title">
@@ -46,11 +51,6 @@ const Home: React.FC = () => {
                 <div className="token">
                     <span className="prm-set">6</span>
                 </div>
-            </div>
-        </div>
-        <div className="content-machine">
-            <div className="watch-machine">
-                <img src="https://i.ibb.co/4p2tJP6/Designer-8.jpg" className="img-comp" />
             </div>
         </div>
     </div>
