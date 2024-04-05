@@ -8,7 +8,7 @@ import {TonProofDemo} from "./components/TonProofDemo/TonProofDemo";
 function App() {
   return (
       <TonConnectUIProvider
-          manifestUrl="https://winstoumer.github.io/MiningBot/docs/tonconnect-manifest.json"
+          manifestUrl="https://ton-connect.github.io/demo-dapp-with-react-ui/tonconnect-manifest.json"
           uiPreferences={{ theme: THEME.DARK }}
           walletsListConfiguration={{
             includeWallets: [
