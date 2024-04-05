@@ -5,12 +5,19 @@ import {TxForm} from "./components/TxForm/TxForm";
 import {Footer} from "./components/Footer/Footer";
 import {Navigation} from "./components/Navigation/Navigation";
 import {TonProofDemo} from "./components/TonProofDemo/TonProofDemo";
-import React from 'react';
+import React, { useEffect } from 'react';
    import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
    import Home from './pages/Home';
    import Market from './pages/Market';
 
 function App() {
+    useEffect(() => {
+    // Проверяем, доступен ли объект Telegram WebApp API
+    if (window.Telegram?.WebApp) {
+      // Развернуть WebApp на весь экран
+      window.Telegram.WebApp.expand();
+    }
+  }, []); // Пустой массив зависимостей означает, что эффект выполнится один раз после первого рендеринг
   return (
       <TonConnectUIProvider
           manifestUrl="https://ton-connect.github.io/demo-dapp-with-react-ui/tonconnect-manifest.json"
