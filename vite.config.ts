@@ -11,7 +11,7 @@ export default defineConfig({
   // @ts-ignore
   base: process.env.GH_PAGES ? '/demo-dapp-with-react-ui/' : './',
   server: {
-    port: 3000,
+    // port: 3000,
     fs: {
       allow: ['../sdk', './'],
     },
