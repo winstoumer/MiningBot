@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './home.scss';
 
 const Home: React.FC = () => {
+    useEffect(() => {
+    // Проверяем, доступен ли объект Telegram WebApp API
+    if (window.Telegram?.WebApp) {
+      // Развернуть WebApp на весь экран
+      window.Telegram.WebApp.expand();
+    }
+  }, []); // Пустой массив зависимостей означает, что эффект выполнится один раз после первого рендеринг
   return <div>
     <div className="content">
         <div className="balance">
