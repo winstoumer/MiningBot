@@ -23,7 +23,7 @@ const Task: React.FC = () => {
       </div>
       <div className="task">
           <div className="task-watch-image">
-              <img src="https://i.ibb.co/PDXJ0ST/Designer-12.jpg" className="task-img" />
+              <img src="https://i.ibb.co/30HfdZc/Designer-15.jpg" className="task-img" />
           </div>
           <div className="task-info">
               <a href={instagramProfileUrl} className="task-name" target="_blank" rel="noopener noreferrer">Follow Miner on Instagram</a>
@@ -34,7 +34,7 @@ const Task: React.FC = () => {
       </div>
       <div className="task">
           <div className="task-watch-image">
-              <img src="https://i.ibb.co/30HfdZc/Designer-15.jpg" className="task-img" />
+              <img src="https://i.ibb.co/PDXJ0ST/Designer-12.jpg" className="task-img" />
           </div>
           <div className="task-info">
               <div className="task-name">
