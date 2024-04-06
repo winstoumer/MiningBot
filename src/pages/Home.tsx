@@ -62,7 +62,7 @@ const Home: React.FC = () => {
                        <span id="counter">{count.toFixed(3)}</span>
                    </div>
                    <div className="info-mine-count">
-                       (0.1 coin per hour)
+                       (5 coin per 10s)
                    </div>
                 </div>
             </div>
