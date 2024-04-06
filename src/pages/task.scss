@@ -3,19 +3,19 @@
 }
 
 .task {
-    padding: 16px 25px;
+    padding: 22px 25px;
     margin-bottom: 20px;
     display: flex;
     gap: 30px;
-    border-radius: 20px;
+    border-radius: 28px;
     border: 1px solid lightgray;
 }
 
 .task-watch-image {
-    width: 80px;
-    height: 80px;
-    min-width: 80px;
-    min-height: 80px;
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+    min-height: 70px;
 }
 
 .task-img {
@@ -29,7 +29,8 @@
 }
 
 .task-name {
-    font-size: 18px;
+    color: gray;
+    font-size: 16px;
     font-weight: 500;
 }
 

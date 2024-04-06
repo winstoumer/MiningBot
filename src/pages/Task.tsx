@@ -16,7 +16,7 @@ const Task: React.FC = () => {
                   Subscribe to the Miner channel
               </div>
               <div className="task-rewards">
-                  50000
+                  +50 000
               </div>
           </div>
       </div>
@@ -29,7 +29,7 @@ const Task: React.FC = () => {
                  Follow Miner on Instagram 
               </div>
               <div className="task-rewards">
-                  50000
+                  +50 000
               </div>
           </div>
       </div>
@@ -42,7 +42,7 @@ const Task: React.FC = () => {
                  Follow Miner on X 
               </div>
               <div className="task-rewards">
-                  50000
+                  +50 000
               </div>
           </div>
       </div>
