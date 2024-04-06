@@ -2,27 +2,49 @@ import React, { useState, useEffect } from 'react'
 import './home.scss';
 
 const Home: React.FC = () => {
-    // Используем useState для хранения и обновления значения счетчика
-  const [count, setCount] = useState<number>(0.000001);
+    const [coins, setCoins] = useState<number>(0);
+  const [count, setCount] = useState<number>(0);
 
   useEffect(() => {
-    // Функция для обновления счетчика
-    const updateCounter = () => {
-      setCount((prevCount) => parseFloat((prevCount + 0.000001).toFixed(6)));
-    };
+    // Начальное значение счетчика
+    const startCount = 0;
+    // Конечное значение счетчика
+    const endCount = 5;
+    // Время в миллисекундах, за которое счетчик должен достичь endCount
+    const duration = 5000; // 1 час
+    // Размер прироста счетчика за каждую миллисекунду
+    const incrementPerMillisecond = (endCount - startCount) / duration;
 
-    // Устанавливаем таймер для обновления счетчика каждую миллисекунду
-    const timerId = setTimeout(updateCounter, 1);
+    // Устанавливаем таймер для обновления счетчика
+    const counterInterval = setInterval(() => {
+      setCount((prevCount) => {
+        const newCount = prevCount + incrementPerMillisecond;
+        // Если счетчик достиг или превысил endCount, останавливаем интервал
+        if (newCount >= endCount) {
+          clearInterval(counterInterval);
+          return endCount;
+        }
+        return newCount;
+      });
+    }, 1);
 
-    // Очищаем таймер, когда компонент будет размонтирован
-    return () => clearTimeout(timerId);
-  }, [count]); // Зависимость от текущего значения счетчика
+    // Очищаем интервал при размонтировании компонента
+    return () => clearInterval(counterInterval);
+  }, [count]);
+
+  // Функция для сбора монет
+  const claimCoins = () => {
+    if (count >= 5) {
+      setCoins((prevCoins) => prevCoins + 5); // Добавляем 5 монет
+      setCount(0); // Сбрасываем счетчик
+    }
+  };
     return <div>
     <div className="content">
         <div className="balance">
             <div className="title-block">Total balance (CLO)</div>
             <div className="total-balance">
-                2000
+                {coins.toFixed(2)}
             </div>
         </div>
         <div className="content-machine">
@@ -37,11 +59,16 @@ const Home: React.FC = () => {
                 </div>
                 <div className="">
                    <div className="token">
-                       <span id="counter">{count}</span>
+                       <span id="counter">{count.toFixed(3)}</span>
                    </div>
                    <div className="info-mine-count">
                        (0.1 coin per hour)
                    </div>
+                    <div className="">
+                        <button className="claim-coins-btn" onClick={claimCoins} disabled={count < 5}>
+        {count >= 5 ? 'Claim' : 'Collecting...'}
+      </button>
+                    </div>
                 </div>
             </div>
             <div className="set-mining">
