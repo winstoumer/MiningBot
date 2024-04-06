@@ -7,6 +7,13 @@ const TelegramScript: React.FC = () => {
       const script = document.createElement('script');
       script.src = 'https://telegram.org/js/telegram-web-app.js';
       script.async = true;
+        script.onload = () => {
+        // После загрузки скрипта, проверяем, что Telegram Web App API доступен
+        if (window.Telegram.WebApp) {
+          // Вызываем метод expand для открытия в полноэкранном режиме
+          window.Telegram.WebApp.expand();
+        }
+      };
       document.body.appendChild(script);
     };
 
