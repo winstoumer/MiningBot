@@ -30,7 +30,7 @@ const Home: React.FC = () => {
                 <img src="https://i.ibb.co/4p2tJP6/Designer-8.jpg" className="img-comp" />
             </div>
             <div className="manage-miners">
-                <button type="submit" className="change-miner">Change</button>
+                <button type="submit" className="change-miner">Change miner</button>
             </div>
         </div>
         <div className="general-token">
