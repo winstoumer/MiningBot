@@ -9,6 +9,9 @@ import React from 'react';
    import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
    import Home from './pages/Home';
    import Market from './pages/Market';
+import TelegramScript from "./components/TelegramScript/TelegramScript";
+import TelegramUser from "./components/TelegramUser/TelegramUser";
+import './telegram.d.ts';
 
 function App() {
   return (
@@ -45,6 +48,8 @@ function App() {
             <Router>
         <Header />
                 <Navigation />
+                <TelegramScript />
+                <TelegramUser />
          <Routes>
            <Route path="/" element={<Home />} />
            <Route path="/market" element={<Market />} />
