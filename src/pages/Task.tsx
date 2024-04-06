@@ -13,7 +13,7 @@ const Task: React.FC = () => {
           </div>
           <div className="task-info">
               <div className="task-name">
-                  Subscribe to the Miner channel
+                  Follow Miner on Telegram
               </div>
               <div className="task-rewards">
                   +50 000
