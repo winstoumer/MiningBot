@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './telegramuser.scss';
 
 // Определите тип для данных пользователя
 type TelegramUserData = {
@@ -24,15 +25,18 @@ const TelegramUser: React.FC = () => {
 
   // Рендерим информацию о пользователе или сообщение, если данные недоступны
   return (
-    <div>
+    <div className="user-block">
       {userData ? (
-        <div>
-          <h3>User Information</h3>
-          <p>ID: {userData.id}</p>
-          <p>First Name: {userData.first_name}</p>
+        <>
+        <div className="photo">
+            <img src={userData.photo_url} className="photo-url" alt="User" />
         </div>
+        <div className="username">
+          {userData.user_name}
+        </div>
+        </>
       ) : (
-        <p>Loading user data...</p>
+        <div className="username">Loading...</div>
       )}
     </div>
   );

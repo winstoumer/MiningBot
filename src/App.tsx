@@ -48,8 +48,8 @@ function App() {
             <Router>
         <Header />
                 <Navigation />
-                <TelegramScript />
                 <TelegramUser />
+                <TelegramScript />
          <Routes>
            <Route path="/" element={<Home />} />
            <Route path="/market" element={<Market />} />

@@ -1,0 +1,25 @@
+.user-block {
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 0 25px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 62px;
+}
+
+.username {
+    color: black;
+    font-weight: 300;
+}
+
+.photo {
+    display: flex;
+}
+
+.photo-url {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+}
