@@ -28,15 +28,12 @@ const TelegramUser: React.FC = () => {
     <div className="user-block">
       {userData ? (
         <>
-        <div className="photo">
-            <img src={userData.photo_url} className="photo-url" alt="User" />
-        </div>
         <div className="username">
           {userData.username}
         </div>
         </>
       ) : (
-        <div className="username">Loading...</div>
+        <div className="username">loading...</div>
       )}
     </div>
   );
