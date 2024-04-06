@@ -3,7 +3,7 @@ import './task.scss';
 
 const Task: React.FC = () => {
     const telegramGroupUrl = 'https://t.me/notcoin';
-    const instagramProfileUrl = 'https://www.instagram.com/yourusername/';
+    const instagramProfileUrl = 'https://www.instagram.com/winstoum/';
     
   return <div>
   <div className="title-page">
