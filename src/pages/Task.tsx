@@ -2,6 +2,9 @@ import React from 'react'
 import './task.scss';
 
 const Task: React.FC = () => {
+    const telegramGroupUrl = 'https://t.me/notcoin';
+    const instagramProfileUrl = 'https://www.instagram.com/yourusername/';
+    
   return <div>
   <div className="title-page">
       Earn
@@ -12,9 +15,7 @@ const Task: React.FC = () => {
               <img src="https://i.ibb.co/R64qNrF/Designer-18.jpg" className="task-img" />
           </div>
           <div className="task-info">
-              <div className="task-name">
-                  Follow Miner on Telegram
-              </div>
+              <a href={telegramGroupUrl} className="task-name" target="_blank" rel="noopener noreferrer">Follow Miner on Telegram</a>
               <div className="task-rewards">
                   +50 000
               </div>
@@ -25,9 +26,7 @@ const Task: React.FC = () => {
               <img src="https://i.ibb.co/PDXJ0ST/Designer-12.jpg" className="task-img" />
           </div>
           <div className="task-info">
-              <div className="task-name">
-                 Follow Miner on Instagram 
-              </div>
+              <a href={instagramProfileUrl} className="task-name" target="_blank" rel="noopener noreferrer">Follow Miner on Instagram</a>
               <div className="task-rewards">
                   +50 000
               </div>
