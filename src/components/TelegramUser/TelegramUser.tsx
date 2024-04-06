@@ -30,9 +30,6 @@ const TelegramUser: React.FC = () => {
           <h3>User Information</h3>
           <p>ID: {userData.id}</p>
           <p>First Name: {userData.first_name}</p>
-          {userData.last_name && <p>Last Name: {userData.last_name}</p>}
-          {userData.username && <p>Username: @{userData.username}</p>}
-          {userData.photo_url && <img src={userData.photo_url} alt="User" />}
         </div>
       ) : (
         <p>Loading user data...</p>
