@@ -4,7 +4,7 @@ import './task.scss';
 const Task: React.FC = () => {
   return <div>
   <div className="title-page">
-      Task
+      Earn
   </div>
       <div className="task-list">
       <div className="task">

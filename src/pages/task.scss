@@ -8,8 +8,12 @@
     display: flex;
     gap: 30px;
     border-radius: 28px;
-    border: 1px solid lightgray;
+    border: 1px solid #E7E7E7;
 }
+
+   .task:nth-child(3n) {
+       opacity: 0.3;
+    }
 
 .task-watch-image {
     width: 70px;
@@ -29,7 +33,7 @@
 }
 
 .task-name {
-    color: gray;
+    color: #2F2F2F;
     font-size: 16px;
     font-weight: 500;
 }
