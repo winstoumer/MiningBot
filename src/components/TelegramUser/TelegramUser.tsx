@@ -32,7 +32,7 @@ const TelegramUser: React.FC = () => {
             <img src={userData.photo_url} className="photo-url" alt="User" />
         </div>
         <div className="username">
-          {userData.user_name}
+          {userData.username}
         </div>
         </>
       ) : (
