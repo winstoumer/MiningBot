@@ -1,0 +1,39 @@
+.task-list {
+    padding: 20px 25px;
+}
+
+.task {
+    padding: 16px 25px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 30px;
+    border-radius: 20px;
+    border: 1px solid lightgray;
+}
+
+.task-watch-image {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    min-height: 80px;
+}
+
+.task-img {
+    width: 100%;
+}
+
+.task-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task-name {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.task-rewards {
+    font-size: 26px;
+    font-weight: 800;
+}

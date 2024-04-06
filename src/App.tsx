@@ -9,6 +9,7 @@ import React from 'react';
    import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
    import Home from './pages/Home';
    import Market from './pages/Market';
+   import Task from './pages/Task';
 import TelegramScript from "./components/TelegramScript/TelegramScript";
 import TelegramUser from "./components/TelegramUser/TelegramUser";
 import './telegram.d.ts';
@@ -53,6 +54,7 @@ function App() {
          <Routes>
            <Route path="/" element={<Home />} />
            <Route path="/market" element={<Market />} />
+           <Route path="/task" element={<Task />} />
          </Routes>
        </Router>
         </div>
