@@ -64,11 +64,6 @@ const Home: React.FC = () => {
                    <div className="info-mine-count">
                        (0.1 coin per hour)
                    </div>
-                    <div className="">
-                        <button className="claim-coins-btn" onClick={claimCoins} disabled={count < 5}>
-        {count >= 5 ? 'Claim' : 'Collecting...'}
-      </button>
-                    </div>
                 </div>
             </div>
             <div className="set-mining">
@@ -79,6 +74,11 @@ const Home: React.FC = () => {
                     <span className="prm-set">6</span>
                 </div>
             </div>
+        </div>
+        <div className="actions-mining">
+                        <button className="claim-coins-btn" onClick={claimCoins} disabled={count < 5}>
+        {count >= 5 ? 'Claim' : 'Collecting...'}
+      </button>
         </div>
     </div>
   </div>;

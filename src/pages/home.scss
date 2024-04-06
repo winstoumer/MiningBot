@@ -56,8 +56,8 @@
 
 .watch-machine {
     display: flex;
-    width: 320px;
-    height: 320px;
+    width: 290px;
+    height: 290px;
     border-radius: 20px;
     margin: 0 auto;
     justify-content: center;
@@ -71,9 +71,15 @@ margin-top: 20px;
     border-radius: 20px;
 }
 
+.actions-mining {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
 .claim-coins-btn {
-    background-color: black;
-    height: 32px;
+    background-color: #00D656;
+    height: 36px;
     padding: 0 14px;
     border-radius: 20px;
     font-size: 16px;
