@@ -25,17 +25,17 @@ const Home: React.FC = () => {
   }
 }, [userData]);
 
- const fetchCoins = async () => {
-  if (!userData) return; // Проверяем, что userData не равно null
-     
-  try {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userData.id}`);
-    const data = await response.json();
-    setCoins(data.coins);
-  } catch (error) {
-    console.error('Ошибка при получении монет:', error);
-  }
-};
+ const fetchCoins = async (userId: string) => {
+    if (!userId) return; // Проверяем, что userId не равно null
+
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userId}`);
+      const data = await response.json();
+      setCoins(data.coins);
+    } catch (error) {
+      console.error('Ошибка при получении монет:', error);
+    }
+  };
 
 const saveCoins = async (newCoins: number) => {
   if (!userData) return; // Проверяем, что userData не равно null
@@ -81,13 +81,14 @@ const saveCoins = async (newCoins: number) => {
     return () => clearInterval(counterInterval);
   }, [count]);
 
-  // Функция для сбора монет
-  const claimCoins = () => {
-    if (count >= 5) {
+
+    const claimCoins = () => {
+  if (count >= 5 && userData) {
       setCoins((prevCoins) => prevCoins + 5); // Добавляем 5 монет
-      setCount(0); // Сбрасываем счетчик
-    }
-  };
+    saveCoins(coins + 5); // Добавляем 5 монет
+    setCount(0); // Сбрасываем счетчик
+  }
+};
     
     return <div>
     <div className="content">
