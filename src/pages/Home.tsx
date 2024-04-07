@@ -1,26 +1,53 @@
 import React, { useState, useEffect } from 'react'
 import './home.scss';
 
+type TelegramUserData = {
+  id: number;
+  first_name: string;
+  last_name?: string;
+  username?: string;
+  photo_url?: string;
+  auth_date: number;
+  hash: string;
+};
+
 const Home: React.FC = () => {
 
  const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
 
-const [userData, setUserData] = useState<any>(null);
+    useEffect(() => {
+    // Функция для создания тега <script>
+    const loadScript = () => {
+      const script = document.createElement('script');
+      script.src = 'https://telegram.org/js/telegram-web-app.js';
+      script.async = true;
+      script.onload = () => {
+        // После загрузки скрипта, проверяем, что Telegram Web App API доступен
+        if (window.Telegram && window.Telegram.WebApp) {
+          // Вызываем метод expand для открытия в полноэкранном режиме
+          window.Telegram.WebApp.expand();
+        }
+      };
+      document.body.appendChild(script);
+    };
 
-    
+    // Загружаем скрипт при монтировании компонента
+    loadScript();
+
+    // Убрали часть кода, отвечающую за удаление скрипта при размонтировании компонента
+
+  }, []); // Пустой массив зависимостей, чтобы эффект выполнился один раз
+
+    const [userData, setUserData] = useState<TelegramUserData | null>(null);
+
   useEffect(() => {
-    // Парсим URL-параметры
-    const queryParams = new URLSearchParams(window.location.search);
-    const userParams = queryParams.get('user');
-
-    if (userParams) {
-      const user = JSON.parse(decodeURIComponent(userParams));
-      setUserData(user);
-      fetchCoins(user.id); // Теперь у вас есть user.id для использования в fetchCoins
+    // Проверяем, что Telegram Web App API доступен
+    if (window.Telegram.WebApp) {
+      // Получаем данные пользователя
+      setUserData(window.Telegram.WebApp.initDataUnsafe?.user);
     }
   }, []);
-
 
     
  const fetchCoins = async (userId: string) => {
@@ -104,7 +131,15 @@ const saveCoins = async (newCoins: number) => {
         <div className="general-token">
             <div className="set-mining">
                 <div className="token-title">
-                    Mining {userData && <div>User ID: {userData.id}</div>}
+                    Mining {userData ? (
+        <>
+        <div className="">
+          {userData.id}
+        </div>
+        </>
+      ) : (
+        <div className="username">loading...</div>
+      )}
                 </div>
                 <div className="">
                    <div className="token">
