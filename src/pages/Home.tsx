@@ -49,6 +49,12 @@ const Home: React.FC = () => {
     }
   }, []);
 
+    useEffect(() => {
+  if (userData && userData.id) {
+    fetchCoins(); // Вызывайте функцию здесь
+  }
+}, [userData]); // Добавьте userData в массив зависимостей
+
     
  const fetchCoins = async () => {
   if (!userData || !userData.id) return; // Проверяем, что userData и userData.id не равны null
