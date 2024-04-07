@@ -1,43 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import './home.scss';
 
+type TelegramUserData = {
+  id: number;
+  first_name: string;
+  last_name?: string;
+  username?: string;
+  photo_url?: string;
+  auth_date: number;
+  hash: string;
+};
+
 const Home: React.FC = () => {
  const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
 
-  const [userId, setUserId] = useState<string | null>(null);
+    const [userData, setUserData] = useState<TelegramUserData | null>(null);
 
-  // Функция для получения параметров из URL, предоставленных Telegram
-  const getTelegramData = () => {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const tgUserId = urlParams.get('id'); // Имя параметра может отличаться
-    return tgUserId;
-  };
+    useEffect(() => {
+  // Проверяем, что Telegram Web App API доступен и что userData не равно null
+  if (window.Telegram.WebApp && userData) {
+    // Получаем монеты для пользователя
+    fetchCoins(userData.id.toString());
+  }
+}, [userData]);
 
-  useEffect(() => {
-    // Получаем userId при монтировании компонента
-    const tgUserId = getTelegramData();
-    if (tgUserId) {
-      setUserId(tgUserId);
-    }
-  }, []);
-
-  // Функции fetchCoins и saveCoins остаются без изменений...
-
-  useEffect(() => {
-    if (userId) {
-      fetchCoins(userId);
-    }
-  }, [userId]);
-
-  // Остальная часть вашего кода...
-
-  
-
- const fetchCoins = async (userId: string) => {
+ const fetchCoins = async () => {
+  if (!userData) return; // Проверяем, что userData не равно null
+     
   try {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userId}`);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userData.id}`);
     const data = await response.json();
     setCoins(data.coins);
   } catch (error) {
@@ -45,16 +37,18 @@ const Home: React.FC = () => {
   }
 };
 
-const saveCoins = async (userId: string, newCoins: number) => {
+const saveCoins = async (newCoins: number) => {
+  if (!userData) return; // Проверяем, что userData не равно null
+
   try {
-    await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userId}`, {
+    await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userData.id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ coins: newCoins }),
     });
-    fetchCoins(userId);
+    fetchCoins(userData.id.toString());
   } catch (error) {
     console.error('Ошибка при сохранении монет:', error);
   }
@@ -87,13 +81,14 @@ const saveCoins = async (userId: string, newCoins: number) => {
     return () => clearInterval(counterInterval);
   }, [count]);
 
-// Функция для сбора монет
+  // Функция для сбора монет
   const claimCoins = () => {
-    if (count >= 5 && userId) {
-      saveCoins(userId, coins + 5);
+    if (count >= 5) {
+      setCoins((prevCoins) => prevCoins + 5); // Добавляем 5 монет
       setCount(0); // Сбрасываем счетчик
     }
   };
+    
     return <div>
     <div className="content">
         <div className="balance">
