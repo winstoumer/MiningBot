@@ -1,29 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import './home.scss';
 
-declare global {
-  interface Window {
-    Telegram: any;
-  }
-}
-
 const Home: React.FC = () => {
 
  const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
 
-    const [userData, setUserData] = useState<any>(null);
+const [userData, setUserData] = useState<any>(null);
 
   useEffect(() => {
-    if (window.Telegram) {
-      window.Telegram.WebApp.ready();
-      setUserData({
-        id: window.Telegram.WebApp.user.id,
-        // Другие данные пользователя, если они вам нужны
-      });
+    // Парсим URL-параметры
+    const queryParams = new URLSearchParams(window.location.search);
+    const userParams = queryParams.get('user');
+
+    if (userParams) {
+      const user = JSON.parse(decodeURIComponent(userParams));
+      setUserData(user);
+      fetchCoins(user.id); // Теперь у вас есть user.id для использования в fetchCoins
     }
   }, []);
 
+
+    
  const fetchCoins = async (userId: string) => {
     if (!userId) return; // Проверяем, что userId не равно null
 
@@ -105,7 +103,7 @@ const saveCoins = async (newCoins: number) => {
         <div className="general-token">
             <div className="set-mining">
                 <div className="token-title">
-                    Mining
+                    Mining {userData && <div>User ID: {userData.id}</div>}
                 </div>
                 <div className="">
                    <div className="token">
