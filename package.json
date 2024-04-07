@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@tonconnect/ui-react": "2.0.0",
+    "axios": "^1.6.8",
     "cli": "^1.0.1",
     "eruda": "^2.11.2",
     "netlify": "^13.1.14",

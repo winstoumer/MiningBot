@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import './home.scss';
 
+import axios from 'axios';
+
 type TelegramUserData = {
   id: number;
   first_name: string;
