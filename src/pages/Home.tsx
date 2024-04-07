@@ -50,20 +50,20 @@ const Home: React.FC = () => {
   }, []);
 
     
- const fetchCoins = async (userId: string) => {
-    if (!userId) return; // Проверяем, что userId не равно null
+ const fetchCoins = async () => {
+  if (!userData || !userData.id) return; // Проверяем, что userData и userData.id не равны null
 
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userId}`);
-      const data = await response.json();
-      setCoins(data.coins);
-    } catch (error) {
-      console.error('Ошибка при получении монет:', error);
-    }
-  };
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userData.id}`);
+    const data = await response.json();
+    setCoins(data.coins);
+  } catch (error) {
+    console.error('Ошибка при получении монет:', error);
+  }
+};
 
 const saveCoins = async (newCoins: number) => {
-  if (!userData) return; // Проверяем, что userData не равно null
+  if (!userData || !userData.id) return; // Проверяем, что userData и userData.id не равны null
 
   try {
     await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userData.id}`, {
@@ -73,7 +73,7 @@ const saveCoins = async (newCoins: number) => {
       },
       body: JSON.stringify({ coins: newCoins }),
     });
-    fetchCoins(userData.id.toString());
+    fetchCoins(); // Обновляем количество монет после сохранения
   } catch (error) {
     console.error('Ошибка при сохранении монет:', error);
   }
