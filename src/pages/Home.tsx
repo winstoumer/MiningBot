@@ -87,6 +87,27 @@ const saveCoins = async (newCoins: number) => {
   }
 };
 
+    const fetchCoinsWithFetch = async () => {
+  if (!userData || !userData.id) return;
+
+  try {
+    const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userData.id}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    setCoins(data.coins);
+  } catch (error) {
+    console.error('Ошибка при получении монет:', error);
+  }
+};
+
+    useEffect(() => {
+  fetchCoinsWithFetch(); // or fetchCoinsWithAxios();
+}, [])
+
+    
+
   useEffect(() => {
     // Начальное значение счетчика
     const startCount = 0;
