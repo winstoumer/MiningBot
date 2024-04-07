@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './home.scss';
+import TelegramScript from "./components/TelegramScript/TelegramScript";
 
 type TelegramUserData = {
   id: number;
@@ -91,6 +92,7 @@ const saveCoins = async (newCoins: number) => {
 };
     
     return <div>
+        <TelegramScript />
     <div className="content">
         <div className="balance">
             <div className="title-block">Total balance (CLO)</div>
