@@ -2,8 +2,38 @@ import React, { useState, useEffect } from 'react'
 import './home.scss';
 
 const Home: React.FC = () => {
-    const [coins, setCoins] = useState<number>(0);
+ const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
+
+  const [userId, setUserId] = useState<string | null>(null);
+
+  // Функция для получения параметров из URL, предоставленных Telegram
+  const getTelegramData = () => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const tgUserId = urlParams.get('id'); // Имя параметра может отличаться
+    return tgUserId;
+  };
+
+  useEffect(() => {
+    // Получаем userId при монтировании компонента
+    const tgUserId = getTelegramData();
+    if (tgUserId) {
+      setUserId(tgUserId);
+    }
+  }, []);
+
+  // Функции fetchCoins и saveCoins остаются без изменений...
+
+  useEffect(() => {
+    if (userId) {
+      fetchCoins(userId);
+    }
+  }, [userId]);
+
+  // Остальная часть вашего кода...
+
+  
 
  const fetchCoins = async (userId: string) => {
   try {
@@ -57,10 +87,10 @@ const saveCoins = async (userId: string, newCoins: number) => {
     return () => clearInterval(counterInterval);
   }, [count]);
 
-  // Функция для сбора монет
+// Функция для сбора монет
   const claimCoins = () => {
-    if (count >= 5) {
-      setCoins((prevCoins) => prevCoins + 5); // Добавляем 5 монет
+    if (count >= 5 && userId) {
+      saveCoins(userId, coins + 5);
       setCount(0); // Сбрасываем счетчик
     }
   };
