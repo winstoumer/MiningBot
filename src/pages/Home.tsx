@@ -60,7 +60,7 @@ const Home: React.FC = () => {
   if (!userData || !userData.id) return; // Проверяем, что userData и userData.id не равны null
 
   try {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userData.id}`);
+    const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userData.id}`);
     const data = await response.json();
     setCoins(data.coins);
   } catch (error) {
