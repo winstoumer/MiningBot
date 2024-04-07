@@ -1,59 +1,28 @@
 import React, { useState, useEffect } from 'react'
 import './home.scss';
 
-type TelegramUserData = {
-  id: number;
-  first_name: string;
-  last_name?: string;
-  username?: string;
-  photo_url?: string;
-  auth_date: number;
-  hash: string;
-};
+declare global {
+  interface Window {
+    Telegram: any;
+  }
+}
 
 const Home: React.FC = () => {
 
-useEffect(() => {
-    // Функция для создания тега <script>
-    const loadScript = () => {
-      const script = document.createElement('script');
-      script.src = 'https://telegram.org/js/telegram-web-app.js';
-      script.async = true;
-        script.onload = () => {
-        // После загрузки скрипта, проверяем, что Telegram Web App API доступен
-        if (window.Telegram.WebApp) {
-          // Вызываем метод expand для открытия в полноэкранном режиме
-          window.Telegram.WebApp.expand();
-        }
-      };
-      document.body.appendChild(script);
-    };
-
-    // Загружаем скрипт при монтировании компонента
-    loadScript();
-
-    // Опционально: очистка перед размонтированием компонента
-    return () => {
-      // Удаляем скрипт, если он был добавлен
-      const script = document.querySelector("script[src='https://telegram.org/js/telegram-web-app.js']");
-      if (script) {
-        document.body.removeChild(script);
-      }
-    };
-  }, []); // Пустой массив зависимостей, чтобы эффект выполнился один раз
-     
  const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
 
-    const [userData, setUserData] = useState<TelegramUserData | null>(null);
+    const [userData, setUserData] = useState<any>(null);
 
-    useEffect(() => {
-  // Проверяем, что Telegram Web App API доступен и что userData не равно null
-  if (window.Telegram.WebApp && userData) {
-    // Получаем монеты для пользователя
-    fetchCoins(userData.id.toString());
-  }
-}, [userData]);
+  useEffect(() => {
+    if (window.Telegram) {
+      window.Telegram.WebApp.ready();
+      setUserData({
+        id: window.Telegram.WebApp.user.id,
+        // Другие данные пользователя, если они вам нужны
+      });
+    }
+  }, []);
 
  const fetchCoins = async (userId: string) => {
     if (!userId) return; // Проверяем, что userId не равно null
@@ -136,15 +105,7 @@ const saveCoins = async (newCoins: number) => {
         <div className="general-token">
             <div className="set-mining">
                 <div className="token-title">
-                    Mining  {userData ? (
-        <>
-        <div className="">
-          {userData.username}
-        </div>
-        </>
-      ) : (
-        <div className="username">loading...</div>
-      )}
+                    Mining
                 </div>
                 <div className="">
                    <div className="token">
