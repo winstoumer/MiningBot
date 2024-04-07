@@ -49,7 +49,7 @@ const Home: React.FC = () => {
         </div>
         <div className="content-machine">
             <div className="watch-machine">
-                <img src="https://i.ibb.co/4p2tJP6/Designer-8.jpg" className="img-comp" />
+                <img src="https://i.ibb.co/vXLQ0d2/Designer-10.jpg" className="img-comp" />
             </div>
         </div>
         <div className="general-token">
