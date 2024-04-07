@@ -8,6 +8,7 @@ const Home: React.FC = () => {
 
 const [userData, setUserData] = useState<any>(null);
 
+    
   useEffect(() => {
     // Парсим URL-параметры
     const queryParams = new URLSearchParams(window.location.search);

@@ -7,9 +7,9 @@ const TelegramScript: React.FC = () => {
       const script = document.createElement('script');
       script.src = 'https://telegram.org/js/telegram-web-app.js';
       script.async = true;
-        script.onload = () => {
+      script.onload = () => {
         // После загрузки скрипта, проверяем, что Telegram Web App API доступен
-        if (window.Telegram.WebApp) {
+        if (window.Telegram && window.Telegram.WebApp) {
           // Вызываем метод expand для открытия в полноэкранном режиме
           window.Telegram.WebApp.expand();
         }
@@ -20,14 +20,8 @@ const TelegramScript: React.FC = () => {
     // Загружаем скрипт при монтировании компонента
     loadScript();
 
-    // Опционально: очистка перед размонтированием компонента
-    return () => {
-      // Удаляем скрипт, если он был добавлен
-      const script = document.querySelector("script[src='https://telegram.org/js/telegram-web-app.js']");
-      if (script) {
-        document.body.removeChild(script);
-      }
-    };
+    // Убрали часть кода, отвечающую за удаление скрипта при размонтировании компонента
+
   }, []); // Пустой массив зависимостей, чтобы эффект выполнился один раз
 
   return null; // Компонент не рендерит ничего в DOM
