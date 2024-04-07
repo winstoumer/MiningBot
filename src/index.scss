@@ -38,6 +38,7 @@ code {
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent; // Фон при нажатии кнопки transparent
 }
 
 .content {
