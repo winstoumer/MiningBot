@@ -106,7 +106,15 @@ const saveCoins = async (newCoins: number) => {
         <div className="general-token">
             <div className="set-mining">
                 <div className="token-title">
-                    Mining
+                    Mining  {userData ? (
+        <>
+        <div className="">
+          {userData.username}
+        </div>
+        </>
+      ) : (
+        <div className="username">loading...</div>
+      )}
                 </div>
                 <div className="">
                    <div className="token">
