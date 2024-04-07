@@ -5,6 +5,31 @@ const Home: React.FC = () => {
     const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
 
+ const fetchCoins = async (userId: string) => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userId}`);
+    const data = await response.json();
+    setCoins(data.coins);
+  } catch (error) {
+    console.error('Ошибка при получении монет:', error);
+  }
+};
+
+const saveCoins = async (userId: string, newCoins: number) => {
+  try {
+    await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ coins: newCoins }),
+    });
+    fetchCoins(userId);
+  } catch (error) {
+    console.error('Ошибка при сохранении монет:', error);
+  }
+};
+
   useEffect(() => {
     // Начальное значение счетчика
     const startCount = 0;
