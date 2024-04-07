@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import './home.scss';
-import TelegramScript from "./components/TelegramScript/TelegramScript";
 
 type TelegramUserData = {
   id: number;
@@ -13,6 +12,36 @@ type TelegramUserData = {
 };
 
 const Home: React.FC = () => {
+
+useEffect(() => {
+    // Функция для создания тега <script>
+    const loadScript = () => {
+      const script = document.createElement('script');
+      script.src = 'https://telegram.org/js/telegram-web-app.js';
+      script.async = true;
+        script.onload = () => {
+        // После загрузки скрипта, проверяем, что Telegram Web App API доступен
+        if (window.Telegram.WebApp) {
+          // Вызываем метод expand для открытия в полноэкранном режиме
+          window.Telegram.WebApp.expand();
+        }
+      };
+      document.body.appendChild(script);
+    };
+
+    // Загружаем скрипт при монтировании компонента
+    loadScript();
+
+    // Опционально: очистка перед размонтированием компонента
+    return () => {
+      // Удаляем скрипт, если он был добавлен
+      const script = document.querySelector("script[src='https://telegram.org/js/telegram-web-app.js']");
+      if (script) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []); // Пустой массив зависимостей, чтобы эффект выполнился один раз
+     
  const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
 
@@ -92,7 +121,6 @@ const saveCoins = async (newCoins: number) => {
 };
     
     return <div>
-        <TelegramScript />
     <div className="content">
         <div className="balance">
             <div className="title-block">Total balance (CLO)</div>
