@@ -74,31 +74,32 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
-  const startCount = 0;
-  const endCount = 5;
-  const duration = 3000; // 10 секунд
-  let startTime: number | null = null;
+    const startCount = 0;
+    const endCount = 5;
+    const duration = 3000; // 10 секунд
+    let startTime: number | null = null;
 
-  const counterInterval = setInterval(() => {
-    if (!startTime) {
-      startTime = Date.now();
-    }
-
-    const elapsedTime = Date.now() - startTime;
-    const newCount = startCount + (elapsedTime * (endCount - startCount)) / duration;
-
-    setCount((prevCount) => {
-      if (newCount >= endCount) {
-        clearInterval(counterInterval);
-        startTime = null; // Обнуляем startTime
-        return endCount;
+    const counterInterval = setInterval(() => {
+      if (!startTime) {
+        startTime = Date.now();
       }
-      return newCount;
-    });
-  }, 10);
 
-  return () => clearInterval(counterInterval);
-}, []);
+      const elapsedTime = Date.now() - startTime;
+      const newCount = startCount + (elapsedTime * (endCount - startCount)) / duration;
+
+      setCount((prevCount) => {
+        if (newCount >= endCount) {
+          clearInterval(counterInterval);
+          startTime = null; // Обнуляем startTime
+          return endCount;
+        }
+        return newCount;
+      });
+    }, 10);
+
+    return () => clearInterval(counterInterval);
+  }, []);
+
 
 
   const claimCoins = () => {
@@ -107,10 +108,11 @@ const Home: React.FC = () => {
     setCoins(newCoinAmount);
     saveCoins(newCoinAmount);
     saveCollecting(5); // Сохраняем коллекционные монеты в таблицу Collect
-    setStartTime(null); // Обнуляем startTime
-    setCount(0);
+    setCount(0); // Обнуляем отсчет
+    setStartTime(Date.now()); // Запускаем новый отсчет
   }
 };
+
 
 
   const saveCollecting = async (collecting: number) => {
