@@ -15,93 +15,72 @@ type TelegramUserData = {
 
 const Home: React.FC = () => {
 
- const [coins, setCoins] = useState<number>(0);
+ const [userData, setUserData] = useState<TelegramUserData | null>(null);
+  const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
 
-    useEffect(() => {
-    // Функция для создания тега <script>
+  useEffect(() => {
     const loadScript = () => {
       const script = document.createElement('script');
       script.src = 'https://telegram.org/js/telegram-web-app.js';
       script.async = true;
       script.onload = () => {
-        // После загрузки скрипта, проверяем, что Telegram Web App API доступен
         if (window.Telegram && window.Telegram.WebApp) {
-          // Вызываем метод expand для открытия в полноэкранном режиме
           window.Telegram.WebApp.expand();
         }
       };
       document.body.appendChild(script);
     };
 
-    // Загружаем скрипт при монтировании компонента
     loadScript();
-
-    // Убрали часть кода, отвечающую за удаление скрипта при размонтировании компонента
-
-  }, []); // Пустой массив зависимостей, чтобы эффект выполнился один раз
-
-    const [userData, setUserData] = useState<TelegramUserData | null>(null);
+  }, []);
 
   useEffect(() => {
-    // Проверяем, что Telegram Web App API доступен
-    if (window.Telegram.WebApp) {
-      // Получаем данные пользователя
+    if (window.Telegram && window.Telegram.WebApp) {
       setUserData(window.Telegram.WebApp.initDataUnsafe?.user);
     }
   }, []);
 
-useEffect(() => {
-  // Вызываем fetchCoins только после того, как userData установлено
-  if (userData && userData.id) {
-    fetchCoins();
-  }
-}, [userData]); // Добавляем userData в зависимости
+  useEffect(() => {
+    if (userData && userData.id) {
+      fetchCoins(userData.id);
+    }
+  }, [userData]);
 
-const fetchCoins = async () => {
-  if (!userData || !userData.id) return; // Проверяем, что userData и userData.id не равны null
+  const fetchCoins = async (userId: string) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userId}`);
+      const data = await response.json();
+      setCoins(data.coins);
+    } catch (error) {
+      console.error('Ошибка при получении монет:', error);
+    }
+  };
 
-  try {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userData.id}`);
-    const data = await response.json();
-    setCoins(data.coins);
-  } catch (error) {
-    console.error('Ошибка при получении монет:', error);
-  }
-};
-
-const saveCoins = async (newCoins: number) => {
-  if (!userData || !userData.id) return; // Проверяем, что userData и userData.id не равны null
-
-  try {
-    await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userData.id}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ coins: newCoins }),
-    });
-    fetchCoins(); // Обновляем количество монет после сохранения
-  } catch (error) {
-    console.error('Ошибка при сохранении монет:', error);
-  }
-};
+  const saveCoins = async (newCoins: number) => {
+    try {
+      await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userData?.id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ coins: newCoins }),
+      });
+      fetchCoins(userData?.id);
+    } catch (error) {
+      console.error('Ошибка при сохранении монет:', error);
+    }
+  };
 
   useEffect(() => {
-    // Начальное значение счетчика
     const startCount = 0;
-    // Конечное значение счетчика
     const endCount = 5;
-    // Время в миллисекундах, за которое счетчик должен достичь endCount
-    const duration = 5000; // 1 час
-    // Размер прироста счетчика за каждую миллисекунду
+    const duration = 5000;
     const incrementPerMillisecond = (endCount - startCount) / duration;
 
-    // Устанавливаем таймер для обновления счетчика
     const counterInterval = setInterval(() => {
       setCount((prevCount) => {
         const newCount = prevCount + incrementPerMillisecond;
-        // Если счетчик достиг или превысил endCount, останавливаем интервал
         if (newCount >= endCount) {
           clearInterval(counterInterval);
           return endCount;
@@ -110,18 +89,17 @@ const saveCoins = async (newCoins: number) => {
       });
     }, 1);
 
-    // Очищаем интервал при размонтировании компонента
     return () => clearInterval(counterInterval);
   }, [count]);
 
-
-    const claimCoins = () => {
-  if (count >= 5 && userData) {
-      setCoins((prevCoins) => prevCoins + 5); // Добавляем 5 монет
-    saveCoins(coins + 5); // Добавляем 5 монет
-    setCount(0); // Сбрасываем счетчик
-  }
-};
+  const claimCoins = () => {
+    if (count >= 5 && userData) {
+      const newCoinAmount = coins + 5;
+      setCoins(newCoinAmount);
+      saveCoins(newCoinAmount);
+      setCount(0);
+    }
+  };
     
     return <><div>
     <div className="content">
