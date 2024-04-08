@@ -5,6 +5,7 @@ const Home: React.FC = () => {
   const [userData, setUserData] = useState<any>(null);
   const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
+  let startTime: number | null = null; // Объявляем переменную startTime внутри компонента
 
   useEffect(() => {
     const loadScript = () => {
@@ -75,7 +76,6 @@ const Home: React.FC = () => {
   const startCount = 0;
   const endCount = 5;
   const duration = 3000; // 10 секунд
-  let startTime: number;
 
   const counterInterval = setInterval(() => {
     if (!startTime) {
