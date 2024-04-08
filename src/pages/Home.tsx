@@ -5,7 +5,9 @@ const Home: React.FC = () => {
   const [userData, setUserData] = useState<any>(null);
   const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
-  let startTime: number | null = null; // Объявляем переменную startTime внутри компонента
+  let startTime: number | null = null; // Объявляем переменную startTime внутри
+  const [startTime, setStartTime] = useState<number | null>(null);
+ 
 
   useEffect(() => {
     const loadScript = () => {
