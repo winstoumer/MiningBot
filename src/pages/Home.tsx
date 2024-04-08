@@ -98,14 +98,16 @@ const Home: React.FC = () => {
 }, []);
 
   const claimCoins = () => {
-    if (count >= 5 && userData) {
-      const newCoinAmount = coins + 5;
-      setCoins(newCoinAmount);
-      saveCoins(newCoinAmount);
-      saveCollecting(5); // Сохраняем коллекционные монеты в таблицу Collect
-      setCount(0);
-    }
-  };
+  if (count >= 5 && userData) {
+    const newCoinAmount = coins + 5;
+    setCoins(newCoinAmount);
+    saveCoins(newCoinAmount);
+    saveCollecting(5); // Сохраняем коллекционные монеты в таблицу Collect
+    setCount(0);
+    startTime = null; // Обнуляем startTime
+  }
+};
+
 
   const saveCollecting = async (collecting: number) => {
     try {
