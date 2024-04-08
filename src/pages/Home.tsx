@@ -47,7 +47,7 @@ const Home: React.FC = () => {
 
   const fetchCoins = async (userId: string) => {
   try {
-    const response = await fetch('${process.env.REACT_APP_API_URL}/api/coins/${userId}');
+    const response = await fetch('https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}');
     const data = await response.json();
     if (data.coins) {
       setCoins(prevCoins => parseFloat(data.coins) || prevCoins); // Обновляем состояние coins с использованием функции обратного вызова
