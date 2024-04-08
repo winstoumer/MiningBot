@@ -51,47 +51,45 @@ const Home: React.FC = () => {
   const saveCoins = async (newCoins: number) => {
   try {
     const userId = userData?.id;
-    if (!userId) {
+    if (userId) {
+      // Вычисляем количество собранных монет
+      const collectedCoins = newCoins - coins;
+
+      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ coins: collectedCoins }), // Передаем только собранные монеты
+      });
+
+      if (response.ok) {
+        // Сохраняем в таблицу Collect
+        const collectDate = new Date().toISOString();
+        const collectResponse = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/collect/${userId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ collecting: collectedCoins, collectDate }),
+        });
+
+        if (collectResponse.ok) {
+          fetchCoins(userId.toString());
+        } else {
+          console.error('Не удалось сохранить монеты в таблицу Collect:', collectResponse.statusText);
+        }
+      } else {
+        console.error('Не удалось сохранить монеты в таблицу Balance:', response.statusText);
+      }
+    } else {
       console.error('ID пользователя не определен.');
-      return;
     }
-
-    const collectedCoins = newCoins - coins;
-
-    // Сохраняем монеты в таблицу Balance
-    const balanceResponse = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ coins: newCoins }),
-    });
-
-    if (!balanceResponse.ok) {
-      console.error('Не удалось сохранить монеты в таблицу Balance:', balanceResponse.statusText);
-      return;
-    }
-
-    // Сохраняем собранные монеты в таблицу Collect
-    const collectDate = new Date().toISOString();
-    const collectResponse = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/collect/${userId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ collecting: collectedCoins, collectDate }),
-    });
-
-    if (!collectResponse.ok) {
-      console.error('Не удалось сохранить монеты в таблицу Collect:', collectResponse.statusText);
-      return;
-    }
-
-    fetchCoins(userId.toString());
   } catch (error) {
     console.error('Ошибка при сохранении монет:', error);
   }
 };
+
 
   useEffect(() => {
     const startCount = 0;
