@@ -47,10 +47,10 @@ const Home: React.FC = () => {
 
   const fetchCoins = async (userId: string) => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userId}`);
+    const response = await fetch('${process.env.REACT_APP_API_URL}/api/coins/${userId}');
     const data = await response.json();
     if (data.coins) {
-      setCoins(parseFloat(data.coins)); // Преобразуем значение в число
+      setCoins(prevCoins => parseFloat(data.coins) || prevCoins); // Обновляем состояние coins с использованием функции обратного вызова
     } else {
       console.error('Не удалось получить значение монет из ответа API.');
     }
@@ -58,7 +58,6 @@ const Home: React.FC = () => {
     console.error('Ошибка при получении монет:', error);
   }
 };
-
   const saveCoins = async (newCoins: number) => {
     try {
       const userId = userData?.id;
