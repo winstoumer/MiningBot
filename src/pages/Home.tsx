@@ -17,44 +17,48 @@ const Home: React.FC = () => {
 
  const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
-    
-const [userData, setUserData] = useState<TelegramUserData | null>(null);
 
-
-useEffect(() => {
-  // Функция для создания тега <script>
-  const loadScript = () => {
-    const script = document.createElement('script');
-    script.src = 'https://telegram.org/js/telegram-web-app.js';
-    script.async = true;
-    script.onload = () => {
-      // После загрузки скрипта, проверяем, что Telegram Web App API доступен
-      if (window.Telegram && window.Telegram.WebApp) {
-        // Вызываем метод expand для открытия в полноэкранном режиме
-        window.Telegram.WebApp.expand();
-      }
+    useEffect(() => {
+    // Функция для создания тега <script>
+    const loadScript = () => {
+      const script = document.createElement('script');
+      script.src = 'https://telegram.org/js/telegram-web-app.js';
+      script.async = true;
+      script.onload = () => {
+        // После загрузки скрипта, проверяем, что Telegram Web App API доступен
+        if (window.Telegram && window.Telegram.WebApp) {
+          // Вызываем метод expand для открытия в полноэкранном режиме
+          window.Telegram.WebApp.expand();
+        }
+      };
+      document.body.appendChild(script);
     };
-    document.body.appendChild(script);
-  };
 
-  // Загружаем скрипт при монтировании компонента
-  loadScript();
-}, []);
+    // Загружаем скрипт при монтировании компонента
+    loadScript();
+
+    // Убрали часть кода, отвечающую за удаление скрипта при размонтировании компонента
+
+  }, []); // Пустой массив зависимостей, чтобы эффект выполнился один раз
+
+    const [userData, setUserData] = useState<TelegramUserData | null>(null);
+
+  useEffect(() => {
+    // Проверяем, что Telegram Web App API доступен
+    if (window.Telegram.WebApp) {
+      // Получаем данные пользователя
+      setUserData(window.Telegram.WebApp.initDataUnsafe?.user);
+    }
+  }, []);
 
 useEffect(() => {
-  // Проверяем, что Telegram Web App API доступен
-  if (window.Telegram && window.Telegram.WebApp) {
-    // Получаем данные пользователя
-    setUserData(window.Telegram.WebApp.initDataUnsafe?.user);
+  // Вызываем fetchCoins только после того, как userData установлено
+  if (userData && userData.id) {
+    fetchCoins();
   }
-}, []);
+}, [userData]); // Добавляем userData в зависимости
 
-useEffect(() => {
-  // Вызываем fetchCoins после установки userData
-  fetchCoins();
-}, [userData]); // Добавляем userData в массив зависимостей
-    
- const fetchCoins = async () => {
+const fetchCoins = async () => {
   if (!userData || !userData.id) return; // Проверяем, что userData и userData.id не равны null
 
   try {
@@ -119,7 +123,7 @@ const saveCoins = async (newCoins: number) => {
   }
 };
     
-    return <div>
+    return <><div>
     <div className="content">
         <div className="balance">
             <div className="title-block">Total balance (CLO)</div>
@@ -169,7 +173,7 @@ const saveCoins = async (newCoins: number) => {
       </button>
         </div>
     </div>
-  </div>;
+  </div></>;
 };
 
 export default Home;
