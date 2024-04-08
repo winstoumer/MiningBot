@@ -80,7 +80,7 @@ const Home: React.FC = () => {
 
   const counterInterval = setInterval(() => {
     if (!startTime) {
-      startTime = Date.now();
+      setStartTime(Date.now()); // Установка начального времени
     }
 
     const elapsedTime = Date.now() - startTime;
@@ -96,7 +96,8 @@ const Home: React.FC = () => {
   }, 10);
 
   return () => clearInterval(counterInterval);
-}, []);
+}, [startTime]); // Добавление зависимости от startTime
+
 
   const claimCoins = () => {
   if (count >= 5 && userData) {
