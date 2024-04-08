@@ -60,18 +60,29 @@ const Home: React.FC = () => {
   };
 
   const saveCoins = async (newCoins: number) => {
-    try {
-      const userId = userData?.id;
-      if (userId) {
-        await axios.post(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`, { coins: newCoins });
+  try {
+    const userId = userData?.id;
+    if (userId) {
+      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ coins: newCoins }),
+      });
+      if (response.ok) {
         fetchCoins(userId.toString());
       } else {
-        console.error('Ошибка: ID пользователя не определен.');
+        console.error('Не удалось сохранить монеты:', response.statusText);
       }
-    } catch (error) {
-      console.error('Ошибка при сохранении монет:', error);
+    } else {
+      console.error('ID пользователя не определен.');
     }
-  };
+  } catch (error) {
+    console.error('Ошибка при сохранении монет:', error);
+  }
+};
+
 
   useEffect(() => {
     const startCount = 0;
