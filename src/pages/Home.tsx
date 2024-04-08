@@ -100,6 +100,29 @@ const Home: React.FC = () => {
     }
   };
 
+  const saveCollecting = async (collecting: number) => {
+    try {
+      const userId = userData?.id;
+      if (userId) {
+        const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/collect/${userId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ collecting }),
+        });
+
+        if (!response.ok) {
+          console.error('Не удалось сохранить коллекционные монеты:', response.statusText);
+        }
+      } else {
+        console.error('ID пользователя не определен.');
+      }
+    } catch (error) {
+      console.error('Ошибка при сохранении коллекционных монет:', error);
+    }
+  };
+
   const claimCoins = () => {
     if (count >= 5 && userData) {
       const newCoinAmount = coins + 5;
