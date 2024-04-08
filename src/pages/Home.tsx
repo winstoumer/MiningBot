@@ -144,7 +144,7 @@ const Home: React.FC = () => {
       <div className="general-token">
         <div className="set-mining">
           <div className="token-title">
-            Mining {userData ? <div className="username">{userData.id}</div> : <div className="username">loading...</div>}
+            Mining
           </div>
           <div className="token">
             <span id="counter">{count.toFixed(3)}</span>
