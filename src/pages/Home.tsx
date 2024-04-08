@@ -72,7 +72,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     const startCount = 0;
     const endCount = 5;
-    const duration = 10000; // Изменил время на 10 секунд
+    const duration = 5000; // Изменил время на 10 секунд
     const incrementPerMillisecond = (endCount - startCount) / duration;
 
     const counterInterval = setInterval(() => {
