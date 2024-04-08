@@ -80,16 +80,17 @@ const Home: React.FC = () => {
   let startTime: number | null = null;
 
   const counterInterval = setInterval(() => {
-    if (startTime === null) {
+    if (!startTime) {
       startTime = Date.now();
     }
 
-    const elapsedTime = Date.now() - (startTime as number);
+    const elapsedTime = Date.now() - startTime;
     const newCount = startCount + (elapsedTime * (endCount - startCount)) / duration;
 
     setCount((prevCount) => {
       if (newCount >= endCount) {
         clearInterval(counterInterval);
+        startTime = null; // Обнуляем startTime
         return endCount;
       }
       return newCount;
