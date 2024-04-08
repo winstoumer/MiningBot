@@ -126,7 +126,7 @@ const Home: React.FC = () => {
         <div className="set-mining">
           <div className="token-title">Level</div>
           <div className="token">
-            <span className="prm-set">6</span>
+            <span className="prm-set">8</span>
           </div>
         </div>
       </div>
