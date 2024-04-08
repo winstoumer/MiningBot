@@ -70,10 +70,25 @@ const Home: React.FC = () => {
         },
         body: JSON.stringify({ coins: newCoins }),
       });
+
       if (response.ok) {
-        fetchCoins(userId.toString());
+        // Сохраняем в таблицу Collect
+        const collectDate = new Date().toISOString();
+        const collectResponse = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/collect/${userId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ collecting: newCoins, collectDate }),
+        });
+
+        if (collectResponse.ok) {
+          fetchCoins(userId.toString());
+        } else {
+          console.error('Не удалось сохранить монеты в таблицу Collect:', collectResponse.statusText);
+        }
       } else {
-        console.error('Не удалось сохранить монеты:', response.statusText);
+        console.error('Не удалось сохранить монеты в таблицу Balance:', response.statusText);
       }
     } else {
       console.error('ID пользователя не определен.');
@@ -82,6 +97,7 @@ const Home: React.FC = () => {
     console.error('Ошибка при сохранении монет:', error);
   }
 };
+
 
 
   useEffect(() => {
