@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import './home.scss';
-
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+
+import './home.scss';
 
 type TelegramUserData = {
   id: number;
@@ -14,8 +14,7 @@ type TelegramUserData = {
 };
 
 const Home: React.FC = () => {
-
- const [userData, setUserData] = useState<TelegramUserData | null>(null);
+  const [userData, setUserData] = useState<TelegramUserData | null>(null);
   const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
 
@@ -43,15 +42,14 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     if (userData && userData.id) {
-      fetchCoins(userData.id);
+      fetchCoins(userData.id.toString());
     }
   }, [userData]);
 
   const fetchCoins = async (userId: string) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userId}`);
-      const data = await response.json();
-      setCoins(data.coins);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/coins/${userId}`);
+      setCoins(response.data.coins);
     } catch (error) {
       console.error('Ошибка при получении монет:', error);
     }
@@ -61,14 +59,8 @@ const Home: React.FC = () => {
     try {
       const userId = userData?.id;
       if (userId) {
-        await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userId}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ coins: newCoins }),
-        });
-        fetchCoins(userId);
+        await axios.post(`${process.env.REACT_APP_API_URL}/api/coins/${userId}`, { coins: newCoins });
+        fetchCoins(userId.toString());
       } else {
         console.error('ID пользователя не определен.');
       }
@@ -80,7 +72,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     const startCount = 0;
     const endCount = 5;
-    const duration = 5000;
+    const duration = 10000; // Изменил время на 10 секунд
     const incrementPerMillisecond = (endCount - startCount) / duration;
 
     const counterInterval = setInterval(() => {
@@ -92,7 +84,7 @@ const Home: React.FC = () => {
         }
         return newCount;
       });
-    }, 1);
+    }, 10); // Установил интервал в 10 миллисекунд
 
     return () => clearInterval(counterInterval);
   }, [count]);
@@ -105,58 +97,42 @@ const Home: React.FC = () => {
       setCount(0);
     }
   };
-    
-    return <><div>
+
+  return (
     <div className="content">
-        <div className="balance">
-            <div className="title-block">Total balance (CLO)</div>
-            <div className="total-balance">
-                {coins.toFixed(2)}
-            </div>
+      <div className="balance">
+        <div className="title-block">Total balance (CLO)</div>
+        <div className="total-balance">{coins.toFixed(2)}</div>
+      </div>
+      <div className="content-machine">
+        <div className="watch-machine">
+          <img src="https://i.ibb.co/vXLQ0d2/Designer-10.jpg" className="img-comp" alt="watch-machine" />
         </div>
-        <div className="content-machine">
-            <div className="watch-machine">
-                <img src="https://i.ibb.co/vXLQ0d2/Designer-10.jpg" className="img-comp" />
-            </div>
+      </div>
+      <div className="general-token">
+        <div className="set-mining">
+          <div className="token-title">
+            Mining {userData ? <div className="username">{userData.id}</div> : <div className="username">loading...</div>}
+          </div>
+          <div className="token">
+            <span id="counter">{count.toFixed(3)}</span>
+          </div>
+          <div className="info-mine-count">(5 coin per 10s)</div>
         </div>
-        <div className="general-token">
-            <div className="set-mining">
-                <div className="token-title">
-                    Mining {userData ? (
-        <>
-        <div className="">
-          {userData.id}
+        <div className="set-mining">
+          <div className="token-title">Level</div>
+          <div className="token">
+            <span className="prm-set">6</span>
+          </div>
         </div>
-        </>
-      ) : (
-        <div className="username">loading...</div>
-      )}
-                </div>
-                <div className="">
-                   <div className="token">
-                       <span id="counter">{count.toFixed(3)}</span>
-                   </div>
-                   <div className="info-mine-count">
-                       (5 coin per 10s)
-                   </div>
-                </div>
-            </div>
-            <div className="set-mining">
-                <div className="token-title">
-                    Level
-                </div>
-                <div className="token">
-                    <span className="prm-set">6</span>
-                </div>
-            </div>
-        </div>
-        <div className="actions-mining">
-                        <button className="claim-coins-btn" onClick={claimCoins} disabled={count < 5}>
-        {count >= 5 ? 'Claim' : 'Collecting...'}
-      </button>
-        </div>
+      </div>
+      <div className="actions-mining">
+        <button className="claim-coins-btn" onClick={claimCoins} disabled={count < 5}>
+          {count >= 5 ? 'Claim' : 'Collecting...'}
+        </button>
+      </div>
     </div>
-  </div></>;
+  );
 };
 
 export default Home;
