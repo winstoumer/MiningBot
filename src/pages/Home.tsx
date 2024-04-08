@@ -104,7 +104,7 @@ const Home: React.FC = () => {
     saveCoins(newCoinAmount);
     saveCollecting(5); // Сохраняем коллекционные монеты в таблицу Collect
     setCount(0);
-    startTime = null; // Обнуляем startTime
+    setStartTime(null); // Обнуляем startTime
   }
 };
 
