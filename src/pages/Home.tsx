@@ -43,7 +43,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     if (userData && userData.id) {
-      fetchCoins(userData.id);
+      fetchCoins(userData.id.toString()); // преобразуем userData.id в строку
     }
   }, [userData]);
 
@@ -66,7 +66,7 @@ const Home: React.FC = () => {
         },
         body: JSON.stringify({ coins: newCoins }),
       });
-      fetchCoins(userData?.id);
+      fetchCoins(userData?.id.toString()); // преобразуем userData.id в строку
     } catch (error) {
       console.error('Ошибка при сохранении монет:', error);
     }
