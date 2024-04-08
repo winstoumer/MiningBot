@@ -17,7 +17,7 @@ const Home: React.FC = () => {
   const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
 
-   useEffect(() => {
+  useEffect(() => {
     const loadScript = () => {
       const script = document.createElement('script');
       script.src = 'https://telegram.org/js/telegram-web-app.js';
@@ -46,26 +46,27 @@ const Home: React.FC = () => {
   }, [userData]);
 
   const fetchCoins = async (userId: string) => {
-  try {
-    const response = await fetch('https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}');
-    const data = await response.json();
-    if (data.coins) {
-      setCoins(prevCoins => parseFloat(data.coins) || prevCoins); // Обновляем состояние coins с использованием функции обратного вызова
-    } else {
-      console.error('Не удалось получить значение монет из ответа API.');
+    try {
+      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`);
+      const data = await response.json();
+      if (data.coins) {
+        setCoins(parseFloat(data.coins));
+      } else {
+        console.error('Ошибка: Не удалось получить значение монет из ответа API.');
+      }
+    } catch (error) {
+      console.error('Ошибка при получении монет:', error);
     }
-  } catch (error) {
-    console.error('Ошибка при получении монет:', error);
-  }
-};
+  };
+
   const saveCoins = async (newCoins: number) => {
     try {
       const userId = userData?.id;
       if (userId) {
-        await axios.post(`${process.env.REACT_APP_API_URL}/api/coins/${userId}`, { coins: newCoins });
+        await axios.post(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`, { coins: newCoins });
         fetchCoins(userId.toString());
       } else {
-        console.error('ID пользователя не определен.');
+        console.error('Ошибка: ID пользователя не определен.');
       }
     } catch (error) {
       console.error('Ошибка при сохранении монет:', error);
@@ -75,7 +76,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     const startCount = 0;
     const endCount = 5;
-    const duration = 2500; // Изменил время на 10 секунд
+    const duration = 2500;
     const incrementPerMillisecond = (endCount - startCount) / duration;
 
     const counterInterval = setInterval(() => {
@@ -87,7 +88,7 @@ const Home: React.FC = () => {
         }
         return newCount;
       });
-    }, 10); // Установил интервал в 10 миллисекунд
+    }, 10);
 
     return () => clearInterval(counterInterval);
   }, [count]);
@@ -139,3 +140,4 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
