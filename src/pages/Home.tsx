@@ -49,52 +49,32 @@ const Home: React.FC = () => {
   };
 
   const saveCoins = async (newCoins: number) => {
-  try {
-    const userId = userData?.id;
-    if (userId) {
-      // Вычисляем количество собранных монет
-      const collectedCoins = newCoins - coins;
-
-      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ coins: collectedCoins }), // Передаем только собранные монеты
-      });
-
-      if (response.ok) {
-        // Сохраняем в таблицу Collect
-        const collectDate = new Date().toISOString();
-        const collectResponse = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/collect/${userId}`, {
+    try {
+      const userId = userData?.id;
+      if (userId) {
+        const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ collecting: collectedCoins, collectDate }),
+          body: JSON.stringify({ coins: newCoins }),
         });
 
-        if (collectResponse.ok) {
-          fetchCoins(userId.toString());
-        } else {
-          console.error('Не удалось сохранить монеты в таблицу Collect:', collectResponse.statusText);
+        if (!response.ok) {
+          console.error('Не удалось обновить баланс монет:', response.statusText);
         }
       } else {
-        console.error('Не удалось сохранить монеты в таблицу Balance:', response.statusText);
+        console.error('ID пользователя не определен.');
       }
-    } else {
-      console.error('ID пользователя не определен.');
+    } catch (error) {
+      console.error('Ошибка при сохранении монет:', error);
     }
-  } catch (error) {
-    console.error('Ошибка при сохранении монет:', error);
-  }
-};
-
+  };
 
   useEffect(() => {
     const startCount = 0;
     const endCount = 5;
-    const duration = 2500;
+    const duration = 10000; // 10 секунд
     const incrementPerMillisecond = (endCount - startCount) / duration;
 
     const counterInterval = setInterval(() => {
@@ -116,7 +96,31 @@ const Home: React.FC = () => {
       const newCoinAmount = coins + 5;
       setCoins(newCoinAmount);
       saveCoins(newCoinAmount);
+      saveCollecting(5); // Сохраняем коллекционные монеты в таблицу Collect
       setCount(0);
+    }
+  };
+
+  const saveCollecting = async (collecting: number) => {
+    try {
+      const userId = userData?.id;
+      if (userId) {
+        const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/collect/${userId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ collecting }),
+        });
+
+        if (!response.ok) {
+          console.error('Не удалось сохранить коллекционные монеты:', response.statusText);
+        }
+      } else {
+        console.error('ID пользователя не определен.');
+      }
+    } catch (error) {
+      console.error('Ошибка при сохранении коллекционных монет:', error);
     }
   };
 
@@ -158,5 +162,6 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
 
 
