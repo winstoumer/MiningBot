@@ -77,13 +77,14 @@ const Home: React.FC = () => {
   const startCount = 0;
   const endCount = 5;
   const duration = 3000; // 10 секунд
+  let startTime: number | null = null;
 
   const counterInterval = setInterval(() => {
-    if (!startTime) {
-      setStartTime(Date.now()); // Установка начального времени
+    if (startTime === null) {
+      startTime = Date.now();
     }
 
-    const elapsedTime = Date.now() - startTime;
+    const elapsedTime = Date.now() - (startTime as number);
     const newCount = startCount + (elapsedTime * (endCount - startCount)) / duration;
 
     setCount((prevCount) => {
@@ -96,7 +97,7 @@ const Home: React.FC = () => {
   }, 10);
 
   return () => clearInterval(counterInterval);
-}, [startTime]); // Добавление зависимости от startTime
+}, []);
 
 
   const claimCoins = () => {
