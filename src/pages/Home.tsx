@@ -72,24 +72,30 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
-    const startCount = 0;
-    const endCount = 5;
-    const duration = 10000; // 10 секунд
-    const incrementPerMillisecond = (endCount - startCount) / duration;
+  const startCount = 0;
+  const endCount = 5;
+  const duration = 3000; // 10 секунд
+  let startTime: number;
 
-    const counterInterval = setInterval(() => {
-      setCount((prevCount) => {
-        const newCount = prevCount + incrementPerMillisecond;
-        if (newCount >= endCount) {
-          clearInterval(counterInterval);
-          return endCount;
-        }
-        return newCount;
-      });
-    }, 10);
+  const counterInterval = setInterval(() => {
+    if (!startTime) {
+      startTime = Date.now();
+    }
 
-    return () => clearInterval(counterInterval);
-  }, [count]);
+    const elapsedTime = Date.now() - startTime;
+    const newCount = startCount + (elapsedTime * (endCount - startCount)) / duration;
+
+    setCount((prevCount) => {
+      if (newCount >= endCount) {
+        clearInterval(counterInterval);
+        return endCount;
+      }
+      return newCount;
+    });
+  }, 10);
+
+  return () => clearInterval(counterInterval);
+}, []);
 
   const claimCoins = () => {
     if (count >= 5 && userData) {
