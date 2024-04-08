@@ -43,7 +43,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     if (userData && userData.id) {
-      fetchCoins(userData.id.toString()); // преобразуем userData.id в строку
+      fetchCoins(userData.id);
     }
   }, [userData]);
 
@@ -59,14 +59,19 @@ const Home: React.FC = () => {
 
   const saveCoins = async (newCoins: number) => {
     try {
-      await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userData?.id}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ coins: newCoins }),
-      });
-      fetchCoins(userData?.id.toString()); // преобразуем userData.id в строку
+      const userId = userData?.id;
+      if (userId) {
+        await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ coins: newCoins }),
+        });
+        fetchCoins(userId);
+      } else {
+        console.error('ID пользователя не определен.');
+      }
     } catch (error) {
       console.error('Ошибка при сохранении монет:', error);
     }
