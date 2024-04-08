@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './home.scss';
 
 const Home: React.FC = () => {
   const [userData, setUserData] = useState<any>(null);
   const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
-  const [startTime, setStartTime] = useState<number | null>(null);
- 
+  const counterInterval = useRef<NodeJS.Timeout | null>(null); // Используем useRef для сохранения интервала
 
   useEffect(() => {
     const loadScript = () => {
@@ -35,6 +34,34 @@ const Home: React.FC = () => {
       fetchCoins(userData.id.toString());
     }
   }, [userData]);
+
+  useEffect(() => {
+    const startCount = 0;
+    const endCount = 5;
+    const duration = 5000; // 5 секунд
+
+    let startTime: number | null = null;
+
+    counterInterval.current = setInterval(() => {
+      if (!startTime) {
+        startTime = Date.now();
+      }
+
+      const elapsedTime = Date.now() - startTime;
+      const newCount = startCount + (elapsedTime * (endCount - startCount)) / duration;
+
+      setCount((prevCount) => {
+        if (newCount >= endCount) {
+          clearInterval(counterInterval.current!);
+          startTime = null; // Обнуляем startTime
+          return endCount;
+        }
+        return newCount;
+      });
+    }, 10);
+
+    return () => clearInterval(counterInterval.current!); // Очищаем интервал при размонтировании
+  }, []);
 
   const fetchCoins = async (userId: string) => {
     try {
@@ -73,68 +100,13 @@ const Home: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    const startCount = 0;
-    const endCount = 5;
-    const duration = 3000; // 10 секунд
-    let startTime: number | null = null;
-
-    const counterInterval = setInterval(() => {
-      if (!startTime) {
-        startTime = Date.now();
-      }
-
-      const elapsedTime = Date.now() - startTime;
-      const newCount = startCount + (elapsedTime * (endCount - startCount)) / duration;
-
-      setCount((prevCount) => {
-        if (newCount >= endCount) {
-          clearInterval(counterInterval);
-          startTime = null; // Обнуляем startTime
-          return endCount;
-        }
-        return newCount;
-      });
-    }, 10);
-
-    return () => clearInterval(counterInterval);
-  }, []);
-
-
-
   const claimCoins = () => {
-  if (count >= 5 && userData) {
-    const newCoinAmount = coins + 5;
-    setCoins(newCoinAmount);
-    saveCoins(newCoinAmount);
-    saveCollecting(5); // Сохраняем коллекционные монеты в таблицу Collect
-    setCount(0); // Обнуляем отсчет
-    setStartTime(Date.now()); // Запускаем новый отсчет
-  }
-};
-
-
-
-  const saveCollecting = async (collecting: number) => {
-    try {
-      const userId = userData?.id;
-      if (userId) {
-        const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/collect/${userId}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ collecting }),
-        });
-
-        if (!response.ok) {
-          console.error('Не удалось сохранить коллекционные монеты:', response.statusText);
-        }
-      } else {
-        console.error('ID пользователя не определен.');
-      }
-    } catch (error) {
-      console.error('Ошибка при сохранении коллекционных монет:', error);
+    if (count >= 5 && userData) {
+      const newCoinAmount = coins + 5;
+      setCoins(newCoinAmount);
+      saveCoins(newCoinAmount);
+      saveCollecting(5); // Сохраняем коллекционные монеты в таблицу Collect
+      setCount(0); // Сбрасываем счетчик на 0
     }
   };
 
@@ -176,6 +148,7 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
 
 
 
