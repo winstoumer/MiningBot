@@ -40,7 +40,7 @@ const Home: React.FC = () => {
     // Конечное значение счетчика
     const endCount = 5;
     // Время в миллисекундах, за которое счетчик должен достичь endCount
-    const duration = 5000; // 1 час
+    const duration = 2500; // 1 час
     // Размер прироста счетчика за каждую миллисекунду
     const incrementPerMillisecond = (endCount - startCount) / duration;
 
