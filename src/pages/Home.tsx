@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './home.scss';
 
 const Home: React.FC = () => {
   const [userData, setUserData] = useState<any>(null);
   const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
-  const counterInterval = useRef<NodeJS.Timeout | null>(null); // Используем useRef для сохранения интервала
 
   useEffect(() => {
     const loadScript = () => {
@@ -36,32 +35,31 @@ const Home: React.FC = () => {
   }, [userData]);
 
   useEffect(() => {
+    // Начальное значение счетчика
     const startCount = 0;
+    // Конечное значение счетчика
     const endCount = 5;
-    const duration = 5000; // 5 секунд
+    // Время в миллисекундах, за которое счетчик должен достичь endCount
+    const duration = 5000; // 1 час
+    // Размер прироста счетчика за каждую миллисекунду
+    const incrementPerMillisecond = (endCount - startCount) / duration;
 
-    let startTime: number | null = null;
-
-    counterInterval.current = setInterval(() => {
-      if (!startTime) {
-        startTime = Date.now();
-      }
-
-      const elapsedTime = Date.now() - startTime;
-      const newCount = startCount + (elapsedTime * (endCount - startCount)) / duration;
-
+    // Устанавливаем таймер для обновления счетчика
+    const counterInterval = setInterval(() => {
       setCount((prevCount) => {
+        const newCount = prevCount + incrementPerMillisecond;
+        // Если счетчик достиг или превысил endCount, останавливаем интервал
         if (newCount >= endCount) {
-          clearInterval(counterInterval.current!);
-          startTime = null; // Обнуляем startTime
+          clearInterval(counterInterval);
           return endCount;
         }
         return newCount;
       });
-    }, 10);
+    }, 1);
 
-    return () => clearInterval(counterInterval.current!); // Очищаем интервал при размонтировании
-  }, []);
+    // Очищаем интервал при размонтировании компонента
+    return () => clearInterval(counterInterval);
+  }, [count]);
 
   const fetchCoins = async (userId: string) => {
     try {
