@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 import './home.scss';
 
@@ -18,7 +17,7 @@ const Home: React.FC = () => {
   const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
 
-  useEffect(() => {
+   useEffect(() => {
     const loadScript = () => {
       const script = document.createElement('script');
       script.src = 'https://telegram.org/js/telegram-web-app.js';
@@ -48,8 +47,9 @@ const Home: React.FC = () => {
 
   const fetchCoins = async (userId: string) => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/coins/${userId}`);
-      setCoins(response.data.coins);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/coins/${userId}`);
+      const data = await response.json();
+      setCoins(data.coins); // Обновляем состояние coins после получения данных
     } catch (error) {
       console.error('Ошибка при получении монет:', error);
     }
@@ -72,7 +72,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     const startCount = 0;
     const endCount = 5;
-    const duration = 5000; // Изменил время на 10 секунд
+    const duration = 2500; // Изменил время на 10 секунд
     const incrementPerMillisecond = (endCount - startCount) / duration;
 
     const counterInterval = setInterval(() => {
