@@ -72,6 +72,9 @@ const Home: React.FC = () => {
       });
 
       if (response.ok) {
+        // Вычисляем количество собранных монет
+        const collectedCoins = newCoins - coins;
+
         // Сохраняем в таблицу Collect
         const collectDate = new Date().toISOString();
         const collectResponse = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/collect/${userId}`, {
@@ -79,7 +82,7 @@ const Home: React.FC = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ collecting: newCoins, collectDate }),
+          body: JSON.stringify({ collecting: collectedCoins, collectDate }),
         });
 
         if (collectResponse.ok) {
@@ -97,8 +100,6 @@ const Home: React.FC = () => {
     console.error('Ошибка при сохранении монет:', error);
   }
 };
-
-
 
   useEffect(() => {
     const startCount = 0;
