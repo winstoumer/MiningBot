@@ -1,12 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react';
 import './task.scss';
 
+interface Tab {
+  title: string;
+  content: React.ReactNode;
+}
+
+const Tabs: React.FC<{ tabs: Tab[] }> = ({ tabs }) => {
+  const [activeTab, setActiveTab] = useState(0);
+
+  return (
+    <div>
+      <div className="tab-buttons">
+        {tabs.map((tab, index) => (
+          <button
+            key={index}
+            onClick={() => setActiveTab(index)}
+            className={index === activeTab ? 'active tab-button' : 'tab-button'}
+          >
+            {tab.title}
+          </button>
+        ))}
+      </div>
+      <div className="tab-content">{tabs[activeTab].content}</div>
+    </div>
+  );
+};
+
 const Task: React.FC = () => {
+
     const telegramGroupUrl = 'https://t.me/notcoin';
     const instagramProfileUrl = 'https://www.instagram.com/winstoum/';
-    
-  return <div>
-  <div className="title-page">
+
+    const tabs: Tab[] = [
+    { title: 'Earn', content: <div><div className="title-page">
       Earn
   </div>
       <div className="task-list">
@@ -50,7 +77,11 @@ const Task: React.FC = () => {
           </div>
       </div>
   </div>
-  </div>;
+    </div> },
+    { title: 'Referral', content: <div>Referral</div> },
+    ];
+
+  return <Tabs tabs={tabs} />;
 };
 
 export default Task;
