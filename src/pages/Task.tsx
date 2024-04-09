@@ -78,7 +78,7 @@ const Task: React.FC = () => {
       </div>
   </div>
     </div> },
-    { title: 'Referral', content: <div>Referral</div> },
+    { title: 'Referral', content: <div></div> },
     ];
 
   return <Tabs tabs={tabs} />;
