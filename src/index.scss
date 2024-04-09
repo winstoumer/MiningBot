@@ -57,22 +57,27 @@ code {
 
 .tab-buttons {
     padding: 0 25px;
-    margin-bottom: 15px;
+    margin-top: 15px;
+    margin-bottom: 25px;
     width: 100%;
     display: flex;
-    gap: 20px;
+    gap: 12px;
 }
 
 .tab-button {
+    border-radius: 40px;
     height: 42px;
     padding: 0 14px;
     width: 100%;
-    font-size: 16px;
-    color: black;
-    font-weight: 500;
+    font-size: 20px;
+    color: #151A31;
+    font-weight: 800;
+    background-color: #EAF6FB;
 }
 
 .active {
+    background-color: #151A31;
+    color: white;
 }
 
 .tab-content {
