@@ -40,7 +40,7 @@ const Boost: React.FC = () => {
   return (<div className="boost-content">
       <div className="boost-balance">
       </div>
-      <div class="boost-item-default">
+      <div className="boost-item-default">
               <div className="boost-watch">
                   <img src="https://i.ibb.co/4p2tJP6/Designer-8.jpg" className="boost-image" />
               </div>
