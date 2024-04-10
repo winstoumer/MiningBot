@@ -54,6 +54,17 @@ const Home: React.FC = () => {
   }, [userData]);
 
   useEffect(() => {
+    // Установите желаемый цвет заголовка здесь
+    const headerColor = '#ffffff'; // Светло-голубой цвет в качестве примера
+
+    // Проверяем, доступен ли объект Telegram.WebApp
+    if (window.Telegram?.WebApp) {
+      // Изменяем цвет заголовка
+      window.Telegram.WebApp.setHeaderColor(headerColor);
+    }
+  }, []);
+
+  useEffect(() => {
     // Начальное значение счетчика
     const startCount = 0;
     // Конечное значение счетчика
