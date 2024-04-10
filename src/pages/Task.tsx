@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './task.scss';
 
+type TelegramUserData = {
+  id: number;
+  first_name: string;
+  last_name?: string;
+  username?: string;
+  photo_url?: string;
+  auth_date: number;
+  hash: string;
+};
+
 interface Tab {
   title: string;
   content: React.ReactNode;
@@ -29,7 +39,7 @@ const Tabs: React.FC<{ tabs: Tab[] }> = ({ tabs }) => {
 
 const Task: React.FC = () => {
 
-    const [userData, setUserData] = useState(null);
+    const [userData, setUserData] = useState<TelegramUserData | null>(null);
 
   useEffect(() => {
     const loadScript = () => {
