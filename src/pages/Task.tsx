@@ -29,6 +29,40 @@ const Tabs: React.FC<{ tabs: Tab[] }> = ({ tabs }) => {
 
 const Task: React.FC = () => {
 
+    const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const loadScript = () => {
+      const script = document.createElement('script');
+      script.src = 'https://telegram.org/js/telegram-web-app.js';
+      script.async = true;
+      script.onload = () => {
+        if (window.Telegram && window.Telegram.WebApp) {
+          window.Telegram.WebApp.expand();
+        }
+      };
+      document.body.appendChild(script);
+    };
+
+    loadScript();
+  }, []);
+
+  useEffect(() => {
+    if (window.Telegram && window.Telegram.WebApp) {
+      setUserData(window.Telegram.WebApp.initDataUnsafe?.user);
+    }
+  }, []);
+
+    const handleCopyLink = () => {
+    if (userData && userData.id) {
+      const userId = userData.id;
+      const referralLink = `https://t.me/minerweb3_bot?start=r_${userId}`;
+      navigator.clipboard.writeText(referralLink)
+        .then(() => alert('Link copied to clipboard'))
+        .catch((error) => console.error('Error copying link: ', error));
+    }
+  };
+
     const telegramGroupUrl = 'https://t.me/notcoin';
     const instagramProfileUrl = 'https://www.instagram.com/winstoum/';
 
@@ -80,7 +114,8 @@ const Task: React.FC = () => {
         <div className="referral-content">
             <div className="referral-manage">
                 <img src="https://i.ibb.co/JCcfw0m/Designer-59.jpg" className="referral-image" />
-                <button type="button" className="referral-copy-button">Copy link</button>
+                <div className="referral-info">You will receive 100 coins for each invitee.</div>
+                <button type="button" className="referral-copy-button" onClick={handleCopyLink}>Copy link</button>
             </div>
         </div>
     </div> },
