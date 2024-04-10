@@ -53,18 +53,17 @@ const Task: React.FC = () => {
     }
   }, []);
 
-    const handleCopyLink = () => {
-  if (userData && userData.id) {
-    const userId = userData.id;
-    const referralLink = `https://t.me/minerweb3_bot?start=r_${userId}`;
-    navigator.clipboard.writeText(referralLink)
-      .then(() => alert('Link copied to clipboard'))
-      .catch((error) => console.error('Error copying link: ', error));
-  } else {
-    console.error('User data is not available yet');
-  }
-};
-
+     const handleCopyLink = () => {
+    if (userData && userData.id) {
+      const userId = userData.id;
+      const referralLink = `https://t.me/minerweb3_bot?start=r_${userId}`;
+      navigator.clipboard.writeText(referralLink)
+        .then(() => alert('Link copied to clipboard'))
+        .catch((error) => console.error('Error copying link: ', error));
+    } else {
+      console.error('User data is not available yet');
+    }
+  };
 
     const telegramGroupUrl = 'https://t.me/notcoin';
     const instagramProfileUrl = 'https://www.instagram.com/winstoum/';
