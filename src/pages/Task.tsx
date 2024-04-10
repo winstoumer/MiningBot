@@ -33,9 +33,7 @@ const Task: React.FC = () => {
     const instagramProfileUrl = 'https://www.instagram.com/winstoum/';
 
     const tabs: Tab[] = [
-    { title: 'Earn', content: <div><div className="title-page">
-      Earn
-  </div>
+    { title: 'Earn', content: <div>
       <div className="task-list">
           <a href={telegramGroupUrl} className="task-name" target="_blank" rel="noopener noreferrer">
       <div className="task">
@@ -78,7 +76,14 @@ const Task: React.FC = () => {
       </div>
   </div>
     </div> },
-    { title: 'Referral', content: <div></div> },
+    { title: 'Referral', content: <div>
+        <div className="referral-content">
+            <div className="referral-manage">
+                <img src="https://i.ibb.co/JCcfw0m/Designer-59.jpg" className="referral-image" />
+                <button type="button" className="referral-copy-button">Copy link</button>
+            </div>
+        </div>
+    </div> },
     ];
 
   return <Tabs tabs={tabs} />;
