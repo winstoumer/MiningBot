@@ -52,10 +52,10 @@ const Boost: React.FC = () => {
                   <div className="boost-mined">60 in 1 hours</div>
               </div>
           </div>
-      <div class="line-upgrade">
+      <div className="line-upgrade">
       </div>
       <div className="boost-list">
-          <div class="boost-item">
+          <div className="boost-item">
               <div className="boost-watch">
                   <img src="https://i.ibb.co/HtJ3B0G/Designer-46.jpg" className="boost-image" />
               </div>
