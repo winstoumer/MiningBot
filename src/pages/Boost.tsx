@@ -69,8 +69,8 @@ const Boost: React.FC = () => {
           <div className="boost-action">
               <button type="button" className="boost-upgrade">Upgrade</button>
           </div>
-          <div className="line-upgrade"></div>
-          <div className="boost-item">
+          <div className="line-upgrade boost-closed"></div>
+          <div className="boost-item boost-closed">
               <div className="boost-watch">
                   <img src="https://i.ibb.co/r0tytRw/Designer-47.jpg" className="boost-image" />
               </div>
