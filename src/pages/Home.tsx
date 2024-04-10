@@ -1,10 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import './home.scss';
 
+const fetchMiner = async (userId: string, setMinerInfo: React.Dispatch<any>) => {
+  try {
+    const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/miner/${userId}`);
+    if (!response.ok) {
+      throw new Error('Error fetching miner info');
+    }
+    const data = await response.json();
+    if (data) {
+        setMinerInfo(data);
+    }
+    else {
+        console.error('Ошибка: Не удалось получить значения майнера из ответа API.');
+    }
+  } catch (error) {
+      console.error('Ошибка при получении майнера:', error);
+  }
+};
+
 const Home: React.FC = () => {
   const [userData, setUserData] = useState<any>(null);
   const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
+  const [minerInfo, setMinerInfo] = useState<any>({});
 
   useEffect(() => {
     const loadScript = () => {
@@ -98,6 +117,12 @@ const Home: React.FC = () => {
     }
   };
 
+    useEffect(() => {
+    if (userData && userData.id) {
+      fetchMiner(userData.id.toString(), setMinerInfo);
+    }
+  }, [userData]);
+
   const saveCollecting = async (collecting: number) => {
     try {
       const userId = userData?.id;
@@ -155,7 +180,7 @@ const Home: React.FC = () => {
         <div className="set-mining">
           <div className="token-title">Level</div>
           <div className="token">
-            <span className="prm-set">8</span>
+            <span className="prm-set">{minerInfo.lvl}</span>
           </div>
         </div>
       </div>
