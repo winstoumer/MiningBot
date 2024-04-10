@@ -46,8 +46,7 @@ const Boost: React.FC = () => {
               </div>
               <div className="boost-info">
                   <div className="boost-name">
-                      Starter Miner
-                      &nbsp;<span className="boost-level">[1 lvl]</span>
+                      <span className="boost-level">1 level</span>
                   </div>
                   <div className="boost-mined">60 in 1 hours</div>
               </div>
@@ -61,8 +60,7 @@ const Boost: React.FC = () => {
               </div>
               <div className="boost-info">
                   <div className="boost-name">
-                      Medium Miner
-                      &nbsp;<span className="boost-level">[2 lvl]</span>
+                      <span className="boost-level">2 level</span>
                   </div>
                   <div className="boost-mined">120 in 2 hours</div>
                   <div className="boost-price">0.05</div>
