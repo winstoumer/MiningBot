@@ -175,13 +175,14 @@ const Home: React.FC = () => {
           <div className="token">
             <span id="counter">{count.toFixed(3)}</span>
           </div>
-          <div className="info-mine-count">(5 coin per 10s)</div>
+          <div className="info-mine-count">({minerInfo.coin_mined} coin per {minerInfo.time_mined} m.)</div>
         </div>
         <div className="set-mining">
           <div className="token-title">Level</div>
           <div className="token">
             <span className="prm-set">{minerInfo.lvl}</span>
           </div>
+          <div className="info-mine-count">{minerInfo.name}</div>
         </div>
       </div>
       <div className="actions-mining">
