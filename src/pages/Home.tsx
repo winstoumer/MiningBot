@@ -164,7 +164,7 @@ const Home: React.FC = () => {
       </div>
       <div className="content-machine">
         <div className="watch-machine">
-          <img src="https://i.ibb.co/HtJ3B0G/Designer-46.jpg" className="img-comp" alt="watch-machine" />
+          <img src={minerInfo.miner_image_url} className="img-comp" alt="watch-machine" />
         </div>
       </div>
       <div className="general-token">
