@@ -1,0 +1,95 @@
+.boost-content {
+    padding: 20px 25px;
+}
+
+.boost-balance {
+}
+
+.line-upgrade {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    margin: 0 auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 2px;
+    height: 40px;
+    background-color: #151A31;
+    border-radius: 4px;
+}
+
+.boost-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.boost-item-default {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    zoom: 0.8;
+}
+
+.boost-item {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.boost-watch {
+    display: flex;
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.boost-image {
+    width: 100%;
+}
+
+.boost-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.boost-name {
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.boost-level {
+    color: #24282A;
+}
+
+.boost-mined {
+    font-size: 16px;
+    font-weight: 200;
+    color: gray;
+}
+
+.boost-price {
+    font-size: 24px;
+    font-weight: 800;
+    color: #151A31;
+}
+
+.boost-action {
+    text-align: center;
+}
+
+.boost-upgrade {
+    background: #151A31;
+    font-size: 16px;
+    font-weight: 600;
+    color: black;
+    height: 42px;
+    padding: 0 18px;
+    color: white;
+    border-radius: 40px;
+}

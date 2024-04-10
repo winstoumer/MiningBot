@@ -8,6 +8,7 @@ import {TonProofDemo} from "./components/TonProofDemo/TonProofDemo";
 import React from 'react';
    import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
    import Home from './pages/Home';
+   import Boost from './pages/Boost';
    import Market from './pages/Market';
    import Task from './pages/Task';
 import TelegramScript from "./components/TelegramScript/TelegramScript";
@@ -53,6 +54,7 @@ function App() {
                 <TelegramScript />
          <Routes>
            <Route path="/" element={<Home />} />
+           <Route path="/boost" element={<Boost />} />
            <Route path="/market" element={<Market />} />
            <Route path="/task" element={<Task />} />
          </Routes>
