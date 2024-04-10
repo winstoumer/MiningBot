@@ -48,6 +48,7 @@ const Task: React.FC = () => {
       script.async = true;
       script.onload = () => {
         if (window.Telegram && window.Telegram.WebApp) {
+            window.Telegram.WebApp.setHeaderColor('#ffffff');
           window.Telegram.WebApp.expand();
         }
       };
