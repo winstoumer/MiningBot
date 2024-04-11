@@ -208,6 +208,7 @@ const fetchNextCollectionTime = async (telegramUserId: string) => {
       <span>собрано: {coinsCollected}</span>
       <span>Осталось монет: {totalCoinsToCollect - coinsCollected}</span>
       <button onClick={claimCoins} disabled={totalCoinsToCollect - coinsCollected <= 0}>Claim</button>
+              <button onClick={claimCoins}>Goui</button>
     </div>
         <div className="watch-machine">
           <img src={minerInfo.miner_image_url} className="img-comp" alt="watch-machine" />
