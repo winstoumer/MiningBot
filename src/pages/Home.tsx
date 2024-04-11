@@ -97,9 +97,9 @@ const Home: React.FC = () => {
     return () => clearInterval(counterInterval);
   }, [count]);
 
-  const fetchNextCollectionTime = async (telegramUserId) => {
+  const fetchNextCollectionTime = async (telegramUserId: string) => {
   try {
-    const response = await fetch(`/nextCollectionTime/${telegramUserId}`);
+    const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/nextCollectionTime/${telegramUserId}`);
     const data = await response.json();
     setNextCollectionTime(data.next_collection_time);
     setTotalCoinsToCollect(data.total_coins_to_collect); // Предположим, что это значение приходит с сервера
@@ -107,6 +107,7 @@ const Home: React.FC = () => {
     console.error('Ошибка при получении времени следующего сбора монет:', error);
   }
 };
+
 
   useEffect(() => {
     const interval = setInterval(() => {
