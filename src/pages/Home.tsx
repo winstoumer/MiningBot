@@ -114,6 +114,7 @@ const Home: React.FC = () => {
   }
 };
 
+
       
   const fetchCoins = async (userId: string) => {
     try {
