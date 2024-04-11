@@ -255,10 +255,10 @@ const Home: React.FC = () => {
       <div className="content-machine">
         <div>
           <p>Время сбора монет: {nextCollectionTime}</p>
-          <span>собрано: {coinsCollected.toFixed(6)}</span>
-          <span>Осталось монет: {remainingCoins.toFixed(6)}</span>
+          <span>собрано: {coinsCollected}</span>
+          <span>Осталось монет: {remainingCoins}</span>
           <button onClick={claimCoins}>Claim</button>
-          <span>Счетчик: {currentCoins.toFixed(6)}</span>
+          <span>Счетчик: {currentCoins.toFixed(4)}</span>
           <button onClick={startClaiming} disabled={isClaiming || (!nextCollectionTime || new Date(nextCollectionTime).getTime() - Date.now() > 0)}>Claim</button>
         </div>
         <div className="watch-machine">
