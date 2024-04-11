@@ -25,7 +25,9 @@ const Home: React.FC = () => {
   const [count, setCount] = useState<number>(0);
   const [minerInfo, setMinerInfo] = useState<any>({});
     
-  const [nextCollectionTime, setNextCollectionTime] = useState(null);
+ // const [nextCollectionTime, setNextCollectionTime] = useState(null);
+    const [nextCollectionTime, setNextCollectionTime] = useState<string | null>(null);
+
   const [coinsCollected, setCoinsCollected] = useState(0);
   const [totalCoinsToCollect, setTotalCoinsToCollect] = useState(0);
 
@@ -115,9 +117,7 @@ const fetchNextCollectionTime = async (telegramUserId: string) => {
     console.error('Ошибка при получении времени следующего сбора монет:', error);
   }
 };
-
-// Ваш useEffect и остальной код компонента Home...
-
+    
   const fetchCoins = async (userId: string) => {
     try {
       const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`);
