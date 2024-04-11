@@ -107,12 +107,18 @@ const Home: React.FC = () => {
     // Добавление одного часа
     nextCollectionTimeUTC.setHours(nextCollectionTimeUTC.getHours() + 1);
 
-    setNextCollectionTime(nextCollectionTimeUTC.toISOString());
-    setTotalCoinsToCollect(data.total_coins_to_collect);
+    // Обновление состояния только в том случае, если данные существуют
+    if (data.next_collection_time) {
+      setNextCollectionTime(nextCollectionTimeUTC.toISOString());
+    }
+    if (data.total_coins_to_collect) {
+      setTotalCoinsToCollect(data.total_coins_to_collect);
+    }
   } catch (error) {
     console.error('Ошибка при получении времени следующего сбора монет:', error);
   }
 };
+
 
 
       
