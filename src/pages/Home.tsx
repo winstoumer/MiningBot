@@ -159,7 +159,7 @@ const startClaiming = () => {
   setIsClaiming(true);
   const interval = setInterval(() => {
     setCurrentCoins((prevCoins) => {
-      if (nextCollectionTime) {
+      if (nextCollectionTime && typeof nextCollectionTime === 'string') {
         const nextCoins = prevCoins + (totalCoinsToCollect / (new Date(nextCollectionTime).getTime() - Date.now())) * 1000;
         if (nextCoins >= totalCoinsToCollect) {
           clearInterval(interval);
@@ -167,7 +167,7 @@ const startClaiming = () => {
         }
         return nextCoins;
       }
-      return prevCoins; // Возвращаем предыдущее значение, если nextCollectionTime равно null
+      return prevCoins; // Возвращаем предыдущее значение, если nextCollectionTime не является строкой
     });
   }, 1000);
 };
