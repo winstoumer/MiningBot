@@ -250,6 +250,7 @@ useEffect(() => {
       saveCoins(newCoinAmount);
       saveCollecting(5); // Сохраняем коллекционные монеты в таблицу Collect
       setCount(0); // Сбрасываем счетчик на 0
+      startClaiming();
     }
   };
 
