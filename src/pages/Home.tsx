@@ -97,7 +97,9 @@ const Home: React.FC = () => {
     return () => clearInterval(counterInterval);
   }, [count]);
 
-  const fetchNextCollectionTime = async (telegramUserId: string) => {
+  import { SetStateAction } from 'react';
+
+const fetchNextCollectionTime = async (telegramUserId: string) => {
   try {
     const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/nextCollectionTime/${telegramUserId}`);
     const data = await response.json();
@@ -118,7 +120,6 @@ const Home: React.FC = () => {
     console.error('Ошибка при получении времени следующего сбора монет:', error);
   }
 };
-
 
 
       
