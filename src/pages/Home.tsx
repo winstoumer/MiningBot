@@ -153,6 +153,15 @@ useEffect(() => {
   fetchData();
 }, [userData]);
 
+    
+useEffect(() => {
+  if (isClaiming) {
+    startClaiming();
+  }
+}, [isClaiming]);
+
+
+    
 useEffect(() => {
     if (nextCollectionTime) {
       const endTime = Date.parse(nextCollectionTime);
@@ -168,9 +177,12 @@ useEffect(() => {
       return () => clearInterval(timerInterval);
     }
   }, [nextCollectionTime]);
-      
-const startClaiming = () => {
+
+  const startClaiming = () => {
     setIsClaiming(true);
+    if (!nextCollectionTime) {
+      return;
+    }
     const interval = setInterval(() => {
       setCurrentCoins((prevCoins) => {
         const nextCoins = prevCoins + (totalCoinsToCollect / (Date.parse(nextCollectionTime) - Date.now())) * 1000;
@@ -182,12 +194,6 @@ const startClaiming = () => {
       });
     }, 1000);
   };
-
-useEffect(() => {
-  if (isClaiming) {
-    startClaiming();
-  }
-}, [isClaiming]);
 
     
   const fetchCoins = async (userId: string) => {
