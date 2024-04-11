@@ -24,15 +24,15 @@ const Home: React.FC = () => {
   const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
   const [minerInfo, setMinerInfo] = useState<any>({});
-const [nextCollectionTime, setNextCollectionTime] = useState<string | null>(null);
-  const [coinsCollected, setCoinsCollected] = useState<number>(0);
-  const [totalCoinsToCollect, setTotalCoinsToCollect] = useState<number>(0);
-  const [currentCoins, setCurrentCoins] = useState<number>(0);
+    
+ // const [nextCollectionTime, setNextCollectionTime] = useState(null);
+    const [nextCollectionTime, setNextCollectionTime] = useState<string | null>(null);
+
+  const [coinsCollected, setCoinsCollected] = useState(0);
+  const [totalCoinsToCollect, setTotalCoinsToCollect] = useState(0);
+    const [currentCoins, setCurrentCoins] = useState<number>(0);
   const [isClaiming, setIsClaiming] = useState<boolean>(false);
 
-
-    const [coinsCounter, setCoinsCounter] = useState<number>(0);
-    
   useEffect(() => {
     const loadScript = () => {
       const script = document.createElement('script');
@@ -155,33 +155,26 @@ useEffect(() => {
   fetchData();
 }, [userData]);
 
-    
+const startClaiming = () => {
+  setIsClaiming(true);
+  const interval = setInterval(() => {
+    setCurrentCoins((prevCoins) => {
+      const nextCoins = prevCoins + (totalCoinsToCollect / (nextCollectionTime - Date.now())) * 1000;
+      if (nextCoins >= totalCoinsToCollect) {
+        clearInterval(interval);
+        setIsClaiming(false);
+      }
+      return nextCoins;
+    });
+  }, 1000);
+};
+
 useEffect(() => {
   if (isClaiming) {
     startClaiming();
   }
 }, [isClaiming]);
 
-
-useEffect(() => {
-    const startCount = 0;
-    const endCount = totalCoinsToCollect;
-    const duration = Date.parse(nextCollectionTime) - Date.now();
-    const incrementPerMillisecond = (endCount - startCount) / duration;
-
-    const timerInterval = setInterval(() => {
-      setCoinsCounter((prevCount) => {
-        const newCount = prevCount + incrementPerMillisecond;
-        if (newCount >= endCount) {
-          clearInterval(timerInterval);
-          return endCount;
-        }
-        return newCount;
-      });
-    }, 1000);
-
-    return () => clearInterval(timerInterval);
-  }, [nextCollectionTime, totalCoinsToCollect]);
     
   const fetchCoins = async (userId: string) => {
     try {
@@ -249,6 +242,7 @@ useEffect(() => {
     }
   };
 
+  const remainingCoins = totalCoinsToCollect ? totalCoinsToCollect - coinsCollected : 0;
 
   const claimCoins = () => {
     if (count >= 5 && userData) {
@@ -267,23 +261,14 @@ useEffect(() => {
         <div className="total-balance">{coins.toFixed(2)}</div>
       </div>
       <div className="content-machine">
-        <div>
-  <p>Время сбора монет: {nextCollectionTime}</p>
-        <span>Собрано: {coinsCollected}</span>
-        <button onClick={claimCoins} disabled={totalCoinsToCollect - coinsCollected <= 0}>
-          Claim
-        </button>
-        
-          <span>Визуализация добавления монет: {coinsCounter.toFixed(8)}</span>
-        
-        <button onClick={startClaiming} disabled={isClaiming || !nextCollectionTime || Date.parse(nextCollectionTime) - Date.now() > 0}>
-          Claim
-        </button>
-          <button className="claim-coins-btn" onClick={startClaiming} disabled={count < 5}>
-          {count >= 5 ? 'Claim' : 'Collecting...'}
-        </button>  
-            
-</div>
+          <div>
+      <p>Время сбора монет: {nextCollectionTime}</p>
+      <span>собрано: {coinsCollected}</span>
+      <span>Осталось монет: {totalCoinsToCollect - coinsCollected}</span>
+      <button onClick={claimCoins} disabled={totalCoinsToCollect - coinsCollected <= 0}>Claim</button>
+              {isClaiming && <span>Визуализация добавления монет: {currentCoins.toFixed(8)}</span>}
+    <button onClick={startClaiming} disabled={isClaiming || nextCollectionTime - Date.now() > 0}>Claim</button>
+    </div>
         <div className="watch-machine">
           <img src={minerInfo.miner_image_url} className="img-comp" alt="watch-machine" />
         </div>
