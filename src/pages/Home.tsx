@@ -29,6 +29,7 @@ const [nextCollectionTime, setNextCollectionTime] = useState<string | null>(null
   const [totalCoinsToCollect, setTotalCoinsToCollect] = useState<number>(0);
   const [currentCoins, setCurrentCoins] = useState<number>(0);
   const [isClaiming, setIsClaiming] = useState<boolean>(false);
+    const [timeRemaining, setTimeRemaining] = useState<number>(0);
 
   useEffect(() => {
     const loadScript = () => {
@@ -154,44 +155,33 @@ useEffect(() => {
 
 useEffect(() => {
     if (nextCollectionTime) {
-      const startTime = Date.now();
       const endTime = Date.parse(nextCollectionTime);
-      const duration = endTime - startTime;
-
       const timerInterval = setInterval(() => {
         const currentTime = Date.now();
-        const elapsedTime = currentTime - startTime;
-        const fractionComplete = elapsedTime / duration;
-
-        if (fractionComplete >= 1) {
+        const remaining = endTime - currentTime;
+        setTimeRemaining(remaining > 0 ? remaining : 0);
+        if (remaining <= 0) {
           clearInterval(timerInterval);
-          setCurrentCoins(totalCoinsToCollect);
-        } else {
-          const newCoins = totalCoinsToCollect * fractionComplete;
-          setCurrentCoins(newCoins);
         }
       }, 1000);
 
       return () => clearInterval(timerInterval);
     }
-  }, [nextCollectionTime, totalCoinsToCollect]);
+  }, [nextCollectionTime]);
       
 const startClaiming = () => {
-  setIsClaiming(true);
-  const interval = setInterval(() => {
-    setCurrentCoins((prevCoins) => {
-      if (nextCollectionTime && typeof nextCollectionTime === 'string') {
-        const nextCoins = prevCoins + (totalCoinsToCollect / (new Date(nextCollectionTime).getTime() - Date.now())) * 1000;
+    setIsClaiming(true);
+    const interval = setInterval(() => {
+      setCurrentCoins((prevCoins) => {
+        const nextCoins = prevCoins + (totalCoinsToCollect / (Date.parse(nextCollectionTime) - Date.now())) * 1000;
         if (nextCoins >= totalCoinsToCollect) {
           clearInterval(interval);
           setIsClaiming(false);
         }
         return nextCoins;
-      }
-      return prevCoins; // Возвращаем предыдущее значение, если nextCollectionTime не является строкой
-    });
-  }, 1000);
-};
+      });
+    }, 1000);
+  };
 
 useEffect(() => {
   if (isClaiming) {
