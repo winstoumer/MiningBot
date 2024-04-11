@@ -30,6 +30,8 @@ const Home: React.FC = () => {
 
   const [coinsCollected, setCoinsCollected] = useState(0);
   const [totalCoinsToCollect, setTotalCoinsToCollect] = useState(0);
+    const [currentCoins, setCurrentCoins] = useState<number>(0);
+  const [isClaiming, setIsClaiming] = useState<boolean>(false);
 
   useEffect(() => {
     const loadScript = () => {
@@ -152,9 +154,6 @@ useEffect(() => {
 
   fetchData();
 }, [userData]);
-
-    const [currentCoins, setCurrentCoins] = useState(0);
-const [isClaiming, setIsClaiming] = useState(false);
 
 const startClaiming = () => {
   setIsClaiming(true);
