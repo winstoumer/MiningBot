@@ -97,8 +97,6 @@ const Home: React.FC = () => {
     return () => clearInterval(counterInterval);
   }, [count]);
     
-// Ваш импорт и код компонента Home...
-
 const fetchNextCollectionTime = async (telegramUserId: string) => {
   try {
     const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/nextCollectionTime/${telegramUserId}`);
@@ -108,7 +106,7 @@ const fetchNextCollectionTime = async (telegramUserId: string) => {
     nextCollectionTimeUTC.setHours(nextCollectionTimeUTC.getHours() + 1);
 
     if (data.next_collection_time) {
-      setNextCollectionTime(() => nextCollectionTimeUTC.toISOString());
+      setNextCollectionTime(nextCollectionTimeUTC.toISOString());
     }
     if (data.total_coins_to_collect) {
       setTotalCoinsToCollect(data.total_coins_to_collect);
@@ -120,7 +118,6 @@ const fetchNextCollectionTime = async (telegramUserId: string) => {
 
 // Ваш useEffect и остальной код компонента Home...
 
-      
   const fetchCoins = async (userId: string) => {
     try {
       const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`);
