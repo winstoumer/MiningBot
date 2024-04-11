@@ -181,7 +181,7 @@ const Home: React.FC = () => {
       return () => clearInterval(interval);
     }
   }, [nextCollectionTime, totalCoinsToCollect, isClaiming]);
-
+    
   const fetchCoins = async (userId: string) => {
     try {
       const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`);
@@ -271,7 +271,7 @@ const Home: React.FC = () => {
           <button onClick={claimCoins}>Claim</button>
           <span>Счетчик: {currentCoins.toFixed(4)}</span>
           <button onClick={startClaiming}>Claims</button>
-            {nextCollectionTime && totalCoinsToCollect > 0 && !isClaiming && (
+           {nextCollectionTime && totalCoinsToCollect > 0 && !isClaiming && (
         <button onClick={() => setIsClaiming(true)}>Claim</button>
       )}
         </div>
