@@ -183,20 +183,19 @@ useEffect(() => {
     if (!nextCollectionTime) {
       return;
     }
-    const incrementPerMillisecond = totalCoinsToCollect / 2500; // Добавляем монеты за каждую миллисекунду
+    const incrementPerSecond = totalCoinsToCollect / timeRemaining; // Добавляем монеты за каждую секунду
 
     const timerInterval = setInterval(() => {
-      setCount((prevCount) => {
-        const newCount = prevCount + incrementPerMillisecond;
-        if (newCount >= totalCoinsToCollect) {
+      setCurrentCoins((prevCoins) => {
+        const newCoins = prevCoins + incrementPerSecond;
+        if (newCoins >= totalCoinsToCollect) {
           clearInterval(timerInterval);
           setIsClaiming(false);
-          setCurrentCoins(totalCoinsToCollect);
           return totalCoinsToCollect;
         }
-        return newCount;
+        return newCoins;
       });
-    }, 1);
+    }, 1000);
 
     return () => clearInterval(timerInterval);
   };
