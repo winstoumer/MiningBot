@@ -157,7 +157,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     // Проверяем, если есть время до следующего сбора и есть общее количество монет для сбора
-    if (nextCollectionTime && totalCoinsToCollect > 0) {
+    if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
       const collectionEndTime = new Date(nextCollectionTime).getTime(); // Время следующего сбора в миллисекундах
       const collectionDuration = collectionEndTime - Date.now(); // Время до следующего сбора в миллисекундах
       const coinsPerMillisecond = totalCoinsToCollect / collectionDuration; // Количество монет, которые надо собрать за каждую миллисекунду
@@ -166,12 +166,10 @@ const Home: React.FC = () => {
       const interval = setInterval(() => {
         const elapsedTime = collectionEndTime - Date.now(); // Прошедшее время до следующего сбора
         if (elapsedTime <= 0) {
-          // Если время до следующего сбора истекло, очищаем интервал
+          // Если время до следующего сбора истекло, очищаем интервал и сбрасываем сбор монет
           clearInterval(interval);
-          // Если был режим сбора монет, сбрасываем его
-          if (isClaiming) {
-            setIsClaiming(false);
-          }
+          setIsClaiming(false);
+          setCoinsCollected(0);
         } else {
           // В противном случае, добавляем монеты в собранные за прошедшее время
           const collected = totalCoinsToCollect - Math.ceil(elapsedTime * coinsPerMillisecond);
