@@ -30,6 +30,9 @@ const [nextCollectionTime, setNextCollectionTime] = useState<string | null>(null
   const [currentCoins, setCurrentCoins] = useState<number>(0);
   const [isClaiming, setIsClaiming] = useState<boolean>(false);
     const [timeRemaining, setTimeRemaining] = useState<number>(const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+
+    const [coinsCounter, setCoinsCounter] = useState<number>(0);
     
   useEffect(() => {
     const loadScript = () => {
@@ -161,41 +164,25 @@ useEffect(() => {
 }, [isClaiming]);
 
 
-const startClaiming = () => {
-    setIsClaiming(true);
-    if (!nextCollectionTime) {
-      return;
-    }
-    const endTime = Date.parse(nextCollectionTime);
-    const remainingTime = endTime - Date.now();
-    if (remainingTime <= 0) {
-      setIsClaiming(false);
-      return;
-    }
+useEffect(() => {
+    const startCount = 0;
+    const endCount = totalCoinsToCollect;
+    const duration = Date.parse(nextCollectionTime) - Date.now();
+    const incrementPerMillisecond = (endCount - startCount) / duration;
 
-    const incrementPerSecond = totalCoinsToCollect / remainingTime;
-
-    timerRef.current = setInterval(() => {
-      setCoinsCollected(prevCoinsCollected => {
-        const newCoinsCollected = prevCoinsCollected + incrementPerSecond;
-        if (newCoinsCollected >= totalCoinsToCollect) {
-          clearInterval(timerRef.current!);
-          setIsClaiming(false);
-          return totalCoinsToCollect;
+    const timerInterval = setInterval(() => {
+      setCoinsCounter((prevCount) => {
+        const newCount = prevCount + incrementPerMillisecond;
+        if (newCount >= endCount) {
+          clearInterval(timerInterval);
+          return endCount;
         }
-        return newCoinsCollected;
+        return newCount;
       });
     }, 1000);
-  };
 
-  useEffect(() => {
-    // Очистка интервала при размонтировании компонента
-    return () => {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-      }
-    };
-  }, []);
+    return () => clearInterval(timerInterval);
+  }, [nextCollectionTime, totalCoinsToCollect]);
     
   const fetchCoins = async (userId: string) => {
     try {
@@ -290,7 +277,7 @@ const startClaiming = () => {
           Claim
         </button>
         
-          <span>Визуализация добавления монет: {currentCoins.toFixed(8)}</span>
+          <span>Визуализация добавления монет: {coinsCounter.toFixed(8)}</span>
         
         <button onClick={startClaiming} disabled={isClaiming || !nextCollectionTime || Date.parse(nextCollectionTime) - Date.now() > 0}>
           Claim
