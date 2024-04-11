@@ -210,8 +210,8 @@ const Home: React.FC = () => {
           <div>
       <p>Время следующего сбора монет: {nextCollectionTime}</p>
       <p>Монет собрано: {coinsCollected}</p>
-      <p>Осталось собрать монет: {remainingCoins.toFixed(8)}</p>
-      <button onClick={claimCoins} disabled={remainingCoins !== 0}>Claim</button>
+      <p>Осталось собрать монет: {totalCoinsToCollect - coinsCollected}</p>
+      <button onClick={claimCoins} disabled={totalCoinsToCollect - coinsCollected <= 0}>Claim</button>
     </div>
         <div className="watch-machine">
           <img src={minerInfo.miner_image_url} className="img-comp" alt="watch-machine" />
