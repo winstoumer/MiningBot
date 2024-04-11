@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, SetStateAction } from 'react';
 import './home.scss';
 
 const fetchMiner = async (userId: string, setMinerInfo: React.Dispatch<any>) => {
@@ -97,30 +97,27 @@ const Home: React.FC = () => {
     return () => clearInterval(counterInterval);
   }, [count]);
 
-  import { SetStateAction } from 'react';
+  const fetchNextCollectionTime = async (telegramUserId: string) => {
+    try {
+      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/nextCollectionTime/${telegramUserId}`);
+      const data = await response.json();
 
-const fetchNextCollectionTime = async (telegramUserId: string) => {
-  try {
-    const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/nextCollectionTime/${telegramUserId}`);
-    const data = await response.json();
+      // Парсинг времени из строки в объект Date
+      const nextCollectionTimeUTC = new Date(data.next_collection_time);
+      // Добавление одного часа
+      nextCollectionTimeUTC.setHours(nextCollectionTimeUTC.getHours() + 1);
 
-    // Парсинг времени из строки в объект Date
-    const nextCollectionTimeUTC = new Date(data.next_collection_time);
-    // Добавление одного часа
-    nextCollectionTimeUTC.setHours(nextCollectionTimeUTC.getHours() + 1);
-
-    // Обновление состояния только в том случае, если данные существуют
-    if (data.next_collection_time) {
-      setNextCollectionTime(nextCollectionTimeUTC.toISOString());
+      // Обновление состояния только в том случае, если данные существуют
+      if (data.next_collection_time) {
+        setNextCollectionTime(nextCollectionTimeUTC.toISOString());
+      }
+      if (data.total_coins_to_collect) {
+        setTotalCoinsToCollect(data.total_coins_to_collect);
+      }
+    } catch (error) {
+      console.error('Ошибка при получении времени следующего сбора монет:', error);
     }
-    if (data.total_coins_to_collect) {
-      setTotalCoinsToCollect(data.total_coins_to_collect);
-    }
-  } catch (error) {
-    console.error('Ошибка при получении времени следующего сбора монет:', error);
-  }
-};
-
+  };
 
       
   const fetchCoins = async (userId: string) => {
