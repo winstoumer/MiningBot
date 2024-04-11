@@ -271,9 +271,7 @@ const Home: React.FC = () => {
           <button onClick={claimCoins}>Claim</button>
           <span>Счетчик: {currentCoins.toFixed(4)}</span>
           <button onClick={startClaiming}>Claims</button>
-           {nextCollectionTime && totalCoinsToCollect > 0 && !isClaiming && (
-        <button onClick={() => setIsClaiming(true)}>Claim</button>
-      )}
+           
         </div>
         <div className="watch-machine">
           <img src={minerInfo.miner_image_url} className="img-comp" alt="watch-machine" />
