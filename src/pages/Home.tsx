@@ -155,8 +155,8 @@ const Home: React.FC = () => {
     setIsClaiming(true);
     const interval = setInterval(() => {
       setCurrentCoins((prevCoins) => {
-        const nextCoins = prevCoins + (totalCoinsToCollect / (nextCollectionTime - Date.now())) * 1000;
-        if (nextCoins >= totalCoinsToCollect) {
+        const nextCoins = prevCoins + (totalCoinsToCollect! / (new Date(nextCollectionTime!).getTime() - Date.now())) * 1000;
+        if (nextCoins >= totalCoinsToCollect!) {
           clearInterval(interval);
           setIsClaiming(false);
         }
@@ -210,12 +210,6 @@ const Home: React.FC = () => {
       console.error('Ошибка при сохранении монет:', error);
     }
   };
-
-  useEffect(() => {
-    if (userData && userData.id) {
-      fetchMiner(userData.id.toString(), setMinerInfo);
-    }
-  }, [userData]);
 
   const saveCollecting = async (collecting: number) => {
     try {
@@ -299,6 +293,7 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
 
 
 
