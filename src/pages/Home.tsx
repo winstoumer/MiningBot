@@ -157,31 +157,28 @@ const Home: React.FC = () => {
     const collectionEndTime = new Date(nextCollectionTime).getTime();
     const collectionDuration = collectionEndTime - Date.now();
     const coinsPerMillisecond = totalCoinsToCollect / collectionDuration;
-    
+
     const interval = setInterval(() => {
-      setCurrentCoins((prevCoins) => {
-        const elapsedTime = collectionEndTime - Date.now();
-        if (elapsedTime <= 0) {
-          clearInterval(interval);
-          setIsClaiming(false);
-          return totalCoinsToCollect;
-        }
-        const collectedCoins = totalCoinsToCollect - Math.ceil(elapsedTime * coinsPerMillisecond);
-        return collectedCoins >= 0 ? collectedCoins : 0;
-      });
+      const elapsedTime = collectionEndTime - Date.now();
+      if (elapsedTime <= 0) {
+        clearInterval(interval);
+        setIsClaiming(false);
+        setCurrentCoins(totalCoinsToCollect);
+      } else {
+        setCurrentCoins(totalCoinsToCollect - Math.ceil(elapsedTime * coinsPerMillisecond));
+      }
     }, 1000);
   } else {
     setIsClaiming(false);
   }
 };
 
+useEffect(() => {
+  if (isClaiming) {
+    startClaiming();
+  }
+}, [isClaiming, nextCollectionTime, totalCoinsToCollect]);
 
-
-  useEffect(() => {
-    if (isClaiming) {
-      startClaiming();
-    }
-  }, [isClaiming]);
 
   const fetchCoins = async (userId: string) => {
     try {
