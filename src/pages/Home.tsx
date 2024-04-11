@@ -96,28 +96,29 @@ const Home: React.FC = () => {
     // Очищаем интервал при размонтировании компонента
     return () => clearInterval(counterInterval);
   }, [count]);
+    
+// Ваш импорт и код компонента Home...
 
-  const fetchNextCollectionTime = async (telegramUserId: string) => {
-    try {
-      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/nextCollectionTime/${telegramUserId}`);
-      const data = await response.json();
+const fetchNextCollectionTime = async (telegramUserId: string) => {
+  try {
+    const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/nextCollectionTime/${telegramUserId}`);
+    const data = await response.json();
 
-      // Парсинг времени из строки в объект Date
-      const nextCollectionTimeUTC = new Date(data.next_collection_time);
-      // Добавление одного часа
-      nextCollectionTimeUTC.setHours(nextCollectionTimeUTC.getHours() + 1);
+    const nextCollectionTimeUTC = new Date(data.next_collection_time);
+    nextCollectionTimeUTC.setHours(nextCollectionTimeUTC.getHours() + 1);
 
-      // Обновление состояния только в том случае, если данные существуют
-      if (data.next_collection_time) {
-        setNextCollectionTime(nextCollectionTimeUTC.toISOString());
-      }
-      if (data.total_coins_to_collect) {
-        setTotalCoinsToCollect(data.total_coins_to_collect);
-      }
-    } catch (error) {
-      console.error('Ошибка при получении времени следующего сбора монет:', error);
+    if (data.next_collection_time) {
+      setNextCollectionTime(() => nextCollectionTimeUTC.toISOString());
     }
-  };
+    if (data.total_coins_to_collect) {
+      setTotalCoinsToCollect(data.total_coins_to_collect);
+    }
+  } catch (error) {
+    console.error('Ошибка при получении времени следующего сбора монет:', error);
+  }
+};
+
+// Ваш useEffect и остальной код компонента Home...
 
       
   const fetchCoins = async (userId: string) => {
