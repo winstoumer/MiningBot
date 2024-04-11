@@ -266,7 +266,7 @@ const Home: React.FC = () => {
       <div className="content-machine">
         <div>
           <p>Время сбора монет: {nextCollectionTime}</p>
-          <span>собрано: {coinsCollected}</span>
+          <span>собрано: {coinsCollected.toFixed(3)}</span>
           <span>Осталось монет: {remainingCoins}</span>
           <button onClick={claimCoins}>Claim</button>
           <span>Счетчик: {currentCoins.toFixed(4)}</span>
