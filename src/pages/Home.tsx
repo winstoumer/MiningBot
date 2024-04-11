@@ -156,32 +156,32 @@ const Home: React.FC = () => {
   }, [userData]);
 
   useEffect(() => {
-    // Проверяем, если есть время до следующего сбора и есть общее количество монет для сбора
-    if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
-      const collectionEndTime = new Date(nextCollectionTime).getTime(); // Время следующего сбора в миллисекундах
-      const collectionDuration = collectionEndTime - Date.now(); // Время до следующего сбора в миллисекундах
-      const coinsPerMillisecond = totalCoinsToCollect / collectionDuration; // Количество монет, которые надо собрать за каждую миллисекунду
+  // Проверяем, если есть время до следующего сбора и есть общее количество монет для сбора
+  if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
+    const collectionEndTime = new Date(nextCollectionTime).getTime(); // Время следующего сбора в миллисекундах
+    const collectionDuration = collectionEndTime - Date.now(); // Время до следующего сбора в миллисекундах
+    const coinsPerMillisecond = totalCoinsToCollect / collectionDuration; // Количество монет, которые надо собрать за каждую миллисекунду
 
-      // Устанавливаем интервал, который будет собирать монеты
-      const interval = setInterval(() => {
-        const elapsedTime = collectionEndTime - Date.now(); // Прошедшее время до следующего сбора
-        if (elapsedTime <= 0) {
-          // Если время до следующего сбора истекло, очищаем интервал и сбрасываем сбор монет
-          clearInterval(interval);
-          setIsClaiming(false);
-          setCoinsCollected(0);
-        } else {
-          // В противном случае, добавляем монеты в собранные за прошедшее время
-          const collected = totalCoinsToCollect - Math.ceil(elapsedTime * coinsPerMillisecond);
-          setCoinsCollected(collected < 0 ? 0 : collected); // Убеждаемся, что количество монет не станет отрицательным
-        }
-      }, 1000);
+    // Устанавливаем интервал, который будет обновлять количество собранных монет
+    const interval = setInterval(() => {
+      const elapsedTime = collectionEndTime - Date.now(); // Прошедшее время до следующего сбора
+      if (elapsedTime <= 0) {
+        // Если время до следующего сбора истекло, очищаем интервал и сбрасываем сбор монет
+        clearInterval(interval);
+        setIsClaiming(false);
+        setCoinsCollected(0);
+      } else {
+        // В противном случае, вычисляем текущее количество собранных монет
+        const collected = totalCoinsToCollect - Math.ceil(elapsedTime * coinsPerMillisecond);
+        setCoinsCollected(collected < 0 ? 0 : collected); // Убеждаемся, что количество монет не станет отрицательным
+      }
+    }, 1000);
 
-      // Очищаем интервал при размонтировании компонента
-      return () => clearInterval(interval);
-    }
-  }, [nextCollectionTime, totalCoinsToCollect, isClaiming]);
-    
+    // Очищаем интервал при размонтировании компонента или когда сбор монет завершается
+    return () => clearInterval(interval);
+  }
+}, [nextCollectionTime, totalCoinsToCollect, isClaiming]);
+
   const fetchCoins = async (userId: string) => {
     try {
       const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`);
