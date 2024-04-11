@@ -27,7 +27,7 @@ const Home: React.FC = () => {
   
   const [totalCoinsToCollect, setTotalCoinsToCollect] = useState<number>(0);
   const [currentCoins, setCurrentCoins] = useState<number>(0);
-  const [isClaiming, setIsClaiming] = useState<boolean>(false);
+  
 
      
   const [coinsCollected, setCoinsCollected] = useState<number>(0); // Количество уже собранных монет
