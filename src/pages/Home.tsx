@@ -156,31 +156,25 @@ const Home: React.FC = () => {
   }, [userData]);
 
   useEffect(() => {
-  // Проверяем, если есть время до следующего сбора и есть общее количество монет для сбора
-  if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
-    const collectionEndTime = new Date(nextCollectionTime).getTime(); // Время следующего сбора в миллисекундах
-    const collectionDuration = collectionEndTime - Date.now(); // Время до следующего сбора в миллисекундах
-    const coinsPerMillisecond = totalCoinsToCollect / collectionDuration; // Количество монет, которые надо собрать за каждую миллисекунду
+  const startCount = 0;
+  const endCount = totalCoinsToCollect; // Конечное количество монет для сбора
+  const duration = nextCollectionTime.getTime() - Date.now(); // Продолжительность времени до следующего сбора в миллисекундах
+  const incrementPerMillisecond = (endCount - startCount) / duration;
 
-    // Устанавливаем интервал, который будет обновлять количество собранных монет
-    const interval = setInterval(() => {
-      const elapsedTime = collectionEndTime - Date.now(); // Прошедшее время до следующего сбора
-      if (elapsedTime <= 0) {
-        // Если время до следующего сбора истекло, очищаем интервал и сбрасываем сбор монет
-        clearInterval(interval);
-        setIsClaiming(false);
-        setCoinsCollected(0);
-      } else {
-        // В противном случае, вычисляем текущее количество собранных монет
-        const collected = totalCoinsToCollect - Math.ceil(elapsedTime * coinsPerMillisecond);
-        setCoinsCollected(collected < 0 ? 0 : collected); // Убеждаемся, что количество монет не станет отрицательным
+  const counterInterval = setInterval(() => {
+    setCoinsCollected((prevCount) => {
+      const newCount = prevCount + incrementPerMillisecond;
+      if (newCount >= endCount) {
+        clearInterval(counterInterval);
+        return endCount;
       }
-    }, 1000);
+      return newCount;
+    });
+  }, 1);
 
-    // Очищаем интервал при размонтировании компонента или когда сбор монет завершается
-    return () => clearInterval(interval);
-  }
-}, [nextCollectionTime, totalCoinsToCollect, isClaiming]);
+  // Очищаем интервал при размонтировании компонента
+  return () => clearInterval(counterInterval);
+}, [nextCollectionTime, totalCoinsToCollect]); // Зависимости: время следующего сбора и общее количество монет для сбора
 
   const fetchCoins = async (userId: string) => {
     try {
