@@ -120,8 +120,6 @@ const Home: React.FC = () => {
     return () => clearInterval(interval);
   }, [coinsCollected, totalCoinsToCollect]);
 
-  const remainingCoins = totalCoinsToCollect - coinsCollected;
-
   const fetchCoins = async (userId: string) => {
     try {
       const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`);
