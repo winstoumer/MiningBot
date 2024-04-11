@@ -24,13 +24,10 @@ const Home: React.FC = () => {
   const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
   const [minerInfo, setMinerInfo] = useState<any>({});
-    
- // const [nextCollectionTime, setNextCollectionTime] = useState(null);
-    const [nextCollectionTime, setNextCollectionTime] = useState<string | null>(null);
-
-  const [coinsCollected, setCoinsCollected] = useState(0);
-  const [totalCoinsToCollect, setTotalCoinsToCollect] = useState(0);
-    const [currentCoins, setCurrentCoins] = useState<number>(0);
+const [nextCollectionTime, setNextCollectionTime] = useState<string | null>(null);
+  const [coinsCollected, setCoinsCollected] = useState<number>(0);
+  const [totalCoinsToCollect, setTotalCoinsToCollect] = useState<number>(0);
+  const [currentCoins, setCurrentCoins] = useState<number>(0);
   const [isClaiming, setIsClaiming] = useState<boolean>(false);
 
   useEffect(() => {
@@ -292,15 +289,17 @@ useEffect(() => {
       <div className="content-machine">
         <div>
   <p>Время сбора монет: {nextCollectionTime}</p>
-  <span>собрано: {coinsCollected}</span>
-  <span>Осталось монет: {totalCoinsToCollect - coinsCollected}</span>
-  <button onClick={claimCoins} disabled={totalCoinsToCollect - coinsCollected <= 0}>
-    Claim
-  </button>
-  {isClaiming && <span>Визуализация добавления монет: {currentCoins.toFixed(8)}</span>}
-  <button onClick={startClaiming} disabled={isClaiming || !nextCollectionTime || Date.parse(nextCollectionTime) - Date.now() > 0}>
-    Claim
-  </button>
+        <span>Собрано: {coinsCollected}</span>
+        <span>Осталось монет: {remainingCoins}</span>
+        <button onClick={claimCoins} disabled={remainingCoins <= 0 || isClaiming}>
+          Claim
+        </button>
+        {isClaiming && (
+          <span>Визуализация добавления монет: {currentCoins.toFixed(8)}</span>
+        )}
+        <button onClick={startClaiming} disabled={isClaiming || !nextCollectionTime || Date.parse(nextCollectionTime) - Date.now() > 0}>
+          Claim
+        </button>
           <button className="claim-coins-btn" onClick={claimCoins} disabled={count < 5}>
           {count >= 5 ? 'Claim' : 'Collecting...'}
         </button>  
