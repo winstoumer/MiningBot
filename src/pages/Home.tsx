@@ -188,6 +188,8 @@ const Home: React.FC = () => {
     }
   };
 
+  const remainingCoins = totalCoinsToCollect ? totalCoinsToCollect - coinsCollected : 0;
+
   const claimCoins = () => {
     if (count >= 5 && userData) {
       const newCoinAmount = coins + 5;
