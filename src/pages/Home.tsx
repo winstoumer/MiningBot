@@ -117,6 +117,65 @@ const fetchNextCollectionTime = async (telegramUserId: string) => {
     console.error('Ошибка при получении времени следующего сбора монет:', error);
   }
 };
+
+    const fetchCoinsCollected = async (telegramUserId) => {
+  try {
+    const response = await fetch(`https://адрес_вашего_сервера/coinsCollected/${telegramUserId}`);
+    const data = await response.json();
+    return data.coinsCollected;
+  } catch (error) {
+    console.error('Ошибка при получении данных о собранных монетах:', error);
+    return 0;
+  }
+};
+
+const fetchTotalCoinsToCollect = async (telegramUserId) => {
+  try {
+    const response = await fetch(`https://адрес_вашего_сервера/totalCoinsToCollect/${telegramUserId}`);
+    const data = await response.json();
+    return data.totalCoinsToCollect;
+  } catch (error) {
+    console.error('Ошибка при получении общего количества монет для сбора:', error);
+    return 0;
+  }
+};
+
+useEffect(() => {
+  const fetchData = async () => {
+    if (userData && userData.id) {
+      const collected = await fetchCoinsCollected(userData.id.toString());
+      const totalToCollect = await fetchTotalCoinsToCollect(userData.id.toString());
+      setCoinsCollected(collected);
+      setTotalCoinsToCollect(totalToCollect);
+    }
+  };
+
+  fetchData();
+}, [userData]);
+
+    const [currentCoins, setCurrentCoins] = useState(0);
+const [isClaiming, setIsClaiming] = useState(false);
+
+const startClaiming = () => {
+  setIsClaiming(true);
+  const interval = setInterval(() => {
+    setCurrentCoins((prevCoins) => {
+      const nextCoins = prevCoins + (totalCoinsToCollect / (nextCollectionTime - Date.now())) * 1000;
+      if (nextCoins >= totalCoinsToCollect) {
+        clearInterval(interval);
+        setIsClaiming(false);
+      }
+      return nextCoins;
+    });
+  }, 1000);
+};
+
+useEffect(() => {
+  if (isClaiming) {
+    startClaiming();
+  }
+}, [isClaiming]);
+
     
   const fetchCoins = async (userId: string) => {
     try {
@@ -208,7 +267,8 @@ const fetchNextCollectionTime = async (telegramUserId: string) => {
       <span>собрано: {coinsCollected}</span>
       <span>Осталось монет: {totalCoinsToCollect - coinsCollected}</span>
       <button onClick={claimCoins} disabled={totalCoinsToCollect - coinsCollected <= 0}>Claim</button>
-              <button onClick={claimCoins}>Goui</button>
+              {isClaiming && <span>Визуализация добавления монет: {currentCoins.toFixed(8)}</span>}
+    <button onClick={startClaiming} disabled={isClaiming || nextCollectionTime - Date.now() > 0}>Claim</button>
     </div>
         <div className="watch-machine">
           <img src={minerInfo.miner_image_url} className="img-comp" alt="watch-machine" />
