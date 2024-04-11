@@ -156,23 +156,30 @@ const Home: React.FC = () => {
 
   const interval = setInterval(() => {
     setCurrentCoins((prevCoins) => {
-      // Определяем время, оставшееся до следующего сбора монет
-      const timeUntilNextCollection = new Date(nextCollectionTime).getTime() - Date.now();
-      
-      // Рассчитываем прирост монет в зависимости от времени до следующего сбора
-      const nextCoins = prevCoins + (totalCoinsToCollect / timeUntilNextCollection) * 1000;
+      // Проверяем, что значение nextCollectionTime не равно null перед его использованием
+      if (nextCollectionTime) {
+        // Определяем время, оставшееся до следующего сбора монет
+        const timeUntilNextCollection = new Date(nextCollectionTime).getTime() - Date.now();
+        
+        // Рассчитываем прирост монет в зависимости от времени до следующего сбора
+        const nextCoins = prevCoins + (totalCoinsToCollect / timeUntilNextCollection) * 1000;
 
-      // Если время до следующего сбора прошло или равно нулю, останавливаем интервал
-      if (timeUntilNextCollection <= 0) {
-        clearInterval(interval);
-        setIsClaiming(false);
-        return totalCoinsToCollect; // Завершаем сбор монет до максимального значения
+        // Если время до следующего сбора прошло или равно нулю, останавливаем интервал
+        if (timeUntilNextCollection <= 0) {
+          clearInterval(interval);
+          setIsClaiming(false);
+          return totalCoinsToCollect; // Завершаем сбор монет до максимального значения
+        }
+
+        return nextCoins;
+      } else {
+        // Если значение nextCollectionTime равно null, возвращаем текущее количество монет
+        return prevCoins;
       }
-
-      return nextCoins;
     });
   }, 1000);
 };
+
 
 
   useEffect(() => {
