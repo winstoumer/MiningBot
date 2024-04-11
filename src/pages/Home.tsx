@@ -200,7 +200,6 @@ useEffect(() => {
 
     return () => clearInterval(timerInterval);
   };
-
     
   const fetchCoins = async (userId: string) => {
     try {
