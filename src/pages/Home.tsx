@@ -294,9 +294,9 @@ useEffect(() => {
         <button onClick={claimCoins} disabled={remainingCoins <= 0 || isClaiming}>
           Claim
         </button>
-        {isClaiming && (
+        
           <span>Визуализация добавления монет: {currentCoins.toFixed(8)}</span>
-        )}
+        
         <button onClick={startClaiming} disabled={isClaiming || !nextCollectionTime || Date.parse(nextCollectionTime) - Date.now() > 0}>
           Claim
         </button>
