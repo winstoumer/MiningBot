@@ -159,12 +159,15 @@ const startClaiming = () => {
   setIsClaiming(true);
   const interval = setInterval(() => {
     setCurrentCoins((prevCoins) => {
-      const nextCoins = prevCoins + (totalCoinsToCollect / (nextCollectionTime - Date.now())) * 1000;
-      if (nextCoins >= totalCoinsToCollect) {
-        clearInterval(interval);
-        setIsClaiming(false);
+      if (nextCollectionTime) {
+        const nextCoins = prevCoins + (totalCoinsToCollect / (new Date(nextCollectionTime).getTime() - Date.now())) * 1000;
+        if (nextCoins >= totalCoinsToCollect) {
+          clearInterval(interval);
+          setIsClaiming(false);
+        }
+        return nextCoins;
       }
-      return nextCoins;
+      return prevCoins; // Возвращаем предыдущее значение, если nextCollectionTime равно null
     });
   }, 1000);
 };
