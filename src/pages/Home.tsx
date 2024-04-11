@@ -101,27 +101,19 @@ const Home: React.FC = () => {
   try {
     const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/nextCollectionTime/${telegramUserId}`);
     const data = await response.json();
-    setNextCollectionTime(data.next_collection_time);
-    setTotalCoinsToCollect(data.total_coins_to_collect); // Предположим, что это значение приходит с сервера
+
+    // Парсинг времени из строки в объект Date
+    const nextCollectionTimeUTC = new Date(data.next_collection_time);
+    // Добавление одного часа
+    nextCollectionTimeUTC.setHours(nextCollectionTimeUTC.getHours() + 1);
+
+    setNextCollectionTime(nextCollectionTimeUTC.toISOString());
+    setTotalCoinsToCollect(data.total_coins_to_collect);
   } catch (error) {
     console.error('Ошибка при получении времени следующего сбора монет:', error);
   }
 };
 
-
-  useEffect(() => {
-    // Обновление времени следующего сбора монет каждую секунду
-    const interval = setInterval(() => {
-      if (nextCollectionTime) {
-        const currentTime = new Date();
-        const updatedTime = new Date(nextCollectionTime);
-        updatedTime.setHours(updatedTime.getHours() + 1); // Добавляем 1 час
-        setNextCollectionTime(updatedTime.toISOString());
-      }
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [nextCollectionTime]);
       
   const fetchCoins = async (userId: string) => {
     try {
