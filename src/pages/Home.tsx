@@ -1,4 +1,4 @@
-import React, { useState, useEffect, SetStateAction } from 'react';
+import React, { useState, useEffect } from 'react';
 import './home.scss';
 
 const fetchMiner = async (userId: string, setMinerInfo: React.Dispatch<any>) => {
@@ -9,13 +9,12 @@ const fetchMiner = async (userId: string, setMinerInfo: React.Dispatch<any>) => 
     }
     const data = await response.json();
     if (data) {
-        setMinerInfo(data);
-    }
-    else {
-        console.error('Ошибка: Не удалось получить значения майнера из ответа API.');
+      setMinerInfo(data);
+    } else {
+      console.error('Ошибка: Не удалось получить значения майнера из ответа API.');
     }
   } catch (error) {
-      console.error('Ошибка при получении майнера:', error);
+    console.error('Ошибка при получении майнера:', error);
   }
 };
 
@@ -24,9 +23,7 @@ const Home: React.FC = () => {
   const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
   const [minerInfo, setMinerInfo] = useState<any>({});
-
   const [nextCollectionTime, setNextCollectionTime] = useState<string | null>(null);
-
   const [coinsCollected, setCoinsCollected] = useState(0);
   const [totalCoinsToCollect, setTotalCoinsToCollect] = useState(0);
   const [currentCoins, setCurrentCoins] = useState<number>(0);
@@ -39,7 +36,7 @@ const Home: React.FC = () => {
       script.async = true;
       script.onload = () => {
         if (window.Telegram && window.Telegram.WebApp) {
-            window.Telegram.WebApp.setHeaderColor('#ffffff'); // Установите желаемый цвет заголовка
+          window.Telegram.WebApp.setHeaderColor('#ffffff');
           window.Telegram.WebApp.expand();
         }
       };
@@ -63,31 +60,21 @@ const Home: React.FC = () => {
   }, [userData]);
 
   useEffect(() => {
-    // Установите желаемый цвет заголовка здесь
-    const headerColor = '#ffffff'; // Светло-голубой цвет в качестве примера
-
-    // Проверяем, доступен ли объект Telegram.WebApp
+    const headerColor = '#ffffff';
     if (window.Telegram?.WebApp) {
-      // Изменяем цвет заголовка
       window.Telegram.WebApp.setHeaderColor(headerColor);
     }
   }, []);
 
   useEffect(() => {
-    // Начальное значение счетчика
     const startCount = 0;
-    // Конечное значение счетчика
     const endCount = 5;
-    // Время в миллисекундах, за которое счетчик должен достичь endCount
-    const duration = 2500; // 1 час
-    // Размер прироста счетчика за каждую миллисекунду
+    const duration = 2500;
     const incrementPerMillisecond = (endCount - startCount) / duration;
 
-    // Устанавливаем таймер для обновления счетчика
     const counterInterval = setInterval(() => {
       setCount((prevCount) => {
         const newCount = prevCount + incrementPerMillisecond;
-        // Если счетчик достиг или превысил endCount, останавливаем интервал
         if (newCount >= endCount) {
           clearInterval(counterInterval);
           return endCount;
@@ -96,88 +83,100 @@ const Home: React.FC = () => {
       });
     }, 1);
 
-    // Очищаем интервал при размонтировании компонента
     return () => clearInterval(counterInterval);
   }, [count]);
-    
-const fetchNextCollectionTime = async (telegramUserId: string) => {
-  try {
-    const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/nextCollectionTime/${telegramUserId}`);
-    const data = await response.json();
 
-    const nextCollectionTimeUTC = new Date(data.next_collection_time);
-    nextCollectionTimeUTC.setHours(nextCollectionTimeUTC.getHours() + 1);
-
-    if (data.next_collection_time) {
-      setNextCollectionTime(nextCollectionTimeUTC.toISOString());
-    }
-    if (data.total_coins_to_collect) {
-      setTotalCoinsToCollect(data.total_coins_to_collect);
-    }
-  } catch (error) {
-    console.error('Ошибка при получении времени следующего сбора монет:', error);
-  }
-};
-
-    const fetchCoinsCollected = async (telegramUserId: string) => {
-  try {
-    const response = await fetch(`https://адрес_вашего_сервера/coinsCollected/${telegramUserId}`);
-    const data = await response.json();
-    return data.coinsCollected;
-  } catch (error) {
-    console.error('Ошибка при получении данных о собранных монетах:', error);
-    return 0;
-  }
-};
-
-const fetchTotalCoinsToCollect = async (telegramUserId: string) => {
-  try {
-    const response = await fetch(`https://адрес_вашего_сервера/totalCoinsToCollect/${telegramUserId}`);
-    const data = await response.json();
-    return data.totalCoinsToCollect;
-  } catch (error) {
-    console.error('Ошибка при получении общего количества монет для сбора:', error);
-    return 0;
-  }
-};
-
-useEffect(() => {
-  const fetchData = async () => {
-    if (userData && userData.id) {
-      const collected = await fetchCoinsCollected(userData.id.toString());
-      const totalToCollect = await fetchTotalCoinsToCollect(userData.id.toString());
-      setCoinsCollected(collected);
-      setTotalCoinsToCollect(totalToCollect);
+  const fetchNextCollectionTime = async (telegramUserId: string) => {
+    try {
+      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/nextCollectionTime/${telegramUserId}`);
+      if (!response.ok) {
+        throw new Error('Error fetching next collection time');
+      }
+      const data = await response.json();
+      const nextCollectionTimeUTC = new Date(data.next_collection_time);
+      nextCollectionTimeUTC.setHours(nextCollectionTimeUTC.getHours() + 1);
+      if (data.next_collection_time) {
+        setNextCollectionTime(nextCollectionTimeUTC.toISOString());
+      }
+      if (data.total_coins_to_collect) {
+        setTotalCoinsToCollect(data.total_coins_to_collect);
+      }
+    } catch (error) {
+      console.error('Ошибка при получении времени следующего сбора монет:', error);
     }
   };
 
-  fetchData();
-}, [userData]);
-
-const startClaiming = () => {
-  setIsClaiming(true);
-  const interval = setInterval(() => {
-    setCurrentCoins((prevCoins) => {
-      const nextCoins = prevCoins + (totalCoinsToCollect / (nextCollectionTime - Date.now())) * 1000;
-      if (nextCoins >= totalCoinsToCollect) {
-        clearInterval(interval);
-        setIsClaiming(false);
+  const fetchCoinsCollected = async (telegramUserId: string) => {
+    try {
+      const response = await fetch(`https://адрес_вашего_сервера/coinsCollected/${telegramUserId}`);
+      if (!response.ok) {
+        throw new Error('Error fetching coins collected');
       }
-      return nextCoins;
-    });
-  }, 1000);
-};
+      const data = await response.json();
+      return data.coinsCollected;
+    } catch (error) {
+      console.error('Ошибка при получении данных о собранных монетах:', error);
+      return 0;
+    }
+  };
 
-useEffect(() => {
-  if (isClaiming) {
-    startClaiming();
-  }
-}, [isClaiming]);
+  const fetchTotalCoinsToCollect = async (telegramUserId: string) => {
+    try {
+      const response = await fetch(`https://адрес_вашего_сервера/totalCoinsToCollect/${telegramUserId}`);
+      if (!response.ok) {
+        throw new Error('Error fetching total coins to collect');
+      }
+      const data = await response.json();
+      return data.totalCoinsToCollect;
+    } catch (error) {
+      console.error('Ошибка при получении общего количества монет для сбора:', error);
+      return 0;
+    }
+  };
 
-    
+  useEffect(() => {
+    const fetchData = async () => {
+      if (userData && userData.id) {
+        try {
+          const collected = await fetchCoinsCollected(userData.id.toString());
+          const totalToCollect = await fetchTotalCoinsToCollect(userData.id.toString());
+          setCoinsCollected(collected);
+          setTotalCoinsToCollect(totalToCollect);
+        } catch (error) {
+          console.error('Ошибка при получении данных о монетах:', error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [userData]);
+
+  const startClaiming = () => {
+    setIsClaiming(true);
+    const interval = setInterval(() => {
+      setCurrentCoins((prevCoins) => {
+        const nextCoins = prevCoins + (totalCoinsToCollect / (nextCollectionTime - Date.now())) * 1000;
+        if (nextCoins >= totalCoinsToCollect) {
+          clearInterval(interval);
+          setIsClaiming(false);
+        }
+        return nextCoins;
+      });
+    }, 1000);
+  };
+
+  useEffect(() => {
+    if (isClaiming) {
+      startClaiming();
+    }
+  }, [isClaiming]);
+
   const fetchCoins = async (userId: string) => {
     try {
       const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`);
+      if (!response.ok) {
+        throw new Error('Error fetching coins');
+      }
       const data = await response.json();
       if (data.coins) {
         setCoins(parseFloat(data.coins));
@@ -212,7 +211,7 @@ useEffect(() => {
     }
   };
 
-    useEffect(() => {
+  useEffect(() => {
     if (userData && userData.id) {
       fetchMiner(userData.id.toString(), setMinerInfo);
     }
@@ -248,8 +247,8 @@ useEffect(() => {
       const newCoinAmount = coins + 5;
       setCoins(newCoinAmount);
       saveCoins(newCoinAmount);
-      saveCollecting(5); // Сохраняем коллекционные монеты в таблицу Collect
-      setCount(0); // Сбрасываем счетчик на 0
+      saveCollecting(5);
+      setCount(0);
     }
   };
 
@@ -260,14 +259,14 @@ useEffect(() => {
         <div className="total-balance">{coins.toFixed(2)}</div>
       </div>
       <div className="content-machine">
-          <div>
-      <p>Время сбора монет: {nextCollectionTime}</p>
-      <span>собрано: {coinsCollected}</span>
-      <span>Осталось монет: {totalCoinsToCollect - coinsCollected}</span>
-      <button onClick={claimCoins} disabled={totalCoinsToCollect - coinsCollected <= 0}>Claim</button>
-              {isClaiming && <span>Счетчик: {currentCoins.toFixed(8)}</span>}
-    <button onClick={startClaiming} disabled={isClaiming || (nextCollectionTime && new Date(nextCollectionTime).getTime() - Date.now() > 0)}>Claim</button>
-    </div>
+        <div>
+          <p>Время сбора монет: {nextCollectionTime}</p>
+          <span>собрано: {coinsCollected}</span>
+          <span>Осталось монет: {remainingCoins}</span>
+          <button onClick={claimCoins} disabled={remainingCoins <= 0}>Claim</button>
+          {isClaiming && <span>Счетчик: {currentCoins.toFixed(8)}</span>}
+          <button onClick={startClaiming} disabled={isClaiming || (nextCollectionTime && new Date(nextCollectionTime).getTime() - Date.now() > 0)}>Claim</button>
+        </div>
         <div className="watch-machine">
           <img src={minerInfo.miner_image_url} className="img-comp" alt="watch-machine" />
         </div>
@@ -300,6 +299,7 @@ useEffect(() => {
 };
 
 export default Home;
+
 
 
 
