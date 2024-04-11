@@ -270,7 +270,9 @@ const Home: React.FC = () => {
           <span>Осталось монет: {remainingCoins}</span>
           <button onClick={claimCoins}>Claim</button>
           <span>Счетчик: {currentCoins.toFixed(4)}</span>
-          <button onClick={startClaiming}>Claims</button>
+          {nextCollectionTime && totalCoinsToCollect > 0 && !isClaiming && (
+        <button onClick={() => setIsClaiming(true)}>Claim</button>
+      )}
            
         </div>
         <div className="watch-machine">
