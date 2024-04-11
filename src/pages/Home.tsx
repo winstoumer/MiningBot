@@ -29,7 +29,6 @@ const [nextCollectionTime, setNextCollectionTime] = useState<string | null>(null
   const [totalCoinsToCollect, setTotalCoinsToCollect] = useState<number>(0);
   const [currentCoins, setCurrentCoins] = useState<number>(0);
   const [isClaiming, setIsClaiming] = useState<boolean>(false);
-    const [timeRemaining, setTimeRemaining] = useState<number>(const timerRef = useRef<NodeJS.Timeout | null>(null);
 
 
     const [coinsCounter, setCoinsCounter] = useState<number>(0);
@@ -250,7 +249,6 @@ useEffect(() => {
     }
   };
 
-  const remainingCoins = totalCoinsToCollect ? totalCoinsToCollect - coinsCollected : 0;
 
   const claimCoins = () => {
     if (count >= 5 && userData) {
@@ -272,8 +270,7 @@ useEffect(() => {
         <div>
   <p>Время сбора монет: {nextCollectionTime}</p>
         <span>Собрано: {coinsCollected}</span>
-        <span>Осталось монет: {remainingCoins}</span>
-        <button onClick={claimCoins} disabled={remainingCoins <= 0 || isClaiming}>
+        <button onClick={claimCoins} disabled={totalCoinsToCollect - coinsCollected <= 0}>
           Claim
         </button>
         
