@@ -24,6 +24,10 @@ const Home: React.FC = () => {
   const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
   const [minerInfo, setMinerInfo] = useState<any>({});
+    
+  const [nextCollectionTime, setNextCollectionTime] = useState(null);
+  const [coinsCollected, setCoinsCollected] = useState(0);
+  const [totalCoinsToCollect, setTotalCoinsToCollect] = useState(0);
 
   useEffect(() => {
     const loadScript = () => {
@@ -51,6 +55,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     if (userData && userData.id) {
       fetchCoins(userData.id.toString());
+      fetchNextCollectionTime(userData.id.toString());
     }
   }, [userData]);
 
@@ -91,6 +96,30 @@ const Home: React.FC = () => {
     // Очищаем интервал при размонтировании компонента
     return () => clearInterval(counterInterval);
   }, [count]);
+
+  const fetchNextCollectionTime = async (telegramUserId) => {
+  try {
+    const response = await fetch(`/nextCollectionTime/${telegramUserId}`);
+    const data = await response.json();
+    setNextCollectionTime(data.next_collection_time);
+    setTotalCoinsToCollect(data.total_coins_to_collect); // Предположим, что это значение приходит с сервера
+  } catch (error) {
+    console.error('Ошибка при получении времени следующего сбора монет:', error);
+  }
+};
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Обновляем состояние счетчика монет
+      if (coinsCollected < totalCoinsToCollect) {
+        setCoinsCollected(coinsCollected + 1);
+      }
+    }, 1000); // Обновление каждую секунду
+
+    return () => clearInterval(interval);
+  }, [coinsCollected, totalCoinsToCollect]);
+
+  const remainingCoins = totalCoinsToCollect - coinsCollected;
 
   const fetchCoins = async (userId: string) => {
     try {
@@ -175,6 +204,12 @@ const Home: React.FC = () => {
         <div className="total-balance">{coins.toFixed(2)}</div>
       </div>
       <div className="content-machine">
+          <div>
+      <p>Время следующего сбора монет: {nextCollectionTime}</p>
+      <p>Монет собрано: {coinsCollected}</p>
+      <p>Осталось собрать монет: {remainingCoins}</p>
+      <button onClick={handleClaimCoins} disabled={remainingCoins !== 0}>Claim</button>
+    </div>
         <div className="watch-machine">
           <img src={minerInfo.miner_image_url} className="img-comp" alt="watch-machine" />
         </div>
