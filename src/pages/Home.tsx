@@ -300,7 +300,7 @@ useEffect(() => {
         <button onClick={startClaiming} disabled={isClaiming || !nextCollectionTime || Date.parse(nextCollectionTime) - Date.now() > 0}>
           Claim
         </button>
-          <button className="claim-coins-btn" onClick={claimCoins} disabled={count < 5}>
+          <button className="claim-coins-btn" onClick={startClaiming} disabled={count < 5}>
           {count >= 5 ? 'Claim' : 'Collecting...'}
         </button>  
             
