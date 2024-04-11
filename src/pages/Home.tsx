@@ -118,7 +118,7 @@ const fetchNextCollectionTime = async (telegramUserId: string) => {
   }
 };
 
-    const fetchCoinsCollected = async (telegramUserId) => {
+    const fetchCoinsCollected = async (telegramUserId: string) => {
   try {
     const response = await fetch(`https://адрес_вашего_сервера/coinsCollected/${telegramUserId}`);
     const data = await response.json();
@@ -129,7 +129,7 @@ const fetchNextCollectionTime = async (telegramUserId: string) => {
   }
 };
 
-const fetchTotalCoinsToCollect = async (telegramUserId) => {
+const fetchTotalCoinsToCollect = async (telegramUserId: string) => {
   try {
     const response = await fetch(`https://адрес_вашего_сервера/totalCoinsToCollect/${telegramUserId}`);
     const data = await response.json();
