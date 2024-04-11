@@ -154,18 +154,21 @@ const Home: React.FC = () => {
   const startClaiming = () => {
   setIsClaiming(true);
   const interval = setInterval(() => {
-    const timeDifference = new Date(nextCollectionTime).getTime() - Date.now();
-    const coinsPerMillisecond = totalCoinsToCollect / timeDifference;
-    setCurrentCoins((prevCoins) => {
-      const nextCoins = prevCoins + coinsPerMillisecond;
-      if (nextCoins >= totalCoinsToCollect) {
-        clearInterval(interval);
-        setIsClaiming(false);
-      }
-      return nextCoins;
-    });
+    if (nextCollectionTime) {
+      const timeDifference = new Date(nextCollectionTime).getTime() - Date.now();
+      const coinsPerMillisecond = totalCoinsToCollect / timeDifference;
+      setCurrentCoins((prevCoins) => {
+        const nextCoins = prevCoins + coinsPerMillisecond;
+        if (nextCoins >= totalCoinsToCollect) {
+          clearInterval(interval);
+          setIsClaiming(false);
+        }
+        return nextCoins;
+      });
+    }
   }, 1000);
 };
+
 
   useEffect(() => {
     if (isClaiming) {
