@@ -162,43 +162,28 @@ useEffect(() => {
 
 
     
-useEffect(() => {
-    if (nextCollectionTime) {
-      const endTime = Date.parse(nextCollectionTime);
-      const timerInterval = setInterval(() => {
-        const currentTime = Date.now();
-        const remaining = endTime - currentTime;
-        setTimeRemaining(remaining > 0 ? remaining : 0);
-        if (remaining <= 0) {
-          clearInterval(timerInterval);
-        }
-      }, 1000);
-
-      return () => clearInterval(timerInterval);
-    }
-  }, [nextCollectionTime]);
-
-  const startClaiming = () => {
+const startClaiming = () => {
     setIsClaiming(true);
     if (!nextCollectionTime) {
       return;
     }
-    const incrementPerSecond = totalCoinsToCollect / timeRemaining; // Добавляем монеты за каждую секунду
+    const endTime = Date.parse(nextCollectionTime);
+    const remainingTime = endTime - Date.now();
+    if (remainingTime <= 0) {
+      setIsClaiming(false);
+      return;
+    }
 
-    const timerInterval = setInterval(() => {
-      setCurrentCoins((prevCoins) => {
-        const newCoins = prevCoins + incrementPerSecond;
-        if (newCoins >= totalCoinsToCollect) {
-          clearInterval(timerInterval);
+    setTimer(setInterval(() => {
+      setCoinsCollected(prevCoinsCollected => {
+        const newCoinsCollected = prevCoinsCollected + 1; // Увеличиваем количество собранных монет на 1
+        if (newCoinsCollected >= totalCoinsToCollect) {
+          clearInterval(timer);
           setIsClaiming(false);
-          return totalCoinsToCollect;
         }
-        return newCoins;
+        return newCoinsCollected;
       });
-    }, 1000);
-
-    return () => clearInterval(timerInterval);
-  };
+    }, 1000));
     
   const fetchCoins = async (userId: string) => {
     try {
