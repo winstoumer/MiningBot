@@ -205,8 +205,8 @@ const fetchNextCollectionTime = async (telegramUserId: string) => {
       <div className="content-machine">
           <div>
       <p>Время сбора монет: {nextCollectionTime}</p>
-      <span>собрано: {coinsCollected}</p>
-      <span>Осталось монет: {totalCoinsToCollect - coinsCollected}</p>
+      <span>собрано: {coinsCollected}</span>
+      <span>Осталось монет: {totalCoinsToCollect - coinsCollected}</span>
       <button onClick={claimCoins} disabled={totalCoinsToCollect - coinsCollected <= 0}>Claim</button>
     </div>
         <div className="watch-machine">
