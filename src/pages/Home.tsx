@@ -108,7 +108,7 @@ const Home: React.FC = () => {
 
   const fetchCoinsCollected = async (telegramUserId: string) => {
     try {
-      const response = await fetch(`https://адрес_вашего_сервера/coinsCollected/${telegramUserId}`);
+      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/coinsCollected/${telegramUserId}`);
       if (!response.ok) {
         throw new Error('Error fetching coins collected');
       }
@@ -122,7 +122,7 @@ const Home: React.FC = () => {
 
   const fetchTotalCoinsToCollect = async (telegramUserId: string) => {
     try {
-      const response = await fetch(`https://адрес_вашего_сервера/totalCoinsToCollect/${telegramUserId}`);
+      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/totalCoinsToCollect/${telegramUserId}`);
       if (!response.ok) {
         throw new Error('Error fetching total coins to collect');
       }
