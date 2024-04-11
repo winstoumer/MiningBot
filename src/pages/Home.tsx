@@ -110,16 +110,18 @@ const Home: React.FC = () => {
 
 
   useEffect(() => {
+    // Обновление времени следующего сбора монет каждую секунду
     const interval = setInterval(() => {
-      // Обновляем состояние счетчика монет
-      if (coinsCollected < totalCoinsToCollect) {
-        setCoinsCollected(coinsCollected + 1);
+      if (nextCollectionTime) {
+        const currentTime = new Date(nextCollectionTime);
+        const updatedTime = new Date(currentTime.getTime() + (1000 * 3600)); // Добавляем 1 час
+        setNextCollectionTime(updatedTime.toISOString());
       }
-    }, 1000); // Обновление каждую секунду
+    }, 1000);
 
-    return () => clearInterval(interval);
-  }, [coinsCollected, totalCoinsToCollect]);
-
+      return () => clearInterval(interval);
+  }, [nextCollectionTime]);
+      
   const fetchCoins = async (userId: string) => {
     try {
       const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`);
