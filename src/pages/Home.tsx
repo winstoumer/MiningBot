@@ -29,8 +29,8 @@ const [nextCollectionTime, setNextCollectionTime] = useState<string | null>(null
   const [totalCoinsToCollect, setTotalCoinsToCollect] = useState<number>(0);
   const [currentCoins, setCurrentCoins] = useState<number>(0);
   const [isClaiming, setIsClaiming] = useState<boolean>(false);
-    const [timeRemaining, setTimeRemaining] = useState<number>(0);
-
+    const [timeRemaining, setTimeRemaining] = useState<number>(const timerRef = useRef<NodeJS.Timeout | null>(null);
+    
   useEffect(() => {
     const loadScript = () => {
       const script = document.createElement('script');
@@ -161,34 +161,41 @@ useEffect(() => {
 }, [isClaiming]);
 
 
-    
 const startClaiming = () => {
-  setIsClaiming(true);
-  if (!nextCollectionTime) {
-    return;
-  }
-  const endTime = Date.parse(nextCollectionTime);
-  const remainingTime = endTime - Date.now();
-  if (remainingTime <= 0) {
-    setIsClaiming(false);
-    return;
-  }
+    setIsClaiming(true);
+    if (!nextCollectionTime) {
+      return;
+    }
+    const endTime = Date.parse(nextCollectionTime);
+    const remainingTime = endTime - Date.now();
+    if (remainingTime <= 0) {
+      setIsClaiming(false);
+      return;
+    }
 
-  const incrementPerSecond = totalCoinsToCollect / remainingTime;
+    const incrementPerSecond = totalCoinsToCollect / remainingTime;
 
-  setTimer(setInterval(() => {
-    setCoinsCollected(prevCoinsCollected => {
-      const newCoinsCollected = prevCoinsCollected + incrementPerSecond;
-      if (newCoinsCollected >= totalCoinsToCollect) {
-        clearInterval(timer);
-        setIsClaiming(false);
-        return totalCoinsToCollect;
+    timerRef.current = setInterval(() => {
+      setCoinsCollected(prevCoinsCollected => {
+        const newCoinsCollected = prevCoinsCollected + incrementPerSecond;
+        if (newCoinsCollected >= totalCoinsToCollect) {
+          clearInterval(timerRef.current!);
+          setIsClaiming(false);
+          return totalCoinsToCollect;
+        }
+        return newCoinsCollected;
+      });
+    }, 1000);
+  };
+
+  useEffect(() => {
+    // Очистка интервала при размонтировании компонента
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
       }
-      return newCoinsCollected;
-    });
-  }, 1000));
-};
-
+    };
+  }, []);
     
   const fetchCoins = async (userId: string) => {
     try {
