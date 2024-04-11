@@ -155,6 +155,32 @@ useEffect(() => {
   fetchData();
 }, [userData]);
 
+    useEffect(() => {
+  if (nextCollectionTime) {
+    const startTime = Date.now();
+    const endTime = Date.parse(nextCollectionTime);
+    const duration = endTime - startTime;
+
+    const incrementPerMillisecond = totalCoinsToCollect / duration;
+
+    const timerInterval = setInterval(() => {
+      const currentTime = Date.now();
+      const elapsedTime = currentTime - startTime;
+      const newCoins = elapsedTime * incrementPerMillisecond;
+
+      if (newCoins >= totalCoinsToCollect) {
+        clearInterval(timerInterval);
+        setCurrentCoins(totalCoinsToCollect);
+      } else {
+        setCurrentCoins(newCoins);
+      }
+    }, 1000);
+
+    return () => clearInterval(timerInterval);
+  }
+}, [nextCollectionTime, totalCoinsToCollect]);
+
+
 const startClaiming = () => {
   setIsClaiming(true);
   const interval = setInterval(() => {
