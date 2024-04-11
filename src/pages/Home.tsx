@@ -163,27 +163,32 @@ useEffect(() => {
 
     
 const startClaiming = () => {
-    setIsClaiming(true);
-    if (!nextCollectionTime) {
-      return;
-    }
-    const endTime = Date.parse(nextCollectionTime);
-    const remainingTime = endTime - Date.now();
-    if (remainingTime <= 0) {
-      setIsClaiming(false);
-      return;
-    }
+  setIsClaiming(true);
+  if (!nextCollectionTime) {
+    return;
+  }
+  const endTime = Date.parse(nextCollectionTime);
+  const remainingTime = endTime - Date.now();
+  if (remainingTime <= 0) {
+    setIsClaiming(false);
+    return;
+  }
 
-    setTimer(setInterval(() => {
-      setCoinsCollected(prevCoinsCollected => {
-        const newCoinsCollected = prevCoinsCollected + 1; // Увеличиваем количество собранных монет на 1
-        if (newCoinsCollected >= totalCoinsToCollect) {
-          clearInterval(timer);
-          setIsClaiming(false);
-        }
-        return newCoinsCollected;
-      });
-    }, 1000));
+  const incrementPerSecond = totalCoinsToCollect / remainingTime;
+
+  setTimer(setInterval(() => {
+    setCoinsCollected(prevCoinsCollected => {
+      const newCoinsCollected = prevCoinsCollected + incrementPerSecond;
+      if (newCoinsCollected >= totalCoinsToCollect) {
+        clearInterval(timer);
+        setIsClaiming(false);
+        return totalCoinsToCollect;
+      }
+      return newCoinsCollected;
+    });
+  }, 1000));
+};
+
     
   const fetchCoins = async (userId: string) => {
     try {
