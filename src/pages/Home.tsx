@@ -275,6 +275,10 @@ useEffect(() => {
   <button onClick={startClaiming} disabled={isClaiming || !nextCollectionTime || Date.parse(nextCollectionTime) - Date.now() > 0}>
     Claim
   </button>
+          <button className="claim-coins-btn" onClick={claimCoins} disabled={count < 5}>
+          {count >= 5 ? 'Claim' : 'Collecting...'}
+        </button>  
+            
 </div>
         <div className="watch-machine">
           <img src={minerInfo.miner_image_url} className="img-comp" alt="watch-machine" />
