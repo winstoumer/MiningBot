@@ -264,14 +264,18 @@ useEffect(() => {
         <div className="total-balance">{coins.toFixed(2)}</div>
       </div>
       <div className="content-machine">
-          <div>
-      <p>Время сбора монет: {nextCollectionTime}</p>
-      <span>собрано: {coinsCollected}</span>
-      <span>Осталось монет: {totalCoinsToCollect - coinsCollected}</span>
-      <button onClick={claimCoins} disabled={totalCoinsToCollect - coinsCollected <= 0}>Claim</button>
-              {isClaiming && <span>Визуализация добавления монет: {currentCoins.toFixed(8)}</span>}
-    <button onClick={startClaiming} disabled={isClaiming || nextCollectionTime - Date.now() > 0}>Claim</button>
-    </div>
+        <div>
+  <p>Время сбора монет: {nextCollectionTime}</p>
+  <span>собрано: {coinsCollected}</span>
+  <span>Осталось монет: {totalCoinsToCollect - coinsCollected}</span>
+  <button onClick={claimCoins} disabled={totalCoinsToCollect - coinsCollected <= 0}>
+    Claim
+  </button>
+  {isClaiming && <span>Визуализация добавления монет: {currentCoins.toFixed(8)}</span>}
+  <button onClick={startClaiming} disabled={isClaiming || !nextCollectionTime || Date.parse(nextCollectionTime) - Date.now() > 0}>
+    Claim
+  </button>
+</div>
         <div className="watch-machine">
           <img src={minerInfo.miner_image_url} className="img-comp" alt="watch-machine" />
         </div>
