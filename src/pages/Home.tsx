@@ -113,13 +113,14 @@ const Home: React.FC = () => {
     // Обновление времени следующего сбора монет каждую секунду
     const interval = setInterval(() => {
       if (nextCollectionTime) {
-        const currentTime = new Date(nextCollectionTime);
-        const updatedTime = new Date(currentTime.getTime() + (1000 * 3600)); // Добавляем 1 час
+        const currentTime = new Date();
+        const updatedTime = new Date(nextCollectionTime);
+        updatedTime.setHours(updatedTime.getHours() + 1); // Добавляем 1 час
         setNextCollectionTime(updatedTime.toISOString());
       }
     }, 1000);
 
-      return () => clearInterval(interval);
+    return () => clearInterval(interval);
   }, [nextCollectionTime]);
       
   const fetchCoins = async (userId: string) => {
