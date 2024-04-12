@@ -305,7 +305,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
             Mining
           </div>
           <div className="token">
-            <span id="counter">{hoursLeft > 0 || minutesLeft > 0 || secondsLeft > 0 ? `${hoursLeft} h ${minutesLeft} m ${secondsLeft}` : '0h 0m 0s'}</span>
+            <span id="counter">{hoursLeft > 0 || minutesLeft > 0 || secondsLeft > 0 ? `${hoursLeft} h ${minutesLeft} m ${secondsLeft} s` : '0h 0m 0s'}</span>
           </div>
           <div className="info-mine-count">{minerInfo.coin_mined} coin per {minerInfo.time_mined} h</div>
         </div>
