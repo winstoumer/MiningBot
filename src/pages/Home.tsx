@@ -291,29 +291,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
       setCount(0);
     }
   };
-
-  const calculateCoinsCollectNow = () => {
-    if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
-      const currentTime = new Date().getTime();
-      const collectionEndTime = new Date(nextCollectionTime).getTime();
-      const collectionDuration = collectionEndTime - currentTime;
-      const coinsPerMillisecond = totalCoinsToCollect / collectionDuration;
-
-      const elapsedTime = collectionEndTime - currentTime;
-      const coinsCollectNow = coinsPerMillisecond * elapsedTime;
-      setCoinsCollectNow(coinsCollectNow);
-    }
-  };
-
-  fetchData();
-
-  const interval = setInterval(() => {
-    calculateCoinsCollectNow();
-  }, 1000);
-
-  return () => clearInterval(interval);
-}, [nextCollectionTime, totalCoinsToCollect, isClaiming, userData]);
- 
+  
 
   return (
     <div className="content">
