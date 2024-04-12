@@ -25,9 +25,6 @@ const Home: React.FC = () => {
   const [minerInfo, setMinerInfo] = useState<any>({});
   const [nextCollectionTime, setNextCollectionTime] = useState<string | null>(null);
 
-    //const [nextCollectionTime, setNextCollectionTime] = useState<string | null>('0');
-  //const [totalCoinsToCollect, setTotalCoinsToCollect] = useState<string | null>('0');
-  
   const [totalCoinsToCollect, setTotalCoinsToCollect] = useState<number>(0);
   const [currentCoins, setCurrentCoins] = useState<number>(0);
   
