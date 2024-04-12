@@ -180,6 +180,19 @@ useEffect(() => {
     return () => clearInterval(interval);
   }
 }, [nextCollectionTime, totalCoinsToCollect, isClaiming]);
+
+
+const [hoursLeft, setHoursLeft] = useState<number>(0);    
+  // Вычисление времени до следующей коллекции при монтировании компонента
+  useEffect(() => {
+    if (nextCollectionTime) {
+      const currentTime = new Date().getTime();
+      const collectionEndTime = new Date(nextCollectionTime).getTime();
+      const timeLeftMilliseconds = collectionEndTime - currentTime;
+      const timeLeftHours = Math.floor(timeLeftMilliseconds / (1000 * 60 * 60));
+      setHoursLeft(timeLeftHours);
+    }
+  }, [nextCollectionTime]);    
     
   const fetchCoins = async (userId: string) => {
     try {
@@ -266,6 +279,8 @@ useEffect(() => {
         <div>
           <p>Время сбора монет: {nextCollectionTime}///{totalCoinsToCollect}</p>
           <span>Счетчик: {coinsCollected}</span>
+
+            <div>Осталось часов до следующей добычи: {hoursLeft}</div>
           <span>Осталось монет: {remainingCoins}</span>
           <button onClick={claimCoins}>Claim</button>
           <span>Счетчик: {currentCoins.toFixed(8)}</span>
