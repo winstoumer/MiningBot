@@ -159,7 +159,7 @@ const Home: React.FC = () => {
 
  const [lastCollectionStartTime, setLastCollectionStartTime] = useState<number | null>(null);
 
-  useEffect(() => {
+ useEffect(() => {
     // Логика для получения времени следующего сбора монет и общего количества монет для сбора
     const fetchData = async () => {
       // Здесь ваш код для получения данных из базы данных или другого источника данных
@@ -208,6 +208,7 @@ const Home: React.FC = () => {
       return () => clearInterval(interval);
     }
   }, [nextCollectionTime, totalCoinsToCollect, isClaiming, lastCollectionStartTime]);
+
   const fetchCoins = async (userId: string) => {
     try {
       const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`);
