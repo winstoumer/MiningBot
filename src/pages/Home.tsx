@@ -157,29 +157,31 @@ const Home: React.FC = () => {
   }, [userData]);
 
   useEffect(() => {
-  if (nextCollectionTime && remainingCoins > 0 && isClaiming) {
+  if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
     const collectionEndTime = new Date(nextCollectionTime).getTime();
     const collectionDuration = collectionEndTime - Date.now();
-    const coinsPerMillisecond = (remainingCoins - startCoins) / collectionDuration;
+    const coinsPerMillisecond = totalCoinsToCollect / collectionDuration;
+    const coinsIncrement = 0.00001; // Увеличение количества монет каждую секунду
+
+    let currentCoins = 0.00000; // Начальное количество монет
 
     const interval = setInterval(() => {
       const elapsedTime = collectionEndTime - Date.now();
       if (elapsedTime <= 0) {
         clearInterval(interval);
         setIsClaiming(false);
-        setRemainingCoins(0);
         setCurrentCoins(totalCoinsToCollect);
       } else {
-        const collected = startCoins + Math.ceil(elapsedTime * coinsPerMillisecond);
-        setCurrentCoins(collected > remainingCoins ? remainingCoins : collected);
-        setRemainingCoins(remainingCoins - (collected - startCoins));
+        // Увеличиваем текущее количество монет на coinsIncrement
+        currentCoins = Math.min(totalCoinsToCollect, currentCoins + coinsIncrement);
+        setCurrentCoins(currentCoins);
       }
     }, 1000);
 
     return () => clearInterval(interval);
   }
-}, [nextCollectionTime, remainingCoins, totalCoinsToCollect, isClaiming, startCoins]);
-
+}, [nextCollectionTime, totalCoinsToCollect, isClaiming]);
+    
   const fetchCoins = async (userId: string) => {
     try {
       const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`);
