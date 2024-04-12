@@ -292,6 +292,8 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
     }
   };
 
+    const [coinsCollectNow, setCoinsCollectNow] = useState<number>(0);
+
    useEffect(() => {
   const fetchData = async () => {
     if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
