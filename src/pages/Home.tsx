@@ -179,8 +179,8 @@ useEffect(() => {
 
     return () => clearInterval(interval);
   }
-}, [nextCollectionTime, totalCoinsToCollect, isClaiming]);
- 
+}, [nextCollectionTime, totalCoinsToCollect, isClaiming]); // Запускаем сразу после монтирования компонента
+
   const fetchCoins = async (userId: string) => {
     try {
       const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`);
