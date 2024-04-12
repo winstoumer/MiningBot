@@ -60,7 +60,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     if (userData && userData.id) {
       fetchCoins(userData.id.toString());
-      fetchNextCollectionTime(userData.id.toString());
+      fetchNextCollectionTime(userData.id.toString(), setTimeMined);
       fetchMiner(userData.id.toString(), setMinerInfo);
     }
   }, [userData]);
@@ -100,7 +100,7 @@ const Home: React.FC = () => {
       }
       const data = await response.json();
       const nextCollectionTimeUTC = new Date(data.next_collection_time);
-      nextCollectionTimeUTC.setHours(nextCollectionTimeUTC.getHours() + 2);
+      nextCollectionTimeUTC.setHours(nextCollectionTimeUTC.getHours() + data.time_mined);
       if (data.next_collection_time) {
         setNextCollectionTime(nextCollectionTimeUTC.toISOString());
       }
