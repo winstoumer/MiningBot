@@ -175,8 +175,8 @@ useEffect(() => {
         setIsClaiming(false);
         setCurrentCoins(totalCoinsToCollect);
       } else {
-        // Вычисляем количество монет, которые нужно добавить за текущую миллисекунду
-        const coinsToAdd = coinsPerMillisecond;
+        // Вычисляем количество монет, которое нужно добавить за каждую миллисекунду
+        const coinsToAdd = coinsPerMillisecond * 1; // добавляем монеты за каждую миллисекунду
         currentCoins += coinsToAdd;
         setCurrentCoins(currentCoins);
       }
