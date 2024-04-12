@@ -23,12 +23,12 @@ const Home: React.FC = () => {
   const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
   const [minerInfo, setMinerInfo] = useState<any>({});
-  //const [nextCollectionTime, setNextCollectionTime] = useState<string | null>(null);
+  const [nextCollectionTime, setNextCollectionTime] = useState<string | null>(null);
 
-    const [nextCollectionTime, setNextCollectionTime] = useState<string | null>('0');
-  const [totalCoinsToCollect, setTotalCoinsToCollect] = useState<string | null>('0');
+    //const [nextCollectionTime, setNextCollectionTime] = useState<string | null>('0');
+  //const [totalCoinsToCollect, setTotalCoinsToCollect] = useState<string | null>('0');
   
-  //const [totalCoinsToCollect, setTotalCoinsToCollect] = useState<number>(0);
+  const [totalCoinsToCollect, setTotalCoinsToCollect] = useState<number>(0);
   const [currentCoins, setCurrentCoins] = useState<number>(0);
   
 
@@ -160,38 +160,29 @@ const Home: React.FC = () => {
   }, [userData]);
 
 useEffect(() => {
-    if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
-      const collectionEndTime = new Date(nextCollectionTime).getTime();
-      const collectionDuration = collectionEndTime - Date.now();
-      const coinsPerMillisecond = totalCoinsToCollect / collectionDuration;
+  if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
+    const collectionEndTime = new Date(nextCollectionTime).getTime();
+    const collectionDuration = collectionEndTime - Date.now();
+    const coinsPerMillisecond = totalCoinsToCollect / collectionDuration;
 
-      let currentCoins = 0;
+    let currentCoins = 0;
 
-      const interval = setInterval(() => {
-        const elapsedTime = collectionEndTime - Date.now();
-        if (elapsedTime <= 0) {
-          clearInterval(interval);
-          setIsClaiming(false);
-          setCurrentCoins(totalCoinsToCollect);
-        } else {
-          currentCoins += coinsPerMillisecond;
-          setCurrentCoins(currentCoins);
-        }
-      }, 1);
+    const interval = setInterval(() => {
+      const elapsedTime = collectionEndTime - Date.now();
+      if (elapsedTime <= 0) {
+        clearInterval(interval);
+        setIsClaiming(false);
+        setCurrentCoins(totalCoinsToCollect);
+      } else {
+        // Увеличиваем текущее количество монет на coinsPerMillisecond за каждую миллисекунду
+        currentCoins += coinsPerMillisecond;
+        setCurrentCoins(currentCoins);
+      }
+    }, 1); // Уменьшаем интервал до 1 миллисекунды, чтобы обновления происходили чаще
 
-      return () => clearInterval(interval);
-    }
-  }, [nextCollectionTime, totalCoinsToCollect, isClaiming]);
-
-  // Инициализация при монтировании компонента
-  useEffect(() => {
-   setNextCollectionTime(0);
-    setTotalCoinsToCollect(0);
-    setIsClaiming(false);
-
-    // Начать счет монет без ожидания нажатия кнопки
-    setCurrentCoins(0);
-  }, []);
+    return () => clearInterval(interval);
+  }
+}, [nextCollectionTime, totalCoinsToCollect, isClaiming]);
     
   const fetchCoins = async (userId: string) => {
     try {
