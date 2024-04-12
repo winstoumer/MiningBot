@@ -176,10 +176,10 @@ useEffect(() => {
         setCurrentCoins(totalCoinsToCollect);
       } else {
         // Увеличиваем текущее количество монет на coinsPerMillisecond за каждую миллисекунду
-        currentCoins += coinsPerMillisecond;
+        currentCoins += coinsPerMillisecond * 1000; // Добавляем монеты, учитывая миллисекунды
         setCurrentCoins(currentCoins);
       }
-    }, 1); // Уменьшаем интервал до 1 миллисекунды, чтобы обновления происходили чаще
+    }, 1000); // Обновляем каждую секунду (1000 миллисекунд)
 
     return () => clearInterval(interval);
   }
@@ -302,7 +302,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
       <div className="general-token">
         <div className="set-mining">
           <div className="token-title">
-            Mining
+            Mining <span id="coins">{currentCoins} coins</span>
           </div>
           <div className="token">
             <span id="counter">{hoursLeft > 0 || minutesLeft > 0 || secondsLeft > 0 ? `${hoursLeft} h ${minutesLeft} m ${secondsLeft} s` : '0h 0m 0s'}</span>
