@@ -189,6 +189,7 @@ useEffect(() => {
 const [hoursLeft, setHoursLeft] = useState<number>(0);
     
   const [minutesLeft, setMinutesLeft] = useState<number>(0);
+    const [secondsLeft, setSecondsLeft] = useState<number>(0);
   // Вычисление времени до следующей коллекции при монтировании компонента.
   useEffect(() => {
   const updateCountdown = () => {
@@ -198,17 +199,18 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
       const timeLeftMilliseconds = collectionEndTime - currentTime;
       const timeLeftHours = Math.floor(timeLeftMilliseconds / (1000 * 60 * 60));
       const timeLeftMinutes = Math.floor((timeLeftMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+      const timeLeftSeconds = Math.floor((timeLeftMilliseconds % (1000 * 60)) / 1000); // Добавляем секунды
       setHoursLeft(timeLeftHours);
       setMinutesLeft(timeLeftMinutes);
+      setSecondsLeft(timeLeftSeconds); // Устанавливаем состояние для секунд
     }
   };
 
   updateCountdown(); // Вызываем сразу для инициализации
-  const interval = setInterval(updateCountdown, 60000); // Обновляем каждую минуту (60000 миллисекунд)
+  const interval = setInterval(updateCountdown, 1000); // Обновляем каждую секунду (1000 миллисекунд)
   
   return () => clearInterval(interval);
 }, [nextCollectionTime]);
-
 
     
   const fetchCoins = async (userId: string) => {
@@ -303,7 +305,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
             Mining
           </div>
           <div className="token">
-            <span id="counter">{hoursLeft > 0 || minutesLeft > 0 ? `${hoursLeft} h ${minutesLeft} m` : '0h 0m'}</span>
+            <span id="counter">{hoursLeft > 0 || minutesLeft > 0 || secondsLeft > 0 ? `${hoursLeft} h ${minutesLeft} m ${secondsLeft}` : '0h 0m 0s'}</span>
           </div>
           <div className="info-mine-count">{minerInfo.coin_mined} coin per {minerInfo.time_mined} h</div>
         </div>
