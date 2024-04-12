@@ -283,7 +283,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
           <p>Время сбора монет: {nextCollectionTime}///{totalCoinsToCollect}</p>
           <span>Счетчик: {coinsCollected}</span>
 
-            <div>Осталось часов до следующей добычи: {hoursLeft}</div>
+            <div>Осталось времени до следующей добычи: {hoursLeft} часов {minutesLeft} минут</div>
           <span>Осталось монет: {remainingCoins}</span>
           <button onClick={claimCoins}>Claim</button>
           <span>Счетчик: {currentCoins.toFixed(8)}</span>
