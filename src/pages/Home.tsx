@@ -182,15 +182,12 @@ useEffect(() => {
 
   // Инициализация при монтировании компонента
   useEffect(() => {
-    // Ваш код для инициализации, если нужно
-    // Здесь вы можете установить начальные значения nextCollectionTime, totalCoinsToCollect и isClaiming
-    setNextCollectionTime(/* ваше начальное значение для времени следующей коллекции */);
-    setTotalCoinsToCollect(/* ваше начальное значение для общего количества монет для сбора */);
-    setIsClaiming(/* ваше начальное значение для состояния сбора монет */);
+   setNextCollectionTime(0);
+    setTotalCoinsToCollect(0);
+    setIsClaiming(false);
 
     // Начать счет монет без ожидания нажатия кнопки
-    setCurrentCoins(/* ваше начальное значение для текущего количества монет */);
-
+    setCurrentCoins(0);
   }, []);
     
   const fetchCoins = async (userId: string) => {
