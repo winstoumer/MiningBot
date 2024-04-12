@@ -161,9 +161,8 @@ const Home: React.FC = () => {
     const collectionEndTime = new Date(nextCollectionTime).getTime();
     const collectionDuration = collectionEndTime - Date.now();
     const coinsPerMillisecond = totalCoinsToCollect / collectionDuration;
-    const coinsIncrement = 0.00001; // Увеличение количества монет каждую секунду
 
-    let currentCoins = 0.00000; // Начальное количество монет
+    let currentCoins = 0;
 
     const interval = setInterval(() => {
       const elapsedTime = collectionEndTime - Date.now();
@@ -172,16 +171,16 @@ const Home: React.FC = () => {
         setIsClaiming(false);
         setCurrentCoins(totalCoinsToCollect);
       } else {
-        // Увеличиваем текущее количество монет на coinsIncrement
-        currentCoins = Math.min(totalCoinsToCollect, currentCoins + coinsIncrement);
+        // Увеличиваем текущее количество монет на coinsPerMillisecond за каждую миллисекунду
+        currentCoins += coinsPerMillisecond;
         setCurrentCoins(currentCoins);
       }
-    }, 1000);
+    }, 1); // Уменьшаем интервал до 1 миллисекунды, чтобы обновления происходили чаще
 
     return () => clearInterval(interval);
   }
 }, [nextCollectionTime, totalCoinsToCollect, isClaiming]);
-    
+
   const fetchCoins = async (userId: string) => {
     try {
       const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`);
