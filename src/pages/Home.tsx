@@ -157,30 +157,34 @@ const Home: React.FC = () => {
   }, [userData]);
 
 useEffect(() => {
-  if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
-    const collectionEndTime = new Date(nextCollectionTime).getTime();
-    const collectionDuration = collectionEndTime - Date.now();
-    const coinsPerMillisecond = totalCoinsToCollect / collectionDuration;
+    // Your existing code here...
+  }, [nextCollectionTime, totalCoinsToCollect, isClaiming]);
 
-    let currentCoins = 0;
+  useEffect(() => {
+    // Initialize currentCoins and start the countdown when the component mounts
+    if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
+      const collectionEndTime = new Date(nextCollectionTime).getTime();
+      const collectionDuration = collectionEndTime - Date.now();
+      const coinsPerMillisecond = totalCoinsToCollect / collectionDuration;
 
-    const interval = setInterval(() => {
-      const elapsedTime = collectionEndTime - Date.now();
-      if (elapsedTime <= 0) {
-        clearInterval(interval);
-        setIsClaiming(false);
-        setCurrentCoins(totalCoinsToCollect);
-      } else {
-        // Увеличиваем текущее количество монет на coinsPerMillisecond за каждую миллисекунду
-        currentCoins += coinsPerMillisecond;
-        setCurrentCoins(currentCoins);
-      }
-    }, 1); // Уменьшаем интервал до 1 миллисекунды, чтобы обновления происходили чаще
+      let currentCoins = 0;
 
-    return () => clearInterval(interval);
-  }
-}, [nextCollectionTime, totalCoinsToCollect, isClaiming]); // Запускаем сразу после монтирования компонента
+      const interval = setInterval(() => {
+        const elapsedTime = collectionEndTime - Date.now();
+        if (elapsedTime <= 0) {
+          clearInterval(interval);
+          setIsClaiming(false);
+          setCurrentCoins(totalCoinsToCollect);
+        } else {
+          currentCoins += coinsPerMillisecond;
+          setCurrentCoins(currentCoins);
+        }
+      }, 1);
 
+      return () => clearInterval(interval);
+    }
+  }, []);
+    
   const fetchCoins = async (userId: string) => {
     try {
       const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`);
