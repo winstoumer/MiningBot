@@ -157,53 +157,30 @@ const Home: React.FC = () => {
   }, [userData]);
 
 
- const [lastCollectionStartTime, setLastCollectionStartTime] = useState<number | null>(null);
-
  useEffect(() => {
-    const fetchData = async () => {
-      // Здесь ваш код для получения данных из базы данных или другого источника данных
-      const nextTime = await fetchNextCollectionTime();
-      const totalCoins = await fetchTotalCoinsToCollect();
+  if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
+    const collectionEndTime = new Date(nextCollectionTime).getTime();
+    const collectionDuration = collectionEndTime - Date.now();
+    const coinsPerMillisecond = totalCoinsToCollect / collectionDuration;
 
-      setNextCollectionTime(nextTime);
-      setTotalCoinsToCollect(totalCoins);
-      setIsClaiming(true);
-    };
+    let currentCoins = 0;
 
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
-      const collectionEndTime = new Date(nextCollectionTime).getTime();
-      const collectionDuration = collectionEndTime - Date.now();
-      const coinsPerMillisecond = totalCoinsToCollect / collectionDuration;
-
-      let currentCoins = 0;
-
-      if (lastCollectionStartTime) {
-        const elapsedTimeSinceLastCollection = Date.now() - lastCollectionStartTime;
-        currentCoins = (coinsPerMillisecond * elapsedTimeSinceLastCollection) + currentCoins;
+    const interval = setInterval(() => {
+      const elapsedTime = collectionEndTime - Date.now();
+      if (elapsedTime <= 0) {
+        clearInterval(interval);
+        setIsClaiming(false);
+        setCurrentCoins(totalCoinsToCollect);
+      } else {
+        // Увеличиваем текущее количество монет на coinsPerMillisecond за каждую миллисекунду
+        currentCoins += coinsPerMillisecond;
+        setCurrentCoins(currentCoins);
       }
+    }, 1); // Уменьшаем интервал до 1 миллисекунды, чтобы обновления происходили чаще
 
-      const interval = setInterval(() => {
-        const elapsedTime = collectionEndTime - Date.now();
-        if (elapsedTime <= 0) {
-          clearInterval(interval);
-          setIsClaiming(false);
-          setCurrentCoins(totalCoinsToCollect);
-          setLastCollectionStartTime(null);
-        } else {
-          currentCoins += coinsPerMillisecond;
-          setCurrentCoins(currentCoins);
-        }
-      }, 1);
-
-      setLastCollectionStartTime(Date.now());
-
-      return () => clearInterval(interval);
-    }
-  }, [nextCollectionTime, totalCoinsToCollect, isClaiming, lastCollectionStartTime]);
+    return () => clearInterval(interval);
+  }
+}, [nextCollectionTime, totalCoinsToCollect, isClaiming]);
     
   const fetchCoins = async (userId: string) => {
     try {
