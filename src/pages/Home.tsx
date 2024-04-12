@@ -156,24 +156,27 @@ const Home: React.FC = () => {
   }, [userData]);
 
   useEffect(() => {
-  const startCount = 0;
-  const endCount = totalCoinsToCollect; // Конечное количество монет для сбора
-  const duration = nextCollectionTime.getTime() - Date.now(); // Продолжительность времени до следующего сбора в миллисекундах
-  const incrementPerMillisecond = (endCount - startCount) / duration;
+  if (nextCollectionTime && totalCoinsToCollect > 0) {
+    const startCount = 0;
+    const endCount = totalCoinsToCollect; // Конечное количество монет для сбора
+    const collectionEndTime = new Date(nextCollectionTime).getTime(); // Время следующего сбора в миллисекундах
+    const duration = collectionEndTime - Date.now(); // Продолжительность времени до следующего сбора в миллисекундах
+    const incrementPerMillisecond = (endCount - startCount) / duration;
 
-  const counterInterval = setInterval(() => {
-    setCoinsCollected((prevCount) => {
-      const newCount = prevCount + incrementPerMillisecond;
-      if (newCount >= endCount) {
-        clearInterval(counterInterval);
-        return endCount;
-      }
-      return newCount;
-    });
-  }, 1);
+    const counterInterval = setInterval(() => {
+      setCoinsCollected((prevCount) => {
+        const newCount = prevCount + incrementPerMillisecond;
+        if (newCount >= endCount) {
+          clearInterval(counterInterval);
+          return endCount;
+        }
+        return newCount;
+      });
+    }, 1);
 
-  // Очищаем интервал при размонтировании компонента
-  return () => clearInterval(counterInterval);
+    // Очищаем интервал при размонтировании компонента
+    return () => clearInterval(counterInterval);
+  }
 }, [nextCollectionTime, totalCoinsToCollect]); // Зависимости: время следующего сбора и общее количество монет для сбора
 
   const fetchCoins = async (userId: string) => {
