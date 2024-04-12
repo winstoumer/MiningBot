@@ -208,7 +208,7 @@ const Home: React.FC = () => {
       return () => clearInterval(interval);
     }
   }, [nextCollectionTime, totalCoinsToCollect, isClaiming, lastCollectionStartTime]);
-
+    
   const fetchCoins = async (userId: string) => {
     try {
       const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`);
