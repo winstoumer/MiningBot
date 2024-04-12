@@ -161,8 +161,6 @@ const Home: React.FC = () => {
   }, [userData]);
 
 useEffect(() => {
-  console.log("useEffect triggered");
-  
   if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
     const collectionEndTime = new Date(nextCollectionTime).getTime();
     const collectionDuration = collectionEndTime - Date.now();
@@ -178,7 +176,8 @@ useEffect(() => {
         setCurrentCoins(totalCoinsToCollect);
       } else {
         // Увеличиваем текущее количество монет на coinsPerMillisecond за каждую миллисекунду
-        currentCoins += coinsPerMillisecond * 1000; // Добавляем монеты, учитывая миллисекунды
+        const coinsToAdd = coinsPerMillisecond * 1000; // Вычисляем количество монет, которые нужно добавить
+        currentCoins += coinsToAdd;
         setCurrentCoins(currentCoins);
       }
     }, 1000); // Обновляем каждую секунду (1000 миллисекунд)
