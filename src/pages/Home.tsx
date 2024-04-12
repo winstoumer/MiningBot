@@ -92,25 +92,27 @@ const Home: React.FC = () => {
     return () => clearInterval(counterInterval);
   }, [count]);
 
-  const fetchNextCollectionTime = async (telegramUserId: string) => {
-    try {
-      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/nextCollectionTime/${telegramUserId}`);
-      if (!response.ok) {
-        throw new Error('Error fetching next collection time');
-      }
-      const data = await response.json();
-      const nextCollectionTimeUTC = new Date(data.next_collection_time);
-      nextCollectionTimeUTC.setHours(nextCollectionTimeUTC.getHours() + data.time_mined);
-      if (data.next_collection_time) {
-        setNextCollectionTime(nextCollectionTimeUTC.toISOString());
-      }
-      if (data.total_coins_to_collect) {
-        setTotalCoinsToCollect(data.total_coins_to_collect);
-      }
-    } catch (error) {
-      console.error('Ошибка при получении времени следующего сбора монет:', error);
+  const fetchNextCollectionTime = async (telegramUserId: string, setTimeMined: React.Dispatch<any>) => {
+  try {
+    const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/nextCollectionTime/${telegramUserId}`);
+    if (!response.ok) {
+      throw new Error('Error fetching next collection time');
     }
-  };
+    const data = await response.json();
+    const nextCollectionTimeUTC = new Date(data.next_collection_time);
+    nextCollectionTimeUTC.setHours(nextCollectionTimeUTC.getHours() + data.time_mined);
+
+    if (data.next_collection_time) {
+      setNextCollectionTime(nextCollectionTimeUTC.toISOString());
+    }
+
+    if (data.time_mined) {
+      setTimeMined(data.time_mined);
+    }
+  } catch (error) {
+    console.error('Ошибка при получении времени следующего сбора монет:', error);
+  }
+};
 
   const fetchCoinsCollected = async (telegramUserId: string) => {
     try {
