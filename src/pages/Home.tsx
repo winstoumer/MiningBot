@@ -61,7 +61,7 @@ const Home: React.FC = () => {
     if (userData && userData.id) {
       fetchCoins(userData.id.toString());
       fetchNextCollectionTime(userData.id.toString());
-      fetchMiner(userData.id.toString());
+      fetchMiner(userData.id.toString(), setMinerInfo);
     }
   }, [userData]);
 
