@@ -308,9 +308,9 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
         </div>
       </div>
       <div className="actions-mining">
-        <button className={`claim-coins-btn ${hoursLeft === 0 && minutesLeft === 0 ? 'collecting-now' : ''}`} onClick={hoursLeft === 0 && minutesLeft === 0 ? null : claimCoins}>
-            {hoursLeft === 0 && minutesLeft === 0 ? 'Collecting' : 'Claim'}
-        </button>
+    <button className={`claim-coins-btn ${hoursLeft === 0 && minutesLeft === 0 ? 'collecting-now' : ''}`} onClick={hoursLeft === 0 && minutesLeft === 0 ? () => {} : claimCoins}>
+      {hoursLeft === 0 && minutesLeft === 0 ? 'Collecting' : 'Claim'}
+    </button>
       </div>
     </div>
   );
