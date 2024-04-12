@@ -295,7 +295,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
             Mining
           </div>
           <div className="token">
-            <span id="counter">{hoursLeft} h {minutesLeft} m</span>
+            <span id="counter">{hoursLeft > 0 || minutesLeft > 0 ? `${hoursLeft} h ${minutesLeft} m` : '0h 0m'}</span>
           </div>
           <div className="info-mine-count">{minerInfo.coin_mined} coin per {minerInfo.time_mined} h</div>
         </div>
@@ -308,8 +308,8 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
         </div>
       </div>
       <div className="actions-mining">
-        <button className="claim-coins-btn" onClick={claimCoins} disabled={count < 5}>
-          {count >= 5 ? 'Claim' : 'Collecting...'}
+        <button className={`claim-coins-btn ${hoursLeft === 0 && minutesLeft === 0 ? 'collecting-now' : ''}`} onClick={hoursLeft === 0 && minutesLeft === 0 ? null : claimCoins}>
+            {hoursLeft === 0 && minutesLeft === 0 ? 'Collecting' : 'Claim'}
         </button>
       </div>
     </div>
