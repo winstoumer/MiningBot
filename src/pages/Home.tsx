@@ -32,7 +32,7 @@ const Home: React.FC = () => {
      
   const [coinsCollected, setCoinsCollected] = useState<number>(0); // Количество уже собранных монет
   const [isClaiming, setIsClaiming] = useState<boolean>(false); // Флаг, указывающий, идет ли сбор монет в данный момент
-    const [startCoins, setStartCoins] = useState<number>(0.00001); // Начальное значение для счетчика монет
+    const [startCoins, setStartCoins] = useState<number>(0.00000000); // Начальное значение для счетчика монет
 
   useEffect(() => {
     const loadScript = () => {
@@ -268,7 +268,7 @@ const Home: React.FC = () => {
           <span>Счетчик: {coinsCollected}</span>
           <span>Осталось монет: {remainingCoins}</span>
           <button onClick={claimCoins}>Claim</button>
-          <span>Счетчик: {currentCoins.toFixed(5)}</span>
+          <span>Счетчик: {currentCoins.toFixed(8)}</span>
           {nextCollectionTime && totalCoinsToCollect > 0 && !isClaiming && (
         <button onClick={() => setIsClaiming(true)}>Claim</button>
       )}
