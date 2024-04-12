@@ -189,7 +189,7 @@ useEffect(() => {
 const [hoursLeft, setHoursLeft] = useState<number>(0);
     
   const [minutesLeft, setMinutesLeft] = useState<number>(0);
-  // Вычисление времени до следующей коллекции при монтировании компонента
+  // Вычисление времени до следующей коллекции при монтировании компонента.
   useEffect(() => {
   const interval = setInterval(() => {
     if (nextCollectionTime) {
