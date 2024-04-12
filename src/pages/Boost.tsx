@@ -38,7 +38,7 @@ const Boost: React.FC = () => {
     }
   }, []);
 
-  return (<div className="boost-content">
+  return (<div className="content">
       <div className="boost-balance">
       </div>
       <div className="boost-item-default">

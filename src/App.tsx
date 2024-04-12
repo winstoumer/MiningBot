@@ -48,8 +48,7 @@ function App() {
       >
         <div className="app">
             <Router>
-        <Header />
-                <Navigation />
+                <Header />
                 <TelegramUser />
                 <TelegramScript />
          <Routes>
@@ -58,7 +57,8 @@ function App() {
            <Route path="/market" element={<Market />} />
            <Route path="/task" element={<Task />} />
          </Routes>
-       </Router>
+                <Navigation />
+            </Router>
         </div>
       </TonConnectUIProvider>
   )

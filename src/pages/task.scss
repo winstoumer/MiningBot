@@ -1,8 +1,7 @@
 .task-list {
-    padding: 20px 25px;
     display: flex;
-flex-direction: column;
-gap: 20px;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .task-list > a:active {
@@ -47,10 +46,6 @@ gap: 20px;
 .task-rewards {
     font-size: 26px;
     font-weight: 800;
-}
-
-.referral-content {
-    padding: 20px 25px;
 }
 
 .referral-manage {

@@ -20,7 +20,7 @@ const Tabs: React.FC<{ tabs: Tab[] }> = ({ tabs }) => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div>
+    <div className="content">
       <div className="tab-buttons">
         {tabs.map((tab, index) => (
           <button
@@ -120,7 +120,7 @@ const Task: React.FC = () => {
   </div>
     </div> },
     { title: 'Referral', content: <div>
-        <div className="referral-content">
+        <div className="content">
             <div className="referral-manage">
                 <img src="https://i.ibb.co/JCcfw0m/Designer-59.jpg" className="referral-image" />
                 <div className="referral-info">You will receive 100 coins for each invitee.</div>

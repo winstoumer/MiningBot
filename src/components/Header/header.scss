@@ -1,8 +1,13 @@
 header {
+  position: fixed;
+  top: 0;
+  width: 100%;
   display: flex;
   align-items: end;
   justify-content: space-between;
-  padding: 14px 25px;
+  padding: 12px 25px;
+  height: 64px;
+  line-height: 64px;
 
   > span {
     font-size: 30px;
