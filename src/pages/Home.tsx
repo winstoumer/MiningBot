@@ -160,18 +160,17 @@ const Home: React.FC = () => {
  const [lastCollectionStartTime, setLastCollectionStartTime] = useState<number | null>(null);
 
  useEffect(() => {
-    // Логика для получения времени следующего сбора монет и общего количества монет для сбора
     const fetchData = async () => {
       // Здесь ваш код для получения данных из базы данных или другого источника данных
-      const nextTime = await fetchNextCollectionTime(); // Ваша функция для получения времени следующего сбора
-      const totalCoins = await fetchTotalCoinsToCollect(); // Ваша функция для получения общего количества монет для сбора
+      const nextTime = await fetchNextCollectionTime();
+      const totalCoins = await fetchTotalCoinsToCollect();
 
       setNextCollectionTime(nextTime);
       setTotalCoinsToCollect(totalCoins);
-      setIsClaiming(true); // Начинаем сбор монет сразу после получения данных
+      setIsClaiming(true);
     };
 
-    fetchData(); // Вызываем функцию загрузки данных при монтировании компонента
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -182,7 +181,6 @@ const Home: React.FC = () => {
 
       let currentCoins = 0;
 
-      // Проверяем, если есть предыдущее время начала сбора монет
       if (lastCollectionStartTime) {
         const elapsedTimeSinceLastCollection = Date.now() - lastCollectionStartTime;
         currentCoins = (coinsPerMillisecond * elapsedTimeSinceLastCollection) + currentCoins;
@@ -194,15 +192,13 @@ const Home: React.FC = () => {
           clearInterval(interval);
           setIsClaiming(false);
           setCurrentCoins(totalCoinsToCollect);
-          setLastCollectionStartTime(null); // Сбрасываем время начала сбора монет
+          setLastCollectionStartTime(null);
         } else {
-          // Увеличиваем текущее количество монет на coinsPerMillisecond за каждую миллисекунду
           currentCoins += coinsPerMillisecond;
           setCurrentCoins(currentCoins);
         }
-      }, 1); // Уменьшаем интервал до 1 миллисекунды, чтобы обновления происходили чаще
+      }, 1);
 
-      // Сохраняем текущее время в качестве времени начала сбора монет
       setLastCollectionStartTime(Date.now());
 
       return () => clearInterval(interval);
