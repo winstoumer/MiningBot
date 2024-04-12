@@ -157,11 +157,6 @@ const Home: React.FC = () => {
   }, [userData]);
 
 useEffect(() => {
-    // Your existing code here...
-  }, [nextCollectionTime, totalCoinsToCollect, isClaiming]);
-
-  useEffect(() => {
-    // Initialize currentCoins and start the countdown when the component mounts
     if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
       const collectionEndTime = new Date(nextCollectionTime).getTime();
       const collectionDuration = collectionEndTime - Date.now();
@@ -183,6 +178,19 @@ useEffect(() => {
 
       return () => clearInterval(interval);
     }
+  }, [nextCollectionTime, totalCoinsToCollect, isClaiming]);
+
+  // Инициализация при монтировании компонента
+  useEffect(() => {
+    // Ваш код для инициализации, если нужно
+    // Здесь вы можете установить начальные значения nextCollectionTime, totalCoinsToCollect и isClaiming
+    setNextCollectionTime(/* ваше начальное значение для времени следующей коллекции */);
+    setTotalCoinsToCollect(/* ваше начальное значение для общего количества монет для сбора */);
+    setIsClaiming(/* ваше начальное значение для состояния сбора монет */);
+
+    // Начать счет монет без ожидания нажатия кнопки
+    setCurrentCoins(/* ваше начальное значение для текущего количества монет */);
+
   }, []);
     
   const fetchCoins = async (userId: string) => {
