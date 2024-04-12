@@ -162,7 +162,7 @@ const Home: React.FC = () => {
       const collectionDuration = collectionEndTime - Date.now(); // Продолжительность времени до следующего сбора в миллисекундах
       const coinsPerMillisecond = totalCoinsToCollect / collectionDuration; // Количество монет, которые надо собрать за каждую миллисекунду
 
-      // Устанавливаем интервал, который будет обновлять количество собранных монет
+      // Устанавливаем интервал, который будет обновлять количество собранных монет и текущий счетчик монет
       const interval = setInterval(() => {
         const elapsedTime = collectionEndTime - Date.now(); // Прошедшее время до следующего сбора
         if (elapsedTime <= 0) {
@@ -170,10 +170,12 @@ const Home: React.FC = () => {
           clearInterval(interval);
           setIsClaiming(false);
           setCoinsCollected(0);
+          setCurrentCoins(totalCoinsToCollect);
         } else {
           // В противном случае, вычисляем текущее количество собранных монет
           const collected = totalCoinsToCollect - Math.ceil(elapsedTime * coinsPerMillisecond);
           setCoinsCollected(collected < 0 ? 0 : collected); // Убеждаемся, что количество монет не станет отрицательным
+          setCurrentCoins(collected); // Устанавливаем текущее количество монет
         }
       }, 1000);
 
@@ -182,6 +184,7 @@ const Home: React.FC = () => {
     } else {
       setIsClaiming(false); // Если время до следующего сбора некорректно, останавливаем сбор монет
       setCoinsCollected(0); // Сбрасываем счетчик собранных монет
+      setCurrentCoins(totalCoinsToCollect); // Устанавливаем текущее количество монет
     }
   }
 }, [nextCollectionTime, totalCoinsToCollect, isClaiming]);
