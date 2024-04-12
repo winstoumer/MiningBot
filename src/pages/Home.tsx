@@ -292,49 +292,6 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
     }
   };
 
-    const [coinsCollectNow, setCoinsCollectNow] = useState<number>(0);
-
-   useEffect(() => {
-    const fetchData = async () => {
-      if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
-        try {
-          // Ваши запросы на сервер для получения данных о времени, собранных монетах и общем количестве монет для сбора
-          // (Оставлены для простоты, так как это уже было реализовано)
-
-          // Вычисление начального времени, текущего времени и конечного времени сбора
-          const currentTime = Date.now();
-          const collectionEndTime = new Date(nextCollectionTime).getTime();
-          const collectionDuration = collectionEndTime - currentTime;
-          
-          // Если время до следующей коллекции еще не началось, устанавливаем начальное количество монет
-          if (collectionDuration > 0) {
-            setCoinsCollectNow(0);
-          }
-
-          const coinsPerMillisecond = totalCoinsToCollect / collectionDuration;
-
-          // Создаем интервал для увеличения количества монет каждую миллисекунду
-          const interval = setInterval(() => {
-            const elapsedTime = Date.now() - currentTime;
-            const coinsCollectNow = coinsPerMillisecond * elapsedTime;
-            setCoinsCollectNow(coinsCollectNow);
-
-            // Если время до конца сбора истекло, очищаем интервал
-            if (elapsedTime >= collectionDuration) {
-              clearInterval(interval);
-            }
-          }, 1);
-
-        } catch (error) {
-          console.error('Ошибка при получении данных:', error);
-        }
-      }
-    };
-
-    fetchData();
-  }, [nextCollectionTime, totalCoinsToCollect, isClaiming]);
-
-
   const calculateCoinsCollectNow = () => {
     if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
       const currentTime = new Date().getTime();
@@ -372,7 +329,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
       <div className="general-token">
         <div className="set-mining">
           <div className="token-title">
-            Mining <span id="coins">{currentCoins.toFixed(4)} coins {coinsCollectNow.toFixed(4)}</span>
+            Mining <span id="coins">{currentCoins.toFixed(4)} coins</span>
           </div>
           <div className="token">
             <span id="counter">{hoursLeft > 0 || minutesLeft > 0 || secondsLeft > 0 ? `${hoursLeft} h ${minutesLeft} m ${secondsLeft} s` : '0h 0m 0s'}</span>
