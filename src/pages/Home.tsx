@@ -191,16 +191,16 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
   const [minutesLeft, setMinutesLeft] = useState<number>(0);
   // Вычисление времени до следующей коллекции при монтировании компонента
   useEffect(() => {
-  if (nextCollectionTime) {
-    const currentTime = new Date().getTime();
-    const collectionEndTime = new Date(nextCollectionTime).getTime();
-    const timeLeftMilliseconds = collectionEndTime - currentTime;
-    const timeLeftHours = Math.max(0, Math.floor(timeLeftMilliseconds / (1000 * 60 * 60)));
-    const timeLeftMinutes = Math.max(0, Math.floor((timeLeftMilliseconds % (1000 * 60 * 60)) / (1000 * 60)));
-    setHoursLeft(timeLeftHours);
-    setMinutesLeft(timeLeftMinutes);
-  }
-}, [nextCollectionTime]);
+    if (nextCollectionTime) {
+      const currentTime = new Date().getTime();
+      const collectionEndTime = new Date(nextCollectionTime).getTime();
+      const timeLeftMilliseconds = collectionEndTime - currentTime;
+      const timeLeftHours = Math.floor(timeLeftMilliseconds / (1000 * 60 * 60));
+      const timeLeftMinutes = Math.floor((timeLeftMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+      setHoursLeft(timeLeftHours);
+      setMinutesLeft(timeLeftMinutes);
+    }
+  }, [nextCollectionTime]);
 
     
   const fetchCoins = async (userId: string) => {
