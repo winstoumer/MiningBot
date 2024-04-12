@@ -282,7 +282,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
       <div className="content-machine">
         <div>
           <span>Счетчик: {coinsCollected}</span>
-          <span>Осталось монет: {remainingCoins}</span>
+          <span>Осталось: {remainingCoins}</span>
           <button onClick={claimCoins}>Claim</button>
           <span>Счетчик: {currentCoins.toFixed(8)}</span>
           {nextCollectionTime && totalCoinsToCollect > 0 && !isClaiming && (
