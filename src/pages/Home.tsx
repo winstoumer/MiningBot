@@ -156,31 +156,58 @@ const Home: React.FC = () => {
     fetchData();
   }, [userData]);
 
-    useEffect(() => {
-  if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
-    const collectionEndTime = new Date(nextCollectionTime).getTime();
-    const collectionDuration = collectionEndTime - Date.now();
-    const coinsPerMillisecond = totalCoinsToCollect / collectionDuration;
+    const [lastCollectionStartTime, setLastCollectionStartTime] = useState<number | null>(null);
 
-    let currentCoins = 0;
+  useEffect(() => {
+    // Логика для получения времени следующего сбора монет и общего количества монет для сбора
+    const fetchData = async () => {
+      // Здесь ваш код для получения данных из базы данных или другого источника данных
+      const nextTime = await fetchNextCollectionTime(); // Ваша функция для получения времени следующего сбора
+      const totalCoins = await fetchTotalCoinsToCollect(); // Ваша функция для получения общего количества монет для сбора
 
-    const interval = setInterval(() => {
-      const elapsedTime = collectionEndTime - Date.now();
-      if (elapsedTime <= 0) {
-        clearInterval(interval);
-        setIsClaiming(false);
-        setCurrentCoins(totalCoinsToCollect);
-      } else {
-        // Увеличиваем текущее количество монет на coinsPerMillisecond за каждую миллисекунду
-        currentCoins += coinsPerMillisecond;
-        setCurrentCoins(currentCoins);
+      setNextCollectionTime(nextTime);
+      setTotalCoinsToCollect(totalCoins);
+      setIsClaiming(true); // Начинаем сбор монет сразу после получения данных
+    };
+
+    fetchData(); // Вызываем функцию загрузки данных при монтировании компонента
+  }, []);
+
+  useEffect(() => {
+    if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
+      const collectionEndTime = new Date(nextCollectionTime).getTime();
+      const collectionDuration = collectionEndTime - Date.now();
+      const coinsPerMillisecond = totalCoinsToCollect / collectionDuration;
+
+      let currentCoins = 0;
+
+      // Проверяем, если есть предыдущее время начала сбора монет
+      if (lastCollectionStartTime) {
+        const elapsedTimeSinceLastCollection = Date.now() - lastCollectionStartTime;
+        currentCoins = (coinsPerMillisecond * elapsedTimeSinceLastCollection) + currentCoins;
       }
-    }, 1); // Уменьшаем интервал до 1 миллисекунды, чтобы обновления происходили чаще
 
-    return () => clearInterval(interval);
-  }
-}, [nextCollectionTime, totalCoinsToCollect, isClaiming]);
-    
+      const interval = setInterval(() => {
+        const elapsedTime = collectionEndTime - Date.now();
+        if (elapsedTime <= 0) {
+          clearInterval(interval);
+          setIsClaiming(false);
+          setCurrentCoins(totalCoinsToCollect);
+          setLastCollectionStartTime(null); // Сбрасываем время начала сбора монет
+        } else {
+          // Увеличиваем текущее количество монет на coinsPerMillisecond за каждую миллисекунду
+          currentCoins += coinsPerMillisecond;
+          setCurrentCoins(currentCoins);
+        }
+      }, 1); // Уменьшаем интервал до 1 миллисекунды, чтобы обновления происходили чаще
+
+      // Сохраняем текущее время в качестве времени начала сбора монет
+      setLastCollectionStartTime(Date.now());
+
+      return () => clearInterval(interval);
+    }
+  }, [nextCollectionTime, totalCoinsToCollect, isClaiming, lastCollectionStartTime]);
+
   const fetchCoins = async (userId: string) => {
     try {
       const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`);
