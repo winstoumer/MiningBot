@@ -156,31 +156,45 @@ const Home: React.FC = () => {
     fetchData();
   }, [userData]);
 
-    const startClaiming = () => {
-    setIsClaiming(true);
-    if (nextCollectionTime && totalCoinsToCollect > 0) {
-      const collectionEndTime = nextCollectionTime.getTime();
-      const collectionDuration = collectionEndTime - Date.now();
-      const coinsPerMillisecond = totalCoinsToCollect / collectionDuration;
+    useEffect(() => {
+  if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
+    const collectionEndTime = nextCollectionTime.getTime(); // Время следующего сбора в миллисекундах
+    const collectionDuration = collectionEndTime - Date.now(); // Время до следующего сбора в миллисекундах
+    const coinsPerMillisecond = totalCoinsToCollect / collectionDuration; // Количество монет, которые надо собрать за каждую миллисекунду
 
-      const interval = setInterval(() => {
-        const elapsedTime = collectionEndTime - Date.now();
-        if (elapsedTime <= 0) {
-          clearInterval(interval);
-          setIsClaiming(false);
-          setCoinsCollected(0);
-        } else {
-          const collected = totalCoinsToCollect - Math.ceil(elapsedTime * coinsPerMillisecond);
-          setCurrentCoins(collected < 0 ? 0 : collected);
-        }
-      }, 1000);
-    } else {
-      setIsClaiming(false);
-    }
-  };
+    let currentCoins = 0;
+
+    const interval = setInterval(() => {
+      const elapsedTime = collectionEndTime - Date.now(); // Прошедшее время до следующего сбора
+      if (elapsedTime <= 0) {
+        clearInterval(interval);
+        setIsClaiming(false);
+        setCurrentCoins(totalCoinsToCollect);
+      } else {
+        // Увеличиваем текущее количество монет на coinsPerMillisecond за каждую миллисекунду
+        currentCoins += coinsPerMillisecond;
+        setCurrentCoins(currentCoins);
+      }
+    }, 1); // Уменьшаем интервал до 1 миллисекунды, чтобы обновления происходили чаще
+
+    return () => clearInterval(interval);
+  }
+}, [nextCollectionTime, totalCoinsToCollect, isClaiming]);
+
 
   useEffect(() => {
-    startClaiming();
+    // Логика для получения времени следующего сбора монет и общего количества монет для сбора
+    const fetchData = async () => {
+      // Здесь ваш код для получения данных из базы данных или другого источника данных
+      const nextTime = await fetchNextCollectionTime(); // Ваша функция для получения времени следующего сбора
+      const totalCoins = await fetchTotalCoinsToCollect(); // Ваша функция для получения общего количества монет для сбора
+
+      setNextCollectionTime(nextTime);
+      setTotalCoinsToCollect(totalCoins);
+      setIsClaiming(true); // Начинаем сбор монет сразу после получения данных
+    };
+
+    fetchData(); // Вызываем функцию загрузки данных при монтировании компонента
   }, []);
     
   const fetchCoins = async (userId: string) => {
