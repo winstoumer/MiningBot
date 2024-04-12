@@ -167,18 +167,21 @@ useEffect(() => {
     const coinsPerMillisecond = totalCoinsToCollect / collectionDuration;
 
     let currentCoins = 0;
+    let lastTimestamp = Date.now();
 
     const interval = setInterval(() => {
-      const elapsedTime = collectionEndTime - Date.now();
-      if (elapsedTime <= 0) {
+      const currentTime = Date.now();
+      const elapsedTime = currentTime - lastTimestamp;
+
+      currentCoins += elapsedTime * coinsPerMillisecond; // Добавляем монеты, учитывая прошедшее время
+      lastTimestamp = currentTime;
+
+      setCurrentCoins(currentCoins);
+
+      if (currentTime >= collectionEndTime) {
         clearInterval(interval);
         setIsClaiming(false);
         setCurrentCoins(totalCoinsToCollect);
-      } else {
-        // Вычисляем количество монет, которое нужно добавить за каждую миллисекунду
-        const coinsToAdd = coinsPerMillisecond * 1; // добавляем монеты за каждую миллисекунду
-        currentCoins += coinsToAdd;
-        setCurrentCoins(currentCoins);
       }
     }, 1); // Обновляем каждую миллисекунду
 
