@@ -159,7 +159,7 @@ const Home: React.FC = () => {
   if (nextCollectionTime && remainingCoins > 0 && isClaiming) {
     const collectionEndTime = new Date(nextCollectionTime).getTime();
     const collectionDuration = collectionEndTime - Date.now();
-    const coinsPerMillisecond = remainingCoins / collectionDuration;
+    const coinsPerMillisecond = (remainingCoins - startCoins) / collectionDuration;
 
     const interval = setInterval(() => {
       const elapsedTime = collectionEndTime - Date.now();
@@ -169,9 +169,9 @@ const Home: React.FC = () => {
         setRemainingCoins(0);
         setCurrentCoins(totalCoinsToCollect);
       } else {
-        const remaining = remainingCoins - Math.ceil(elapsedTime * coinsPerMillisecond);
-        setRemainingCoins(remaining < 0 ? 0 : remaining);
-        setCurrentCoins(totalCoinsToCollect - remaining);
+        const collected = startCoins + Math.ceil(elapsedTime * coinsPerMillisecond);
+        setCurrentCoins(collected > remainingCoins ? remainingCoins : collected);
+        setRemainingCoins(remainingCoins - (collected - startCoins));
       }
     }, 1000);
 
