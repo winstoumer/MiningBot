@@ -190,7 +190,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
     
   const [minutesLeft, setMinutesLeft] = useState<number>(0);
     const [secondsLeft, setSecondsLeft] = useState<number>(0);
-  // Вычисление времени до следующей коллекции при монтировании компонента.
+  // Вычисление времени до следующей коллекции при монтировании компонента
   useEffect(() => {
   const updateCountdown = () => {
     if (nextCollectionTime) {
