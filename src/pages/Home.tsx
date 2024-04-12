@@ -292,6 +292,61 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
     }
   };
 
+   useEffect(() => {
+  const fetchData = async () => {
+    if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
+      try {
+        const nextCollectionResponse = await fetch(`https://advisory-brandi-webapp.koyeb.app/nextCollectionTime/${userData.id}`);
+        const nextCollectionData = await nextCollectionResponse.json();
+        
+        const coinsCollectedResponse = await fetch(`https://advisory-brandi-webapp.koyeb.app/coinsCollected/${userData.id}`);
+        const coinsCollectedData = await coinsCollectedResponse.json();
+        
+        const totalCoinsToCollectResponse = await fetch(`https://advisory-brandi-webapp.koyeb.app/totalCoinsToCollect/${userData.id}`);
+        const totalCoinsToCollectData = await totalCoinsToCollectResponse.json();
+        
+        const nextCollectionTimeUTC = new Date(nextCollectionData.next_collection_time);
+        nextCollectionTimeUTC.setHours(nextCollectionTimeUTC.getHours() + nextCollectionData.time_mined);
+
+        if (nextCollectionData.next_collection_time) {
+          setNextCollectionTime(nextCollectionTimeUTC.toISOString());
+        }
+
+        if (nextCollectionData.time_mined) {
+          setTimeMined(nextCollectionData.time_mined);
+        }
+
+        setCoinsCollected(coinsCollectedData.coinsCollected);
+        setTotalCoinsToCollect(totalCoinsToCollectData.totalCoinsToCollect);
+      } catch (error) {
+        console.error('Ошибка при получении данных:', error);
+      }
+    }
+  };
+
+  const calculateCoinsCollectNow = () => {
+    if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
+      const currentTime = new Date().getTime();
+      const collectionEndTime = new Date(nextCollectionTime).getTime();
+      const collectionDuration = collectionEndTime - currentTime;
+      const coinsPerMillisecond = totalCoinsToCollect / collectionDuration;
+
+      const elapsedTime = collectionEndTime - currentTime;
+      const coinsCollectNow = coinsPerMillisecond * elapsedTime;
+      setCoinsCollectNow(coinsCollectNow);
+    }
+  };
+
+  fetchData();
+
+  const interval = setInterval(() => {
+    calculateCoinsCollectNow();
+  }, 1000);
+
+  return () => clearInterval(interval);
+}, [nextCollectionTime, totalCoinsToCollect, isClaiming, userData]);
+ 
+
   return (
     <div className="content">
       <div className="balance">
@@ -306,7 +361,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
       <div className="general-token">
         <div className="set-mining">
           <div className="token-title">
-            Mining <span id="coins">{currentCoins.toFixed(4)} coins {totalCoinsToCollect}</span>
+            Mining <span id="coins">{currentCoins.toFixed(4)} coins {coinsCollectNow.toFixed(4)}</span>
           </div>
           <div className="token">
             <span id="counter">{hoursLeft > 0 || minutesLeft > 0 || secondsLeft > 0 ? `${hoursLeft} h ${minutesLeft} m ${secondsLeft} s` : '0h 0m 0s'}</span>
