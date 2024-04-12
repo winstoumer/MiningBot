@@ -175,12 +175,12 @@ useEffect(() => {
         setIsClaiming(false);
         setCurrentCoins(totalCoinsToCollect);
       } else {
-        // Увеличиваем текущее количество монет на coinsPerMillisecond за каждую миллисекунду
-        const coinsToAdd = coinsPerMillisecond * 1000; // Вычисляем количество монет, которые нужно добавить
+        // Вычисляем количество монет, которые нужно добавить за текущую миллисекунду
+        const coinsToAdd = coinsPerMillisecond;
         currentCoins += coinsToAdd;
         setCurrentCoins(currentCoins);
       }
-    }, 1000); // Обновляем каждую секунду (1000 миллисекунд)
+    }, 1); // Обновляем каждую миллисекунду
 
     return () => clearInterval(interval);
   }
