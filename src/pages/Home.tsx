@@ -195,7 +195,8 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
       setHoursLeft(timeLeftHours);
       setMinutesLeft(timeLeftMinutes);
     }
-  }, [nextCollectionTime]);   
+  }, [nextCollectionTime]);
+
     
   const fetchCoins = async (userId: string) => {
     try {
@@ -280,10 +281,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
       </div>
       <div className="content-machine">
         <div>
-          <p>Время сбора монет: {nextCollectionTime}///{totalCoinsToCollect}</p>
           <span>Счетчик: {coinsCollected}</span>
-
-            <div>Осталось времени до следующей добычи: {hoursLeft} часов {minutesLeft} минут</div>
           <span>Осталось монет: {remainingCoins}</span>
           <button onClick={claimCoins}>Claim</button>
           <span>Счетчик: {currentCoins.toFixed(8)}</span>
@@ -302,7 +300,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
             Mining
           </div>
           <div className="token">
-            <span id="counter">{count.toFixed(3)}</span>
+            <span id="counter">{hoursLeft} h {minutesLeft} min</span>
           </div>
           <div className="info-mine-count">({minerInfo.coin_mined} coin per {minerInfo.time_mined} m.)</div>
         </div>
