@@ -100,7 +100,7 @@ const Home: React.FC = () => {
       }
       const data = await response.json();
       const nextCollectionTimeUTC = new Date(data.next_collection_time);
-      nextCollectionTimeUTC.setHours(nextCollectionTimeUTC.getHours() + 1);
+      nextCollectionTimeUTC.setHours(nextCollectionTimeUTC.getHours() + 2);
       if (data.next_collection_time) {
         setNextCollectionTime(nextCollectionTimeUTC.toISOString());
       }
@@ -184,6 +184,7 @@ useEffect(() => {
 
 
 const [hoursLeft, setHoursLeft] = useState<number>(0);
+    
   const [minutesLeft, setMinutesLeft] = useState<number>(0);
   // Вычисление времени до следующей коллекции при монтировании компонента
   useEffect(() => {
