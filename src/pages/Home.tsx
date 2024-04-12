@@ -295,9 +295,9 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
             Mining
           </div>
           <div className="token">
-            <span id="counter">{hoursLeft} h {minutesLeft} min</span>
+            <span id="counter">{hoursLeft} h {minutesLeft} m</span>
           </div>
-          <div className="info-mine-count">({minerInfo.coin_mined} coin per {minerInfo.time_mined} m.)</div>
+          <div className="info-mine-count">{minerInfo.coin_mined} coin per {minerInfo.time_mined} h</div>
         </div>
         <div className="set-mining">
           <div className="token-title">Level</div>
