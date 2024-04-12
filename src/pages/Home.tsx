@@ -161,6 +161,8 @@ const Home: React.FC = () => {
   }, [userData]);
 
 useEffect(() => {
+  console.log("useEffect triggered");
+  
   if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
     const collectionEndTime = new Date(nextCollectionTime).getTime();
     const collectionDuration = collectionEndTime - Date.now();
