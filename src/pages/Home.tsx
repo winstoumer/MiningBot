@@ -156,6 +156,11 @@ const Home: React.FC = () => {
     fetchData();
   }, [userData]);
 
+    useEffect(() => {
+  startClaiming();
+}, []);
+
+
   useEffect(() => {
   if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
     const collectionEndTime = new Date(nextCollectionTime).getTime();
