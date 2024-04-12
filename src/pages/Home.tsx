@@ -191,6 +191,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
   const [minutesLeft, setMinutesLeft] = useState<number>(0);
   // Вычисление времени до следующей коллекции при монтировании компонента
   useEffect(() => {
+  const interval = setInterval(() => {
     if (nextCollectionTime) {
       const currentTime = new Date().getTime();
       const collectionEndTime = new Date(nextCollectionTime).getTime();
@@ -200,7 +201,10 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
       setHoursLeft(timeLeftHours);
       setMinutesLeft(timeLeftMinutes);
     }
-  }, [nextCollectionTime]);
+  }, 60000); // Обновляем каждую минуту (60000 миллисекунд)
+  
+  return () => clearInterval(interval);
+}, [nextCollectionTime]);
 
     
   const fetchCoins = async (userId: string) => {
