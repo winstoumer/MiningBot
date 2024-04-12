@@ -281,16 +281,6 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
         <div className="total-balance">{coins.toFixed(2)}</div>
       </div>
       <div className="content-machine">
-        <div>
-          <span>Счетчик: {coinsCollected}</span>
-          <span>Осталось: {remainingCoins}</span>
-          <button onClick={claimCoins}>Claim</button>
-          <span>Счетчик: {currentCoins.toFixed(8)}</span>
-          {nextCollectionTime && totalCoinsToCollect > 0 && !isClaiming && (
-        <button onClick={() => setIsClaiming(true)}>Claim</button>
-      )}
-           
-        </div>
         <div className="watch-machine">
           <img src={minerInfo.miner_image_url} className="img-comp" alt="watch-machine" />
         </div>
