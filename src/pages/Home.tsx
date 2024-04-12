@@ -20,7 +20,7 @@ const fetchMiner = async (userId: string, setMinerInfo: React.Dispatch<any>) => 
 
 const Home: React.FC = () => {
   const [userData, setUserData] = useState<any>(null);
-    const [timeMined, setTimeMined] = useState<any>(initialValue);
+    const [timeMined, setTimeMined] = useState<number>(0);
   const [coins, setCoins] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
   const [minerInfo, setMinerInfo] = useState<any>({});
