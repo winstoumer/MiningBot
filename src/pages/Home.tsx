@@ -234,7 +234,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
     }
   };
 
-  const saveCoins = async (newCoins: number) => {
+  const saveCoinsLast = async (newCoins: number) => {
     try {
       const userId = userData?.id;
       if (userId) {
@@ -256,6 +256,42 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
       console.error('Ошибка при сохранении монет:', error);
     }
   };
+
+    const saveCoins = async (coinsMined: number) => {
+  try {
+    const userId = userData?.id;
+    if (userId) {
+      // Получаем текущее значение баланса пользователя
+      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`);
+      if (!response.ok) {
+        throw new Error('Error fetching current coins');
+      }
+      const data = await response.json();
+      const currentCoins = parseFloat(data.coins);
+
+      // Вычисляем новое значение баланса, добавляя coinsMined к текущему балансу
+      const newCoins = currentCoins + coinsMined;
+
+      // Обновляем баланс пользователя в базе данных
+      const updateResponse = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ coins: newCoins }),
+      });
+
+      if (!updateResponse.ok) {
+        console.error('Не удалось обновить баланс монет:', updateResponse.statusText);
+      }
+    } else {
+      console.error('ID пользователя не определен.');
+    }
+  } catch (error) {
+    console.error('Ошибка при сохранении монет:', error);
+  }
+};
+
 
   const saveCollecting = async (collecting: number) => {
     try {
