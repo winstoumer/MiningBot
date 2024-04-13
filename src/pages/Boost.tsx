@@ -64,7 +64,7 @@ const Boost: React.FC = () => {
                       <span className="boost-level">2 level</span>
                   </div>
                   <div className="boost-mined">120 in 2 hours</div>
-                  <div className="boost-price">200 clo</div>
+                  <div className="boost-price">200 C</div>
               </div>
           </div>
           <div className="boost-action">
