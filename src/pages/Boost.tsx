@@ -71,6 +71,34 @@ const Boost: React.FC = () => {
               <button type="button" className="boost-upgrade">Upgrade</button>
           </div>
       </div>
+      <div className="line-upgrade boost-closed">
+      </div>
+      <div className="boost-item boost-closed">
+              <div className="boost-watch">
+                  <img src="https://i.ibb.co/HtJ3B0G/Designer-46.jpg" className="boost-image" />
+              </div>
+              <div className="boost-info">
+                  <div className="boost-name">
+                      <span className="boost-level">2 level</span>
+                  </div>
+                  <div className="boost-mined">120 in 2 hours</div>
+                  <div className="boost-price">200 C</div>
+              </div>
+          </div>
+          <div className="line-upgrade boost-closed">
+      </div>
+      <div className="boost-item boost-closed">
+              <div className="boost-watch">
+                  <img src="https://i.ibb.co/HtJ3B0G/Designer-46.jpg" className="boost-image" />
+              </div>
+              <div className="boost-info">
+                  <div className="boost-name">
+                      <span className="boost-level">2 level</span>
+                  </div>
+                  <div className="boost-mined">120 in 2 hours</div>
+                  <div className="boost-price">200 C</div>
+              </div>
+          </div>
   </div>);
 };
 
