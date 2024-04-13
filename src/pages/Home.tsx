@@ -284,14 +284,22 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
 
   const claimCoins = () => {
     if (count >= 5 && userData) {
-      const newCoinAmount = coins + 5;
-      setCoins(newCoinAmount);
-      saveCoins(newCoinAmount);
+      //const newCoinAmount = coins + 5;
+      //setCoins(newCoinAmount);
+      //saveCoins(newCoinAmount);
       saveCollecting(5);
       setCount(0);
     }
   };
-  
+
+    const claimCoinsNow = () => {
+    if (userData) {
+      const newCoinAmount = coins + minerInfo.coin_mined;
+      setCoins(newCoinAmount);
+      saveCoins(newCoinAmount);
+      saveCollecting(minerInfo.coin_mined);
+    }
+  };
 
   return (
     <div className="content">
@@ -323,7 +331,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
         </div>
       </div>
       <div className="actions-mining">
-         <button className={`claim-coins-btn ${hoursLeft <= 0 && minutesLeft <= 0 ? '' : 'collecting-now'}`} onClick={claimCoins} >
+         <button className={`claim-coins-btn ${hoursLeft <= 0 && minutesLeft <= 0 ? '' : 'collecting-now'}`} onClick={claimCoinsNow} >
       {hoursLeft <= 0 && minutesLeft <= 0 ? 'Claim' : 'Collecting'}
     </button> 
       </div>
