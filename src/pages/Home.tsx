@@ -293,13 +293,14 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
   };
 
     const claimCoinsNow = () => {
-    if (userData) {
-      const newCoinAmount = coins + minerInfo.coin_mined;
-      setCoins(newCoinAmount);
-      saveCoins(newCoinAmount);
-      saveCollecting(minerInfo.coin_mined);
-    }
-  };
+  if (userData) {
+    const newCoinAmount = coins + minerInfo.coin_mined;
+    setCoins(newCoinAmount); // Устанавливаем новое общее количество монет
+    saveCoins(newCoinAmount); // Сохраняем новое общее количество монет в базе данных
+    saveCollecting(minerInfo.coin_mined); // Сохраняем количество монет, добытых во время последней коллекции
+  }
+};
+
 
   return (
     <div className="content">
