@@ -75,7 +75,7 @@ const Boost: React.FC = () => {
       </div>
       <div className="boost-item boost-closed">
               <div className="boost-watch">
-                  <img src="https://i.ibb.co/HtJ3B0G/Designer-46.jpg" className="boost-image" />
+                  <img src="https://i.ibb.co/r0tytRw/Designer-47.jpg" className="boost-image" />
               </div>
               <div className="boost-info">
                   <div className="boost-name">
