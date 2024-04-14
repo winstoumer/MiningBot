@@ -123,9 +123,6 @@ const Task: React.FC = () => {
         .catch((error) => console.error('Error copying link: ', error));
 };
 
-    const telegramGroupUrl = 'https://t.me/notcoin';
-    const instagramProfileUrl = 'https://www.instagram.com/winstoum/';
-
     const tabs: Tab[] = [
     { title: 'Earn', content: <div>
          <ul>
