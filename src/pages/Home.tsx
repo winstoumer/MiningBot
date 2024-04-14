@@ -349,12 +349,12 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
   };
 
     const claimCoinsNow = async () => {
-  if (userData) {
-      const result = parseFloat(minerInfo.coin_mined) + coins;
-    saveCoinsLast(result); // Сохраняем новое общее количество монет в базе данных
-    saveCollecting(minerInfo.coin_mined); // Сохраняем количество монет, добытых во время последней коллекции
-      fetchCoins(userData.id.toString());
-      setIsWaitingForCollectionTime(true); // Снова начинаем ждать времени следующей коллекции после нажатия кнопки
+  if (userData && minerInfo && minerInfo.coin_mined !== undefined) {
+    const result = parseFloat(minerInfo.coin_mined) + coins;
+    saveCoinsLast(result);
+    saveCollecting(minerInfo.coin_mined);
+    fetchCoins(userData.id.toString());
+    setIsWaitingForCollectionTime(true);
   }
 };
 
