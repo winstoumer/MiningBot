@@ -55,8 +55,9 @@ const Task: React.FC = () => {
     useEffect(() => {
     const fetchTasks = async () => {
       try {
+        if (!userData) return; // Добавляем проверку на userData
         const userId = userData.id.toString();
-        const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/tasks/${userId}`); // Замените 123456789 на реальный telegram_user_id
+        const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/tasks/${userId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch tasks');
         }
@@ -68,7 +69,7 @@ const Task: React.FC = () => {
     };
 
     fetchTasks();
-  }, []);
+  }, [userData]);
 
   const handleTaskCompletion = async (taskId: number, url: string) => {
     try {
