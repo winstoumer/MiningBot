@@ -55,7 +55,7 @@ const Task: React.FC = () => {
     useEffect(() => {
     const fetchTasks = async () => {
       try {
-        if (!userData) return; // Добавляем проверку на userData
+        if (!userData) return;
         const userId = userData.id.toString();
         const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/tasks/${userId}`);
         if (!response.ok) {
@@ -73,6 +73,7 @@ const Task: React.FC = () => {
 
   const handleTaskCompletion = async (taskId: number, url: string) => {
     try {
+      if (!userData) return;
       const userId = userData.id.toString();
       const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/completed_tasks`, {
         method: 'POST',
@@ -89,7 +90,7 @@ const Task: React.FC = () => {
           task.id === taskId ? { ...task, completed: true } : task
         )
       );
-        window.location.href = url; // Перенаправление на URL задания
+      window.location.href = url;
     } catch (error) {
       console.error('Error completing task:', error);
     }
