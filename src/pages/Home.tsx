@@ -95,7 +95,7 @@ const Home: React.FC = () => {
     return () => clearInterval(counterInterval);
   }, [count]);
 
-  const fetchNextCollectionTime = async (telegramUserId: string, setTimeMined: React.Dispatch<any>) => {
+  const fetchNextCollectionTime = async (telegramUserId: string, setNextCollectionTime: React.Dispatch<any>) => {
   try {
     const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/nextCollectionTime/${telegramUserId}`);
     if (!response.ok) {
