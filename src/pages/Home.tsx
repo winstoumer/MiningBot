@@ -35,6 +35,13 @@ const Home: React.FC = () => {
   const [isClaiming, setIsClaiming] = useState<boolean>(false); // Флаг, указывающий, идет ли сбор монет в данный момент
     const [startCoins, setStartCoins] = useState<number>(0.00000000); // Начальное значение для счетчика монет
 
+    useEffect(() => {
+        const storedNextCollectionTime = localStorage.getItem('nextCollectionTime');
+        if (storedNextCollectionTime) {
+            setNextCollectionTime(storedNextCollectionTime);
+        }
+    }, []);
+
   useEffect(() => {
     const loadScript = () => {
       const script = document.createElement('script');
