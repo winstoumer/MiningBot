@@ -141,7 +141,7 @@ const Task: React.FC = () => {
       </ul>
       <div className="task-list">
           {tasks.map(task => (
-        <a key={task.id} onClick={() => handleTaskClick(task.id)} style={{ cursor: 'pointer', opacity: task.completed ? 0.5 : 1 }} className="task-name" target="_blank" rel="noopener noreferrer">
+        <a key={task.id} onClick={() => handleTaskClick(task.id)} style={{ cursor: 'pointer', opacity: task.completed ? 0.5 : 1 }} className="task-name>
       <div className="task">
           <div className="task-watch-image">
               <img src={task.icon_url} className="task-img" />
