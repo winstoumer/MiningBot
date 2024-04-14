@@ -22,6 +22,7 @@ interface Task {
   coin_reward: number;
   url: string;
   completed: boolean;
+  icon_url: string;
 }
 
 const Tabs: React.FC<{ tabs: Tab[] }> = ({ tabs }) => {
@@ -85,6 +86,7 @@ const Task: React.FC = () => {
           task.id === taskId ? { ...task, completed: true } : task
         )
       );
+        window.location.href = url; // Перенаправление на URL задания
     } catch (error) {
       console.error('Error completing task:', error);
     }
@@ -128,60 +130,37 @@ const Task: React.FC = () => {
     { title: 'Earn', content: <div>
          <ul>
         {tasks.map(task => (
-          <li key={task.id}>
-            <div style={{ opacity: task.completed ? 0.5 : 1 }}>
+          <li key={task.id} onClick={() => handleTaskClick(task.id)} style={{ cursor: 'pointer', opacity: task.completed ? 0.5 : 1 }}>
+            <div>
               <h2>{task.name}</h2>
               <p>Награда: {task.coin_reward} монет</p>
               {task.completed ? (
                 <p>Задание выполнено</p>
-              ) : (
-                <button onClick={() => handleTaskCompletion(task.id)}>Выполнить задание</button>
-              )}
+              ) : null}
               <a href={task.url} target="_blank" rel="noopener noreferrer">Подробнее</a>
             </div>
           </li>
         ))}
       </ul>
       <div className="task-list">
-          <a href={telegramGroupUrl} className="task-name" target="_blank" rel="noopener noreferrer">
+          {tasks.map(task => (
+        <a key={task.id} onClick={() => handleTaskClick(task.id)} style={{ cursor: 'pointer', opacity: task.completed ? 0.5 : 1 }} className="task-name" target="_blank" rel="noopener noreferrer">
       <div className="task">
           <div className="task-watch-image">
-              <img src="https://i.ibb.co/R64qNrF/Designer-18.jpg" className="task-img" />
+              <img src={task.icon_url} className="task-img" />
           </div>
           <div className="task-info">
-              <div className="task-name">Follow Miner on Telegram</div>
-              <div className="task-rewards">
-                  +50 000
-              </div>
+              <div className="task-name">{task.name}</div>
+              {task.completed ? (
+                
+              ) : <div className="task-rewards">
+            {task.coin_reward}
+                  </div>
+              }
           </div>
       </div>
           </a>
-          <a href={instagramProfileUrl} className="task-name" target="_blank" rel="noopener noreferrer">
-      <div className="task">
-          <div className="task-watch-image">
-              <img src="https://i.ibb.co/30HfdZc/Designer-15.jpg" className="task-img" />
-          </div>
-          <div className="task-info">
-              <a href={instagramProfileUrl} className="task-name" target="_blank" rel="noopener noreferrer">Follow Miner on Instagram</a>
-              <div className="task-rewards">
-                  +50 000
-              </div>
-          </div>
-      </div>
-          </a>
-      <div className="task">
-          <div className="task-watch-image">
-              <img src="https://i.ibb.co/PDXJ0ST/Designer-12.jpg" className="task-img" />
-          </div>
-          <div className="task-info">
-              <div className="task-name">
-                 Follow Miner on X 
-              </div>
-              <div className="task-rewards">
-                  +50 000
-              </div>
-          </div>
-      </div>
+        ))}
   </div>
     </div> },
     { title: 'Referral', content: <div>
