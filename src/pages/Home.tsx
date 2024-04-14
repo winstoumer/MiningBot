@@ -338,18 +338,18 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
 
     const claimCoinsNow = async () => {
   if (userData) {
-      const result = parseFloat(minerInfo.coin_mined) + coins;
-    saveCoinsLast(result); // Сохраняем новое общее количество монет в базе данных
-    saveCollecting(minerInfo.coin_mined); // Сохраняем количество монет, добытых во время последней коллекции
-      fetchCoins(userData.id.toString());
+      try {
+          const result = parseFloat(minerInfo.coin_mined) + coins;
+    await saveCoinsLast(result); // Сохраняем новое общее количество монет в базе данных
+     await saveCollecting(minerInfo.coin_mined); // Сохраняем количество монет, добытых во время последней коллекции
+      await fetchCoins(userData.id.toString());
       await fetchNextCollectionTime(userData.id.toString(), setTimeMined);
+        }
+      catch (error) {
+                console.error('Error claiming coins:', error);
+            }
   }
 };
-
-useEffect(() => {
-        const userId = userData.id.toString();
-        fetchNextCollectionTime(userId, setTimeMined);
-    }, []); // вызываем при монтировании компонента, чтобы получить начальное время    
 
   return (
     <div className="content">
