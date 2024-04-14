@@ -53,8 +53,9 @@ const Task: React.FC = () => {
     const [userData, setUserData] = useState<TelegramUserData | null>(null);
 
     useEffect(() => {
-    const fetchTasks = async (userId: string) => {
+    const fetchTasks = async () => {
       try {
+        const userId = userData.id.toString();
         const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/tasks/${userId}`); // Замените 123456789 на реальный telegram_user_id
         if (!response.ok) {
           throw new Error('Failed to fetch tasks');
@@ -71,12 +72,13 @@ const Task: React.FC = () => {
 
   const handleTaskCompletion = async (taskId: number, url: string) => {
     try {
+      const userId = userData.id.toString();
       const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/completed_tasks`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ task_id: taskId, telegram_user_id: userData.id.toString() }),
+        body: JSON.stringify({ task_id: taskId, telegram_user_id: userId }),
       });
       if (!response.ok) {
         throw new Error('Failed to complete task');
@@ -114,12 +116,6 @@ const Task: React.FC = () => {
       setUserData(window.Telegram.WebApp.initDataUnsafe?.user);
     }
   }, []);
-
-    useEffect(() => {
-    if (userData && userData.id) {
-      fetchTasks(userData.id.toString());
-    }
-  }, [userData]);
 
      const handleCopyLink = () => {
     const userId = userData && userData.id ? userData.id : 'null';
