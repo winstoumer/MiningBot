@@ -63,7 +63,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     if (userData && userData.id) {
       fetchCoins(userData.id.toString());
-      fetchNextCollectionTime(userData.id.toString(), setTimeMined, setNextCollectionTime, setHoursLeft, setMinutesLeft, setSecondsLeft);
+      fetchNextCollectionTime(userData.id.toString(), setNextCollectionTime, setHoursLeft, setMinutesLeft, setSecondsLeft);
       fetchMiner(userData.id.toString(), setMinerInfo);
     }
   }, [userData]);
@@ -188,7 +188,7 @@ const Home: React.FC = () => {
     if (isWaitingForCollectionTime) {
         const userId = userData?.id.toString(); // Проверка на существование userData
         if (userId) {
-            fetchNextCollectionTime(userId, setTimeMined, setNextCollectionTime, setHoursLeft, setMinutesLeft, setSecondsLeft); // Запрашиваем время следующей коллекции, пока ждем
+            fetchNextCollectionTime(userId, setNextCollectionTime, setHoursLeft, setMinutesLeft, setSecondsLeft); // Запрашиваем время следующей коллекции, пока ждем
         } else {
             console.error('ID пользователя не определен.');
         }
