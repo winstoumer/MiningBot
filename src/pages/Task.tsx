@@ -146,7 +146,7 @@ const Task: React.FC = () => {
                     </div>
                   )}
                 </div>
-              </div>
+              </a>
             </div>
           ))}
         </div>
