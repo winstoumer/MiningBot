@@ -16,6 +16,14 @@ interface Tab {
   content: React.ReactNode;
 }
 
+interface Task {
+  id: number;
+  name: string;
+  coin_reward: number;
+  url: string;
+  completed: boolean;
+}
+
 const Tabs: React.FC<{ tabs: Tab[] }> = ({ tabs }) => {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -39,7 +47,48 @@ const Tabs: React.FC<{ tabs: Tab[] }> = ({ tabs }) => {
 
 const Task: React.FC = () => {
 
+    const [tasks, setTasks] = useState<Task[]>([]);
+
     const [userData, setUserData] = useState<TelegramUserData | null>(null);
+
+    useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await fetch('/api/tasks/123456789'); // Замените 123456789 на реальный telegram_user_id
+        if (!response.ok) {
+          throw new Error('Failed to fetch tasks');
+        }
+        const data = await response.json();
+        setTasks(data);
+      } catch (error) {
+        console.error('Error fetching tasks:', error);
+      }
+    };
+
+    fetchTasks();
+  }, []);
+
+  const handleTaskCompletion = async (taskId: number) => {
+    try {
+      const response = await fetch('/api/completed_tasks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ task_id: taskId, telegram_user_id: 123456789 }), // Замените 123456789 на реальный telegram_user_id
+      });
+      if (!response.ok) {
+        throw new Error('Failed to complete task');
+      }
+      setTasks(prevTasks =>
+        prevTasks.map(task =>
+          task.id === taskId ? { ...task, completed: true } : task
+        )
+      );
+    } catch (error) {
+      console.error('Error completing task:', error);
+    }
+  };
 
   useEffect(() => {
     const loadScript = () => {
@@ -77,6 +126,22 @@ const Task: React.FC = () => {
 
     const tabs: Tab[] = [
     { title: 'Earn', content: <div>
+         <ul>
+        {tasks.map(task => (
+          <li key={task.id}>
+            <div style={{ opacity: task.completed ? 0.5 : 1 }}>
+              <h2>{task.name}</h2>
+              <p>Награда: {task.coin_reward} монет</p>
+              {task.completed ? (
+                <p>Задание выполнено</p>
+              ) : (
+                <button onClick={() => handleTaskCompletion(task.id)}>Выполнить задание</button>
+              )}
+              <a href={task.url} target="_blank" rel="noopener noreferrer">Подробнее</a>
+            </div>
+          </li>
+        ))}
+      </ul>
       <div className="task-list">
           <a href={telegramGroupUrl} className="task-name" target="_blank" rel="noopener noreferrer">
       <div className="task">
