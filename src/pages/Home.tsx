@@ -28,12 +28,10 @@ const Home: React.FC = () => {
 
   const [totalCoinsToCollect, setTotalCoinsToCollect] = useState<number>(0);
   const [currentCoins, setCurrentCoins] = useState<number>(0);
-
-
-    const [isWaitingForCollectionTime, setIsWaitingForCollectionTime] = useState<boolean>(true);
+  
 
      
-  const [coinsCollected, setCoinsCollected] = useState<number>(0); // Количество уже собранных монет.
+  const [coinsCollected, setCoinsCollected] = useState<number>(0); // Количество уже собранных монет
   const [isClaiming, setIsClaiming] = useState<boolean>(false); // Флаг, указывающий, идет ли сбор монет в данный момент
     const [startCoins, setStartCoins] = useState<number>(0.00000000); // Начальное значение для счетчика монет
 
@@ -63,8 +61,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     if (userData && userData.id) {
       fetchCoins(userData.id.toString());
-      const userId = userData.id.toString();
-      fetchNextCollectionTime(userId, setNextCollectionTime, setHoursLeft, setMinutesLeft, setSecondsLeft);
+      fetchNextCollectionTime(userData.id.toString(), setTimeMined);
       fetchMiner(userData.id.toString(), setMinerInfo);
     }
   }, [userData]);
@@ -96,52 +93,27 @@ const Home: React.FC = () => {
     return () => clearInterval(counterInterval);
   }, [count]);
 
-  const fetchNextCollectionTime = async (
-    telegramUserId: string,
-    setNextCollectionTime: React.Dispatch<any>,
-    setHoursLeft: React.Dispatch<number>, // Add type for setHoursLeft
-    setMinutesLeft: React.Dispatch<number>, // Add type for setMinutesLeft
-    setSecondsLeft: React.Dispatch<number> // Add type for setSecondsLeft
-  ) => {
-    try {
-      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/nextCollectionTime/${telegramUserId}`);
-      if (!response.ok) {
-        throw new Error('Error fetching next collection time');
-      }
-      const data = await response.json();
-      const nextCollectionTimeUTC = new Date(data.next_collection_time);
-      nextCollectionTimeUTC.setHours(nextCollectionTimeUTC.getHours() + data.time_mined);
-
-      if (data.next_collection_time) {
-        setNextCollectionTime(nextCollectionTimeUTC.toISOString());
-        setIsWaitingForCollectionTime(false);
-
-        const currentTime = new Date().getTime();
-        const collectionEndTime = nextCollectionTimeUTC.getTime();
-        let timeLeftMilliseconds = collectionEndTime - currentTime;
-
-        if (timeLeftMilliseconds <= 0) {
-          setHoursLeft(0);
-          setMinutesLeft(0);
-          setSecondsLeft(0);
-          return;
-        }
-
-        const timeLeftHours = Math.floor(timeLeftMilliseconds / (1000 * 60 * 60));
-        const timeLeftMinutes = Math.floor((timeLeftMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
-        const timeLeftSeconds = Math.floor((timeLeftMilliseconds % (1000 * 60)) / 1000);
-        setHoursLeft(timeLeftHours);
-        setMinutesLeft(timeLeftMinutes);
-        setSecondsLeft(timeLeftSeconds);
-      }
-
-      if (data.time_mined) {
-        setTimeMined(data.time_mined);
-      }
-    } catch (error) {
-      console.error('Error fetching next collection time:', error);
+  const fetchNextCollectionTime = async (telegramUserId: string, setTimeMined: React.Dispatch<any>) => {
+  try {
+    const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/nextCollectionTime/${telegramUserId}`);
+    if (!response.ok) {
+      throw new Error('Error fetching next collection time');
     }
-  };
+    const data = await response.json();
+    const nextCollectionTimeUTC = new Date(data.next_collection_time);
+    nextCollectionTimeUTC.setHours(nextCollectionTimeUTC.getHours() + data.time_mined);
+
+    if (data.next_collection_time) {
+      setNextCollectionTime(nextCollectionTimeUTC.toISOString());
+    }
+
+    if (data.time_mined) {
+      setTimeMined(data.time_mined);
+    }
+  } catch (error) {
+    console.error('Ошибка при получении времени следующего сбора монет:', error);
+  }
+};
 
   const fetchCoinsCollected = async (telegramUserId: string) => {
     try {
@@ -188,17 +160,6 @@ const Home: React.FC = () => {
     fetchData();
   }, [userData]);
 
-    useEffect(() => {
-    if (isWaitingForCollectionTime) {
-        const userId = userData?.id.toString(); // Проверка на существование userData
-        if (userId) {
-            fetchNextCollectionTime(userId, setNextCollectionTime, setHoursLeft, setMinutesLeft, setSecondsLeft); // Запрашиваем время следующей коллекции, пока ждем
-        } else {
-            console.error('ID пользователя не определен.');
-        }
-    }
-}, [isWaitingForCollectionTime]);
-
 useEffect(() => {
   if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
     const collectionEndTime = new Date(nextCollectionTime).getTime();
@@ -239,25 +200,19 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
     if (nextCollectionTime) {
       const currentTime = new Date().getTime();
       const collectionEndTime = new Date(nextCollectionTime).getTime();
-      let timeLeftMilliseconds = collectionEndTime - currentTime;
-      
-      if (timeLeftMilliseconds <= 0) {
-        clearInterval(interval); // Останавливаем таймер, если время истекло
-        return; // Выходим из функции обновления таймера
-      }
-
+      const timeLeftMilliseconds = collectionEndTime - currentTime;
       const timeLeftHours = Math.floor(timeLeftMilliseconds / (1000 * 60 * 60));
       const timeLeftMinutes = Math.floor((timeLeftMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
-      const timeLeftSeconds = Math.floor((timeLeftMilliseconds % (1000 * 60)) / 1000);
+      const timeLeftSeconds = Math.floor((timeLeftMilliseconds % (1000 * 60)) / 1000); // Добавляем секунды
       setHoursLeft(timeLeftHours);
       setMinutesLeft(timeLeftMinutes);
-      setSecondsLeft(timeLeftSeconds);
+      setSecondsLeft(timeLeftSeconds); // Устанавливаем состояние для секунд
     }
   };
 
-  updateCountdown();
-  const interval = setInterval(updateCountdown, 1000);
-
+  updateCountdown(); // Вызываем сразу для инициализации
+  const interval = setInterval(updateCountdown, 1000); // Обновляем каждую секунду (1000 миллисекунд)
+  
   return () => clearInterval(interval);
 }, [nextCollectionTime]);
 
@@ -374,12 +329,11 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
   };
 
     const claimCoinsNow = async () => {
-  if (userData && minerInfo && minerInfo.coin_mined !== undefined) {
-    const result = parseFloat(minerInfo.coin_mined) + coins;
-    saveCoinsLast(result);
-    saveCollecting(minerInfo.coin_mined);
-    fetchCoins(userData.id.toString());
-    setIsWaitingForCollectionTime(true);
+  if (userData) {
+      const result = parseFloat(minerInfo.coin_mined) + coins;
+    saveCoinsLast(result); // Сохраняем новое общее количество монет в базе данных
+    saveCollecting(minerInfo.coin_mined); // Сохраняем количество монет, добытых во время последней коллекции
+      fetchCoins(userData.id.toString());
   }
 };
 
