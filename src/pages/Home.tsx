@@ -165,7 +165,7 @@ const Home: React.FC = () => {
 
     useEffect(() => {
     if (isWaitingForCollectionTime) {
-      fetchNextCollectionTime(); // Запрашиваем время следующей коллекции, пока ждем
+      fetchNextCollectionTime(userData.id.toString()); // Запрашиваем время следующей коллекции, пока ждем
     }
   }, [isWaitingForCollectionTime]);
 
