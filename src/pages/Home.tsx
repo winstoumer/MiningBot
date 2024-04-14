@@ -36,7 +36,6 @@ const Home: React.FC = () => {
     const [startCoins, setStartCoins] = useState<number>(0.00000000); // Начальное значение для счетчика монет
 
   useEffect(() => {
-    localStorage.removeItem('completedTasks');
     const loadScript = () => {
       const script = document.createElement('script');
       script.src = 'https://telegram.org/js/telegram-web-app.js';
