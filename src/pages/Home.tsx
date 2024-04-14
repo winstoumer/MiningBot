@@ -322,7 +322,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
     if (count >= 5 && userData) {
       //const newCoinAmount = coins + 5;
       //setCoins(newCoinAmount);
-      //saveCoins(newCoinAmount);
+      //saveCoins(newCoinAmount);.
       saveCollecting(5);
       setCount(0);
     }
