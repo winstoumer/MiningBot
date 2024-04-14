@@ -96,49 +96,52 @@ const Home: React.FC = () => {
     return () => clearInterval(counterInterval);
   }, [count]);
 
-  const fetchNextCollectionTime = async (telegramUserId, setNextCollectionTime, setHoursLeft, setMinutesLeft, setSecondsLeft) => {
-  try {
-    const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/nextCollectionTime/${telegramUserId}`);
-    if (!response.ok) {
-      throw new Error('Error fetching next collection time');
-    }
-    const data = await response.json();
-    const nextCollectionTimeUTC = new Date(data.next_collection_time);
-    nextCollectionTimeUTC.setHours(nextCollectionTimeUTC.getHours() + data.time_mined);
+  const fetchNextCollectionTime = async (
+    telegramUserId: string,
+    setNextCollectionTime: React.Dispatch<any>,
+    setHoursLeft: React.Dispatch<number>, // Add type for setHoursLeft
+    setMinutesLeft: React.Dispatch<number>, // Add type for setMinutesLeft
+    setSecondsLeft: React.Dispatch<number> // Add type for setSecondsLeft
+  ) => {
+    try {
+      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/nextCollectionTime/${telegramUserId}`);
+      if (!response.ok) {
+        throw new Error('Error fetching next collection time');
+      }
+      const data = await response.json();
+      const nextCollectionTimeUTC = new Date(data.next_collection_time);
+      nextCollectionTimeUTC.setHours(nextCollectionTimeUTC.getHours() + data.time_mined);
 
-    if (data.next_collection_time) {
-      setNextCollectionTime(nextCollectionTimeUTC.toISOString());
-      setIsWaitingForCollectionTime(false); // Перестаем ждать, когда время получено
+      if (data.next_collection_time) {
+        setNextCollectionTime(nextCollectionTimeUTC.toISOString());
+        setIsWaitingForCollectionTime(false);
 
-      // Обновляем таймер
-      const currentTime = new Date().getTime();
-      const collectionEndTime = nextCollectionTimeUTC.getTime();
-      let timeLeftMilliseconds = collectionEndTime - currentTime;
+        const currentTime = new Date().getTime();
+        const collectionEndTime = nextCollectionTimeUTC.getTime();
+        let timeLeftMilliseconds = collectionEndTime - currentTime;
 
-      if (timeLeftMilliseconds <= 0) {
-        // Если время уже прошло, устанавливаем время до следующей коллекции в ноль
-        setHoursLeft(0);
-        setMinutesLeft(0);
-        setSecondsLeft(0);
-        return;
+        if (timeLeftMilliseconds <= 0) {
+          setHoursLeft(0);
+          setMinutesLeft(0);
+          setSecondsLeft(0);
+          return;
+        }
+
+        const timeLeftHours = Math.floor(timeLeftMilliseconds / (1000 * 60 * 60));
+        const timeLeftMinutes = Math.floor((timeLeftMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+        const timeLeftSeconds = Math.floor((timeLeftMilliseconds % (1000 * 60)) / 1000);
+        setHoursLeft(timeLeftHours);
+        setMinutesLeft(timeLeftMinutes);
+        setSecondsLeft(timeLeftSeconds);
       }
 
-      const timeLeftHours = Math.floor(timeLeftMilliseconds / (1000 * 60 * 60));
-      const timeLeftMinutes = Math.floor((timeLeftMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
-      const timeLeftSeconds = Math.floor((timeLeftMilliseconds % (1000 * 60)) / 1000);
-      setHoursLeft(timeLeftHours);
-      setMinutesLeft(timeLeftMinutes);
-      setSecondsLeft(timeLeftSeconds);
+      if (data.time_mined) {
+        setTimeMined(data.time_mined);
+      }
+    } catch (error) {
+      console.error('Error fetching next collection time:', error);
     }
-
-    if (data.time_mined) {
-      setTimeMined(data.time_mined);
-    }
-  } catch (error) {
-    console.error('Ошибка при получении времени следующего сбора монет:', error);
-  }
-};
-
+  };
 
   const fetchCoinsCollected = async (telegramUserId: string) => {
     try {
