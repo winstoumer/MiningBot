@@ -165,9 +165,14 @@ const Home: React.FC = () => {
 
     useEffect(() => {
     if (isWaitingForCollectionTime) {
-      fetchNextCollectionTime(userData.id.toString(), setTimeMined); // Запрашиваем время следующей коллекции, пока ждем
+        const userId = userData?.id.toString(); // Проверка на существование userData
+        if (userId) {
+            fetchNextCollectionTime(userId, setTimeMined); // Запрашиваем время следующей коллекции, пока ждем
+        } else {
+            console.error('ID пользователя не определен.');
+        }
     }
-  }, [isWaitingForCollectionTime]);
+}, [isWaitingForCollectionTime]);
 
 useEffect(() => {
   if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
