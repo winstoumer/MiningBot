@@ -98,6 +98,8 @@ const Task: React.FC = () => {
       const updatedCompletedTasks = [...completedTasks, taskId];
       localStorage.setItem('completedTasks', JSON.stringify(updatedCompletedTasks));
 
+      localStorage.removeItem('completedTasks');
+
       window.location.href = url;
     } catch (error) {
       console.error('Error completing task:', error);
