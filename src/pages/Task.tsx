@@ -124,42 +124,30 @@ const Task: React.FC = () => {
 };
 
     const tabs: Tab[] = [
-    { title: 'Earn', content: <div>
-         <ul>
-        {tasks.map(task => (
-          <li key={task.id} onClick={() => handleTaskClick(task.id)} style={{ cursor: 'pointer', opacity: task.completed ? 0.5 : 1 }}>
-            <div>
-              <h2>{task.name}</h2>
-              <p>Награда: {task.coin_reward} монет</p>
-              {task.completed ? (
-                <p>Задание выполнено</p>
-              ) : null}
-              <a href={task.url} target="_blank" rel="noopener noreferrer">Подробнее</a>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <div className="task-list">
+    { title: 'Earn',
+     content: (
+         <div>
+        <div className="task-list">
           {tasks.map(task => (
-        <a key={task.id} onClick={() => handleTaskClick(task.id)} style={{ cursor: 'pointer', opacity: task.completed ? 0.5 : 1 }} className="task-name">
-      <div className="task">
-          <div className="task-watch-image">
-              <img src={task.icon_url} className="task-img" />
-          </div>
-          <div className="task-info">
-              <div className="task-name">{task.name}</div>
-              {task.completed ? (
-                
-              ) : (<div className="task-rewards">
-            {task.coin_reward}
-                  </div>)
-              }
-          </div>
+            <div key={task.id} onClick={() => handleTaskClick(task.id)} style={{ cursor: 'pointer', opacity: task.completed ? 0.5 : 1 }} className="task-name">
+              <div className="task">
+                <div className="task-watch-image">
+                  <img src={task.icon_url} className="task-img" />
+                </div>
+                <div className="task-info">
+                  <div className="task-name">{task.name}</div>
+                  {!task.completed && (
+                    <div className="task-rewards">
+                      {task.coin_reward}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-          </a>
-        ))}
-  </div>
-    </div> },
+     ) },
     { title: 'Referral', content: <div>
         <div className="content">
             <div className="referral-manage">
