@@ -347,7 +347,8 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
 };
 
 useEffect(() => {
-        fetchNextCollectionTime(userData.id.toString(), setTimeMined);
+        const userId = userData.id.toString();
+        fetchNextCollectionTime(userId, setTimeMined);
     }, []); // вызываем при монтировании компонента, чтобы получить начальное время    
 
   return (
