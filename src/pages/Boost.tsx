@@ -32,7 +32,7 @@ const Boost: React.FC = () => {
     try {
       if (userData) {
         const userId = userData.id.toString();
-        const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/miners?telegram_user_id=${userId}`);
+        const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/miners/${userId}`);
         const data = await response.json();
         setMiners(data);
       }
