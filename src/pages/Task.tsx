@@ -134,7 +134,7 @@ const Task: React.FC = () => {
         <div className="task-list">
           {tasks.map(task => (
             <div key={task.id} style={{ cursor: 'pointer', opacity: task.completed ? 0.5 : 1 }} className="task-name">
-               <a href="#" className="task" onClick={(e) => { e.preventDefault(); !task.completed && handleTaskCompletion(task.id, task.url)}}>
+               <div className="task" onClick={() => !task.completed && handleTaskCompletion(task.id, task.url)}>
                 <div className="task-watch-image">
                   <img src={task.icon_url} className="task-img" />
                 </div>
@@ -146,7 +146,7 @@ const Task: React.FC = () => {
                     </div>
                   )}
                 </div>
-              </a>
+              </div>
             </div>
           ))}
         </div>
