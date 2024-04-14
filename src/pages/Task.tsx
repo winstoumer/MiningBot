@@ -141,7 +141,7 @@ const Task: React.FC = () => {
       </ul>
       <div className="task-list">
           {tasks.map(task => (
-        <a key={task.id} onClick={() => handleTaskClick(task.id)} style={{ cursor: 'pointer', opacity: task.completed ? 0.5 : 1 }} className="task-name>
+        <a key={task.id} onClick={() => handleTaskClick(task.id)} style={{ cursor: 'pointer', opacity: task.completed ? 0.5 : 1 }} className="task-name">
       <div className="task">
           <div className="task-watch-image">
               <img src={task.icon_url} className="task-img" />
@@ -150,9 +150,9 @@ const Task: React.FC = () => {
               <div className="task-name">{task.name}</div>
               {task.completed ? (
                 
-              ) : <div className="task-rewards">
+              ) : (<div className="task-rewards">
             {task.coin_reward}
-                  </div>
+                  </div>)
               }
           </div>
       </div>
