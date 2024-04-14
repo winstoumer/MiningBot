@@ -63,7 +63,8 @@ const Home: React.FC = () => {
   useEffect(() => {
     if (userData && userData.id) {
       fetchCoins(userData.id.toString());
-      fetchNextCollectionTime(userData.id.toString(), setNextCollectionTime, setHoursLeft, setMinutesLeft, setSecondsLeft);
+      const userId = userData.id.toString();
+      fetchNextCollectionTime(userId, setNextCollectionTime, setHoursLeft, setMinutesLeft, setSecondsLeft);
       fetchMiner(userData.id.toString(), setMinerInfo);
     }
   }, [userData]);
