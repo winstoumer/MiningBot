@@ -28,7 +28,9 @@ const Home: React.FC = () => {
 
   const [totalCoinsToCollect, setTotalCoinsToCollect] = useState<number>(0);
   const [currentCoins, setCurrentCoins] = useState<number>(0);
-  
+
+
+    const [isWaitingForCollectionTime, setIsWaitingForCollectionTime] = useState<boolean>(true);
 
      
   const [coinsCollected, setCoinsCollected] = useState<number>(0); // Количество уже собранных монет
@@ -105,6 +107,7 @@ const Home: React.FC = () => {
 
     if (data.next_collection_time) {
       setNextCollectionTime(nextCollectionTimeUTC.toISOString());
+        setIsWaitingForCollectionTime(false); // Перестаем ждать, когда время получено
     }
 
     if (data.time_mined) {
@@ -159,6 +162,12 @@ const Home: React.FC = () => {
 
     fetchData();
   }, [userData]);
+
+    useEffect(() => {
+    if (isWaitingForCollectionTime) {
+      fetchNextCollectionTime(); // Запрашиваем время следующей коллекции, пока ждем
+    }
+  }, [isWaitingForCollectionTime]);
 
 useEffect(() => {
   if (nextCollectionTime && totalCoinsToCollect > 0 && isClaiming) {
@@ -340,6 +349,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
     saveCoinsLast(result); // Сохраняем новое общее количество монет в базе данных
     saveCollecting(minerInfo.coin_mined); // Сохраняем количество монет, добытых во время последней коллекции
       fetchCoins(userData.id.toString());
+      setIsWaitingForCollectionTime(true); // Снова начинаем ждать времени следующей коллекции после нажатия кнопки
   }
 };
 
