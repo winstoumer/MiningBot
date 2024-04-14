@@ -11,9 +11,36 @@ type TelegramUserData = {
   hash: string;
 };
 
+type Miner = {
+  miner_id: string;
+  lvl: number;
+  name: string;
+  coin_mined: number;
+  price_mined: number;
+  miner_image_url: string;
+  owned_by_user: boolean;
+};
+
 const Boost: React.FC = () => {
 
     const [userData, setUserData] = useState<TelegramUserData | null>(null);
+
+    const [miners, setMiners] = useState<Miner[]>([]);
+
+  useEffect(() => {
+    const fetchMiners = async () => {
+      try {
+        const userId = userData.id.toString();
+        const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/miners?telegram_user_id=${userId}`);
+        const data = await response.json();
+        setMiners(data);
+      } catch (error) {
+        console.error('Error fetching miners:', error);
+      }
+    };
+
+    fetchMiners();
+  }, []);
 
   useEffect(() => {
     const loadScript = () => {
@@ -38,68 +65,37 @@ const Boost: React.FC = () => {
     }
   }, []);
 
-  return (<div className="content">
+  return (
+      <div className="content">
       <div className="boost-content">
-      <div className="boost-list">
-          <div className="boost-item-default">
+        <div className="boost-list">
+          {miners.map((miner) => (
+            <div key={miner.miner_id} className="boost-item">
               <div className="boost-watch">
-                  <img src="https://i.ibb.co/r0tytRw/Designer-47.jpg" className="boost-image" />
+                <img src={miner.miner_image_url} className="boost-image" alt={miner.name} />
               </div>
               <div className="boost-info">
-                  <div className="boost-name">
-                      <span className="boost-level">1 level</span>
-                  </div>
-                  <div className="boost-mined">60 in 1 hours</div>
+                <div className="boost-name">
+                  <span className="boost-level">{`${miner.lvl} level`}</span>
+                </div>
+                <div className="boost-mined">{`${miner.coin_mined} in 1 hours`}</div>
+                {miner.owned_by_user && (
+                  <div className="boost-price">{`${miner.price_mined} C`}</div>
+                )}
               </div>
-          </div>
-      <div className="line-upgrade">
+              {miner.owned_by_user && (
+                <div className="boost-action">
+                  <button type="button" className="boost-upgrade">
+                    Upgrade
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
-          <div className="boost-item">
-              <div className="boost-watch">
-                  <img src="https://i.ibb.co/HtJ3B0G/Designer-46.jpg" className="boost-image" />
-              </div>
-              <div className="boost-info">
-                  <div className="boost-name">
-                      <span className="boost-level">2 level</span>
-                  </div>
-                  <div className="boost-mined">120 in 2 hours</div>
-                  <div className="boost-price">200 C</div>
-              </div>
-          </div>
-          <div className="boost-action">
-              <button type="button" className="boost-upgrade">Upgrade</button>
-          </div>
-          <div className="line-upgrade boost-closed">
-      </div>
-      <div className="boost-item boost-closed">
-              <div className="boost-watch">
-                  <img src="https://i.ibb.co/r0tytRw/Designer-47.jpg" className="boost-image" />
-              </div>
-              <div className="boost-info">
-                  <div className="boost-name">
-                      <span className="boost-level">3 level</span>
-                  </div>
-                  <div className="boost-mined">120 in 2 hours</div>
-                  <div className="boost-price">200 C</div>
-              </div>
-          </div>
-          <div className="line-upgrade boost-closed">
-      </div>
-      <div className="boost-item boost-closed">
-              <div className="boost-watch">
-                  <img src="https://i.ibb.co/HtJ3B0G/Designer-46.jpg" className="boost-image" />
-              </div>
-              <div className="boost-info">
-                  <div className="boost-name">
-                      <span className="boost-level">4 level</span>
-                  </div>
-                  <div className="boost-mined">120 in 2 hours</div>
-                  <div className="boost-price">200 C</div>
-              </div>
-          </div>
-      </div>
-          </div>
-  </div>);
+    </div>
+  );
 };
 
 export default Boost;
