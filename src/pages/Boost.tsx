@@ -28,19 +28,21 @@ const Boost: React.FC = () => {
     const [miners, setMiners] = useState<Miner[]>([]);
 
   useEffect(() => {
-    const fetchMiners = async () => {
-      try {
+  const fetchMiners = async () => {
+    try {
+      if (userData) {
         const userId = userData.id.toString();
         const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/miners?telegram_user_id=${userId}`);
         const data = await response.json();
         setMiners(data);
-      } catch (error) {
-        console.error('Error fetching miners:', error);
       }
-    };
+    } catch (error) {
+      console.error('Error fetching miners:', error);
+    }
+  };
 
-    fetchMiners();
-  }, []);
+  fetchMiners();
+}, [userData]);
 
   useEffect(() => {
     const loadScript = () => {
