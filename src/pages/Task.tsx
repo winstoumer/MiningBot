@@ -53,9 +53,9 @@ const Task: React.FC = () => {
     const [userData, setUserData] = useState<TelegramUserData | null>(null);
 
     useEffect(() => {
-    const fetchTasks = async () => {
+    const fetchTasks = async (userId: string) => {
       try {
-        const response = await fetch('https://advisory-brandi-webapp.koyeb.app/api/tasks/123456789'); // Замените 123456789 на реальный telegram_user_id
+        const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/tasks/${userId}`); // Замените 123456789 на реальный telegram_user_id
         if (!response.ok) {
           throw new Error('Failed to fetch tasks');
         }
@@ -69,14 +69,14 @@ const Task: React.FC = () => {
     fetchTasks();
   }, []);
 
-  const handleTaskCompletion = async (taskId: number) => {
+  const handleTaskCompletion = async (taskId: number, url: string) => {
     try {
-      const response = await fetch('https://advisory-brandi-webapp.koyeb.app/api/completed_tasks', {
+      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/completed_tasks`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ task_id: taskId, telegram_user_id: 123456789 }), // Замените 123456789 на реальный telegram_user_id
+        body: JSON.stringify({ task_id: taskId, telegram_user_id: userData.id.toString() }),
       });
       if (!response.ok) {
         throw new Error('Failed to complete task');
@@ -115,6 +115,12 @@ const Task: React.FC = () => {
     }
   }, []);
 
+    useEffect(() => {
+    if (userData && userData.id) {
+      fetchTasks(userData.id.toString());
+    }
+  }, [userData]);
+
      const handleCopyLink = () => {
     const userId = userData && userData.id ? userData.id : 'null';
     const referralLink = `https://t.me/minerweb3_bot?start=r_${userId}`;
@@ -129,7 +135,7 @@ const Task: React.FC = () => {
          <div>
         <div className="task-list">
           {tasks.map(task => (
-            <div key={task.id} onClick={() => handleTaskClick(task.id)} style={{ cursor: 'pointer', opacity: task.completed ? 0.5 : 1 }} className="task-name">
+            <div key={task.id} onClick={() => handleTaskCompletion(task.id)} style={{ cursor: 'pointer', opacity: task.completed ? 0.5 : 1 }} className="task-name">
               <div className="task">
                 <div className="task-watch-image">
                   <img src={task.icon_url} className="task-img" />
