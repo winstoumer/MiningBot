@@ -333,7 +333,8 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
       const result = parseFloat(minerInfo.coin_mined) + coins;
     saveCoinsLast(result); // Сохраняем новое общее количество монет в базе данных
     saveCollecting(minerInfo.coin_mined); // Сохраняем количество монет, добытых во время последней коллекции
-      fetchCoins();
+      fetchCoins(userData.id.toString());
+      updateCountdown();
   }
 };
 
