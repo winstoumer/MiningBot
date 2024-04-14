@@ -133,7 +133,7 @@ const Task: React.FC = () => {
          <div>
         <div className="task-list">
           {tasks.map(task => (
-            <div key={task.id} onClick={() => handleTaskClick(task.id, task.url)} style={{ cursor: 'pointer', opacity: task.completed ? 0.5 : 1 }} className="task-name">
+            <div key={task.id} onClick={() => handleTaskCompletion(task.id, task.url)} style={{ cursor: 'pointer', opacity: task.completed ? 0.5 : 1 }} className="task-name">
                <div className="task">
                 <div className="task-watch-image">
                   <img src={task.icon_url} className="task-img" />
