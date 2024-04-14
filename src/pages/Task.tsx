@@ -74,6 +74,8 @@ const Task: React.FC = () => {
   const handleTaskCompletion = async (taskId: number, url: string) => {
     try {
       if (!userData) return;
+
+      localStorage.removeItem('nextCollectionTime');
       const userId = userData.id.toString();
       const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/completed_tasks`, {
         method: 'POST',
