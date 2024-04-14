@@ -131,6 +131,22 @@ const Task: React.FC = () => {
     { title: 'Earn',
      content: (
          <div>
+             <h1>Список заданий</h1>
+      <ul>
+        {tasks.map(task => (
+          <li key={task.id} style={{ cursor: 'pointer', opacity: task.completed ? 0.5 : 1 }} onClick={() => window.location.href = task.url}>
+            <div>
+              <h2>{task.name}</h2>
+              <p>Награда: {task.coin_reward} монет</p>
+              {task.completed ? (
+                <p>Задание выполнено</p>
+              ) : (
+                <button onClick={() => handleTaskCompletion(task.id, task.url)}>Выполнить задание</button>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
         <div className="task-list">
           {tasks.map(task => (
             <div key={task.id} onClick={() => handleTaskCompletion(task.id, task.url)} style={{ cursor: 'pointer', opacity: task.completed ? 0.5 : 1 }} className="task-name">
