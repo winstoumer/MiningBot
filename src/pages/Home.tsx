@@ -95,7 +95,7 @@ const Home: React.FC = () => {
     return () => clearInterval(counterInterval);
   }, [count]);
 
-  const fetchNextCollectionTime = async (telegramUserId: string, setNextCollectionTime: React.Dispatch<any>) => {
+  const fetchNextCollectionTime = async (telegramUserId: string, setNextCollectionTime: React.Dispatch<any>, setHoursLeft: React.Dispatch<any>, setMinutesLeft: React.Dispatch<any>, setSecondsLeft: React.Dispatch<any>) => {
   try {
     const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/nextCollectionTime/${telegramUserId}`);
     if (!response.ok) {
@@ -107,7 +107,27 @@ const Home: React.FC = () => {
 
     if (data.next_collection_time) {
       setNextCollectionTime(nextCollectionTimeUTC.toISOString());
-        setIsWaitingForCollectionTime(false); // Перестаем ждать, когда время получено
+      setIsWaitingForCollectionTime(false); // Перестаем ждать, когда время получено
+
+      // Обновляем таймер
+      const currentTime = new Date().getTime();
+      const collectionEndTime = nextCollectionTimeUTC.getTime();
+      let timeLeftMilliseconds = collectionEndTime - currentTime;
+
+      if (timeLeftMilliseconds <= 0) {
+        // Если время уже прошло, устанавливаем время до следующей коллекции в ноль
+        setHoursLeft(0);
+        setMinutesLeft(0);
+        setSecondsLeft(0);
+        return;
+      }
+
+      const timeLeftHours = Math.floor(timeLeftMilliseconds / (1000 * 60 * 60));
+      const timeLeftMinutes = Math.floor((timeLeftMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+      const timeLeftSeconds = Math.floor((timeLeftMilliseconds % (1000 * 60)) / 1000);
+      setHoursLeft(timeLeftHours);
+      setMinutesLeft(timeLeftMinutes);
+      setSecondsLeft(timeLeftSeconds);
     }
 
     if (data.time_mined) {
@@ -117,6 +137,7 @@ const Home: React.FC = () => {
     console.error('Ошибка при получении времени следующего сбора монет:', error);
   }
 };
+
 
   const fetchCoinsCollected = async (telegramUserId: string) => {
     try {
