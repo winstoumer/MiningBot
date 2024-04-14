@@ -33,7 +33,7 @@ const Home: React.FC = () => {
     const [isWaitingForCollectionTime, setIsWaitingForCollectionTime] = useState<boolean>(true);
 
      
-  const [coinsCollected, setCoinsCollected] = useState<number>(0); // Количество уже собранных монет
+  const [coinsCollected, setCoinsCollected] = useState<number>(0); // Количество уже собранных монет.
   const [isClaiming, setIsClaiming] = useState<boolean>(false); // Флаг, указывающий, идет ли сбор монет в данный момент
     const [startCoins, setStartCoins] = useState<number>(0.00000000); // Начальное значение для счетчика монет
 
