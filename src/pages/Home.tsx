@@ -200,19 +200,25 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
     if (nextCollectionTime) {
       const currentTime = new Date().getTime();
       const collectionEndTime = new Date(nextCollectionTime).getTime();
-      const timeLeftMilliseconds = collectionEndTime - currentTime;
+      let timeLeftMilliseconds = collectionEndTime - currentTime;
+      
+      if (timeLeftMilliseconds <= 0) {
+        clearInterval(interval); // Останавливаем таймер, если время истекло
+        return; // Выходим из функции обновления таймера
+      }
+
       const timeLeftHours = Math.floor(timeLeftMilliseconds / (1000 * 60 * 60));
       const timeLeftMinutes = Math.floor((timeLeftMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
-      const timeLeftSeconds = Math.floor((timeLeftMilliseconds % (1000 * 60)) / 1000); // Добавляем секунды
+      const timeLeftSeconds = Math.floor((timeLeftMilliseconds % (1000 * 60)) / 1000);
       setHoursLeft(timeLeftHours);
       setMinutesLeft(timeLeftMinutes);
-      setSecondsLeft(timeLeftSeconds); // Устанавливаем состояние для секунд
+      setSecondsLeft(timeLeftSeconds);
     }
   };
 
-  updateCountdown(); // Вызываем сразу для инициализации
-  const interval = setInterval(updateCountdown, 1000); // Обновляем каждую секунду (1000 миллисекунд)
-  
+  updateCountdown();
+  const interval = setInterval(updateCountdown, 1000);
+
   return () => clearInterval(interval);
 }, [nextCollectionTime]);
 
