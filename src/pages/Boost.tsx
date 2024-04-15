@@ -17,7 +17,7 @@ interface Miner {
   time_mined: number;
   name: string;
   coin_mined: string;
-  price_miner: string;
+  price_miner: number;
   miner_image_url: string;
 }
 
