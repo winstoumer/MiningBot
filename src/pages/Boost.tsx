@@ -83,7 +83,7 @@ const Boost: React.FC = () => {
                   <span className="boost-level">{`${miner.lvl} level`}</span>
                 </div>
                 <div className="boost-mined">{`${miner.coin_mined} in 1 hours`}</div>
-                <div className="boost-price">{`${miner.price_mined} C`}</div>
+                <div className="boost-price">{`${miner.price_miner} C`}</div>
               </div>
                 <div className="boost-action">
                   <button type="button" className="boost-upgrade">
