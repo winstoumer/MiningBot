@@ -108,13 +108,14 @@ const Boost: React.FC = () => {
                 </div>
               </div>
               <div className="boost-action">
-                  {minerInfo.lvl === (miner.lvl ?? 0) +1 ? (
-                <button
-                  type="button"
-                  className="boost-upgrade">
-                  Upgrade
-                </button>
-                ) : miner.lvl > minerInfo.lvl()}
+                  {minerInfo && miner.lvl === (minerInfo.lvl ?? 0) + 1 && (
+    <button
+      type="button"
+      className="boost-upgrade"
+    >
+      Upgrade
+    </button>
+  )}
               </div>
               <div className="line-upgrade"></div>
             </div>
