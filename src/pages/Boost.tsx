@@ -21,23 +21,6 @@ interface Miner {
   miner_image_url: string;
 }
 
-const fetchMiner = async (userId: string, setMinerInfo: React.Dispatch<any>) => {
-  try {
-    const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/miner/${userId}`);
-    if (!response.ok) {
-      throw new Error('Error fetching miner info');
-    }
-    const data = await response.json();
-    if (data) {
-      setMinerInfo(data);
-    } else {
-      console.error('Ошибка: Не удалось получить значения майнера из ответа API.');
-    }
-  } catch (error) {
-    console.error('Ошибка при получении майнера:', error);
-  }
-};
-
 const Boost: React.FC = () => {
   const [userData, setUserData] = useState<TelegramUserData | null>(null);
   const [miners, setMiners] = useState<Miner[]>([]);
@@ -62,6 +45,25 @@ const Boost: React.FC = () => {
     }
   }, [userData]);
 
+useEffect(() => {
+  const fetchMiner = async (setMinerInfo: React.Dispatch<any>) => {
+  try {
+    const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/miner/${userData?.id}`);
+    if (!response.ok) {
+      throw new Error('Error fetching miner info');
+    }
+    const data = await response.json();
+    setMinerInfo(data);
+  } catch (error) {
+    console.error('Ошибка при получении майнера:', error);
+  }
+};
+
+    if (userData) {
+      fetchMiner();
+    }
+}, [userData]);
+
   useEffect(() => {
     const loadScript = () => {
       const script = document.createElement('script');
@@ -84,7 +86,6 @@ const Boost: React.FC = () => {
       const user = window.Telegram.WebApp.initDataUnsafe?.user;
       if (user) {
         setUserData(user);
-        fetchMiner(userData.id.toString(), setMinerInfo);
       }
     }
   }, []);
