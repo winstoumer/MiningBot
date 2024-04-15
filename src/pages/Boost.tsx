@@ -93,6 +93,8 @@ useEffect(() => {
       body: JSON.stringify({ minerId }),
     });
 
+    console.log('Response from update miner:', response); // Выводим ответ от запроса на обновление майнера
+
     // Проверяем успешность запроса
     if (!response.ok) {
       throw new Error('Failed to upgrade miner');
@@ -100,10 +102,12 @@ useEffect(() => {
 
     // Получаем текущее значение coins пользователя
     const balanceResponse = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userData?.id}`);
+    console.log('Response from fetch balance:', balanceResponse); // Выводим ответ от запроса на получение баланса пользователя
     if (!balanceResponse.ok) {
       throw new Error('Failed to fetch user balance');
     }
     const balanceData = await balanceResponse.json();
+    console.log('Balance data:', balanceData); // Выводим данные о балансе пользователя
     const currentCoins = balanceData.coins;
 
     // Получаем цену майнера
@@ -111,10 +115,12 @@ useEffect(() => {
     if (!miner) {
       throw new Error('Miner not found');
     }
+    console.log('Selected miner:', miner); // Выводим выбранный майнер
     const minerPrice = parseFloat(miner.price_miner);
 
     // Вычисляем новое значение coins после обновления
     const updatedCoins = currentCoins - minerPrice;
+    console.log('Updated coins:', updatedCoins); // Выводим новое значение баланса пользователя
 
     // Обновляем значение coins в базе данных
     const updateBalanceResponse = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userData?.id}`, {
@@ -124,12 +130,14 @@ useEffect(() => {
       },
       body: JSON.stringify({ coins: updatedCoins }),
     });
+    console.log('Response from update balance:', updateBalanceResponse); // Выводим ответ от запроса на обновление баланса пользователя
     if (!updateBalanceResponse.ok) {
       throw new Error('Failed to update user balance');
     }
 
     // Обновляем состояние майнера после успешного обновления
     const updatedMinerInfo = await response.json();
+    console.log('Updated miner info:', updatedMinerInfo); // Выводим обновленную информацию о майнере
     setMinerInfo(updatedMinerInfo);
 
     // Задержка для обновления данных о майнерах
@@ -144,6 +152,7 @@ useEffect(() => {
     console.error('Ошибка при обновлении майнера:', error);
   }
 };
+
 
 
   useEffect(() => {
