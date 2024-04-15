@@ -11,13 +11,7 @@ export const Navigation = () => {
             <Link to="/boost">Boost</Link>
         </div>
         <div className="navigation-block">
-            <Link to="/inventory">Market</Link>
-        </div>
-        <div className="navigation-block">
             <Link to="/task">Earn</Link>
-        </div>
-        <div className="navigation-block">
-            <Link to="/box">Box</Link>
         </div>
     </div>
 }
