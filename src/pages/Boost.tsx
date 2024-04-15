@@ -92,9 +92,10 @@ useEffect(() => {
     const minerPrice = parseFloat(miner.price_miner);
 
     // Проверяем, есть ли достаточно монет на балансе для покупки майнера
-    if (balance < minerPrice) {
-      throw new Error('Insufficient balance');
-    }
+    // Добавление проверки на null перед использованием balance
+if (balance !== null && balance < minerPrice) {
+  throw new Error('Insufficient balance');
+}
 
     // Обновляем данные о майнере
     const responseMiner = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/user_miner/${userData?.id}`, {
@@ -123,8 +124,13 @@ useEffect(() => {
       throw new Error('Failed to update balance');
     }
 
+    
+
     // Обновляем состояние баланса монет
-    setBalance(updatedBalance);
+    // Обновление состояния баланса монет
+if (balance !== null) {
+  setBalance(updatedBalance);
+}
 
     // Обновляем данные о майнерах
     fetchMiners();
