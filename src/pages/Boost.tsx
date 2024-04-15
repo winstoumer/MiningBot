@@ -56,7 +56,7 @@ const Boost: React.FC = () => {
     }
   };
 
-  if (userData) { // Добавляем проверку на null
+  if (userData) { // Добавляемп проверку на null
     fetchMiner();
   }
 }, [userData]);
