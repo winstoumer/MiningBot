@@ -75,6 +75,7 @@ const Boost: React.FC = () => {
         <div className="boost-list">
           {miners.map((miner) => (
             <div key={miner.miner_id} className="boost-item">
+                <div className="boost-description">
               <div className="boost-watch">
                 <img src={miner.miner_image_url} className="boost-image" alt={miner.name} />
               </div>
@@ -85,6 +86,7 @@ const Boost: React.FC = () => {
                 <div className="boost-mined">{`${miner.coin_mined} in 1 hours`}</div>
                 <div className="boost-price">{`${miner.price_miner} C`}</div>
               </div>
+             </div>
                 <div className="boost-action">
                   <button type="button" className="boost-upgrade">
                     Upgrade

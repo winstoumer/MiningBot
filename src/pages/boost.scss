@@ -33,9 +33,17 @@
     opacity: 0.7;
 }
 
-.boost-item {
+.boost-description {
     display: flex;
     flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.boost-item {
+    display: flex;
+    flex-direction: column;
     gap: 20px;
     align-items: center;
     justify-content: center;
