@@ -17,7 +17,7 @@ interface Miner {
   time_mined: number;
   name: string;
   coin_mined: string;
-  price_miner: number;
+  price_miner: string;
   miner_image_url: string;
 }
 
@@ -123,7 +123,7 @@ useEffect(() => {
     console.log('Updated coins:', updatedCoins); // Выводим новое значение баланса пользователя
 
     // Обновляем значение coins в базе данных
-    const updateBalanceResponse = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userData?.id}`, {
+    const updateBalanceResponse = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins_upgrader/${userData?.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
