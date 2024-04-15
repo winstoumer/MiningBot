@@ -30,7 +30,7 @@ const Boost: React.FC = () => {
   useEffect(() => {
   const fetchMiners = async () => {
     try {
-      const response = await fetch(`/api/miners/${userData?.id}`);
+      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/miners/${userData?.id}`);
       if (!response.ok) {
         throw new Error('Failed to fetch miners');
       }
