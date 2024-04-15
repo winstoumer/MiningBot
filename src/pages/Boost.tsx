@@ -114,13 +114,12 @@ const Boost: React.FC = () => {
   useEffect(() => {
     // Обновляем компонент после изменения состояний
     if (minerInfo.lvl !== undefined && miners.length > 0) {
-      forceUpdate();
+      // Принудительно вызываем перерендеринг компонента
+      // Не рекомендуется делать это часто из-за производительности,
+      // но это может быть полезно в данном случае
+      setMinerInfo({ ...minerInfo });
+      setMiners([...miners]);
     }
-  }, [minerInfo, miners]);
-
-  const forceUpdate = useCallback(() => {
-    setMinerInfo({ ...minerInfo });
-    setMiners([...miners]);
   }, [minerInfo, miners]);
 
   return (
@@ -162,5 +161,6 @@ const Boost: React.FC = () => {
 };
 
 export default Boost;
+
 
 
