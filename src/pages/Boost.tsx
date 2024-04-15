@@ -76,9 +76,9 @@ const Boost: React.FC = () => {
 
       // Обновление данных после успешного обновления miner_id
       const updatedMinerInfo = await response.json();
-      setMinerInfo(updatedMinerInfo);
+      await setMinerInfo(updatedMinerInfo);
       if (userData) {
-        setMinerId(userData.id);
+        await setMinerId(userData.id);
         fetchMiners();
       }
     } catch (error) {
