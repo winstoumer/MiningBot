@@ -81,6 +81,7 @@ useEffect(() => {
       // Обновление данных после успешного обновления miner_id
       const updatedMinerInfo = await response.json();
       setMinerInfo(updatedMinerInfo);
+      await fetchMiners();
     } catch (error) {
       console.error('Ошибка при обновлении майнера:', error);
     }
