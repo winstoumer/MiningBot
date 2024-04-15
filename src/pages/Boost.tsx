@@ -64,6 +64,12 @@ useEffect(() => {
     }
 }, [userData]);
 
+      useEffect(() => {
+    if (userData) {
+      fetchMiners();
+    }
+  }, [userData]);
+
     const handleUpgrade = async (minerId: number) => {
     try {
       const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/user_miner/${userData?.id}`, {
