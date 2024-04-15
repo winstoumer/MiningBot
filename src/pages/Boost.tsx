@@ -11,15 +11,15 @@ type TelegramUserData = {
   hash: string;
 };
 
-type Miner = {
-  miner_id: string;
+interface Miner {
+  miner_id: number;
   lvl: number;
+  time_mined: number;
   name: string;
-  coin_mined: number;
-  price_mined: number;
+  coin_mined: string;
+  price_miner: string;
   miner_image_url: string;
-  owned_by_user: boolean;
-};
+}
 
 const Boost: React.FC = () => {
 
@@ -30,18 +30,20 @@ const Boost: React.FC = () => {
   useEffect(() => {
   const fetchMiners = async () => {
     try {
-      if (userData) {
-        const userId = userData.id.toString();
-        const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/miners/${userId}`);
-        const data = await response.json();
-        setMiners(data);
+      const response = await fetch(`/api/miners/${userData?.id}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch miners');
       }
+      const data = await response.json();
+      setMiners(data);
     } catch (error) {
       console.error('Error fetching miners:', error);
     }
   };
 
-  fetchMiners();
+  if (userData) {
+    fetchMiners();
+  }
 }, [userData]);
 
   useEffect(() => {
@@ -81,17 +83,13 @@ const Boost: React.FC = () => {
                   <span className="boost-level">{`${miner.lvl} level`}</span>
                 </div>
                 <div className="boost-mined">{`${miner.coin_mined} in 1 hours`}</div>
-                {miner.owned_by_user && (
-                  <div className="boost-price">{`${miner.price_mined} C`}</div>
-                )}
+                <div className="boost-price">{`${miner.price_mined} C`}</div>
               </div>
-              {miner.owned_by_user && (
                 <div className="boost-action">
                   <button type="button" className="boost-upgrade">
                     Upgrade
                   </button>
                 </div>
-              )}
             </div>
           ))}
         </div>
