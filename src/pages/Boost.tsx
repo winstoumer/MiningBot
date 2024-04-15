@@ -53,11 +53,6 @@ useEffect(() => {
   }
 };
 
-    if (userData) {
-      fetchMiner();
-    }
-}, [userData]);
-
       useEffect(() => {
     if (userData) {
       fetchMiners();
@@ -81,6 +76,9 @@ useEffect(() => {
       // Обновление данных после успешного обновления miner_id
       const updatedMinerInfo = await response.json();
       setMinerInfo(updatedMinerInfo);
+        if (userData) {
+      setMinerId(userData.id);
+    }
       fetchMiners();
     } catch (error) {
       console.error('Ошибка при обновлении майнера:', error);
