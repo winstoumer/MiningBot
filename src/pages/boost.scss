@@ -49,7 +49,7 @@
     justify-content: center;
 }
 
-.boost-item > .line-upgrade:nth-last-child() {
+.boost-item > .line-upgrade:nth-last-child(1) {
     display: none;
 }
 
