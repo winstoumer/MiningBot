@@ -113,7 +113,7 @@ useEffect(() => {
 
     // Обновляем баланс монет
     if (balance !== null) {
-      const updatedBalance = parseFloat(balance) - minerPrice;
+      const updatedBalance = parseFloat(balance) - parseFloat(minerPrice);
       const responseBalance = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userData?.id}`, {
         method: 'PUT',
         headers: {
