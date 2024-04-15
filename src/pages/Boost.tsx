@@ -112,7 +112,7 @@ useEffect(() => {
 
     // Обновляем баланс монет
     const updatedBalance = balance - minerPrice;
-    const responseBalance = await fetch(`https://your-nodejs-server/api/coins/${userData?.id}`, {
+    const responseBalance = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userData?.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
