@@ -354,7 +354,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
   return (
     <div className="content">
       <div className="balance">
-        <div className="title-block">Total balance (CLO)</div>
+        <div className="title-block">Total balance (MEEN)</div>
         <div className="total-balance">{coins.toFixed(2)}</div>
       </div>
       <div className="content-machine">
@@ -370,7 +370,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
           <div className="token">
             <span id="counter">{hoursLeft > 0 || minutesLeft > 0 || secondsLeft > 0 ? `${hoursLeft} h ${minutesLeft} m ${secondsLeft} s` : '0h 0m 0s'}</span>
           </div>
-          <div className="info-mine-count">{minerInfo.coin_mined} coin per {minerInfo.time_mined} h</div>
+          <div className="info-mine-count">{minerInfo.coin_mined} MEEN per {minerInfo.time_mined} h</div>
         </div>
         <div className="set-mining">
           <div className="token-title">Level</div>

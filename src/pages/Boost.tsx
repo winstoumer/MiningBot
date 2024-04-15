@@ -187,7 +187,7 @@ useEffect(() => {
         <div className="boost-list">
             <div className="balance pad-bottom">
                 <div className="title-balance">Balance:</div>
-                {balance !== null ? balance : 'Loading...'}</div>
+                {balance !== null ? balance : 'Loading...'} MEEN</div>
           {miners.map((miner) => (
             <div key={miner.miner_id} className={`boost-item ${miner.lvl !== undefined && miner.lvl !== minerInfo.lvl + 1 ? 'boost-closed' : ''}`}>
               <div className="boost-description">
@@ -199,7 +199,7 @@ useEffect(() => {
                     <span className="boost-level">{`${miner.lvl} level`}</span>
                   </div>
                   <div className="boost-mined">{`${miner.coin_mined} in 1 hours`}</div>
-                  <div className="boost-price">{`${miner.price_miner} C`}</div>
+                  <div className="boost-price">{`${miner.price_miner} MEEN`}</div>
                 </div>
               </div>
               <div className="boost-action">

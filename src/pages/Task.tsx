@@ -163,7 +163,7 @@ const Task: React.FC = () => {
                   <div className="task-name">{task.name}</div>
                   {!task.completed && (
                     <div className="task-rewards">
-                      {task.coin_reward}
+                      {task.coin_reward} MEEN
                     </div>
                   )}
                   <div className="complete-task">
