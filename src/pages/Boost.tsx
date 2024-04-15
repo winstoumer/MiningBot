@@ -144,7 +144,7 @@ useEffect(() => {
     <div className="content">
       <div className="boost-content">
         <div className="boost-list">
-            <div className="balance">
+            <div className="balance pad-bottom">
                 <div className="title-balance">Balance:</div>
                 {balance !== null ? balance : 'Loading...'}</div>
           {miners.map((miner) => (
