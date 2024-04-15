@@ -84,7 +84,6 @@ const Boost: React.FC = () => {
       const user = window.Telegram.WebApp.initDataUnsafe?.user;
       if (user) {
         setUserData(user);
-        setUserLevel(user.lvl);
         fetchMiner(userData.id.toString(), setMinerInfo);
       }
     }
