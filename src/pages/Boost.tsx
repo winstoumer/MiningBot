@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './boost.scss';
 
 type TelegramUserData = {
@@ -25,7 +25,7 @@ const Boost: React.FC = () => {
   const [userData, setUserData] = useState<TelegramUserData | null>(null);
   const [miners, setMiners] = useState<Miner[]>([]);
   const [minerInfo, setMinerInfo] = useState<any>({});
-  const [minerId, setMinerId] = useState<number | null>(null); // добавляем состояние для хранения id майнера
+  const [minerId, setMinerId] = useState<number | null>(null); 
 
   const fetchMiners = async () => {
     try {
@@ -40,55 +40,43 @@ const Boost: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchMiner = async () => {
-      try {
-        const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/miner/${userData?.id}`);
-        if (!response.ok) {
-          throw new Error('Error fetching miner info');
-        }
-        const data = await response.json();
-        setMinerInfo(data);
-      } catch (error) {
-        console.error('Ошибка при получении майнера:', error);
+  const fetchMiner = async () => {
+    try {
+      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/miner/${userData?.id}`);
+      if (!response.ok) {
+        throw new Error('Error fetching miner info');
       }
-    };
+      const data = await response.json();
+      setMinerInfo(data);
+    } catch (error) {
+      console.error('Ошибка при получении майнера:', error);
+    }
+  };
 
-    if (userData) {
-      fetchMiners();
-      fetchMiner(); // вызываем fetchMiner здесь
+  const handleUpgrade = useCallback(async (minerId: number) => {
+    try {
+      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/user_miner/${userData?.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ minerId }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upgrade miner');
+      }
+
+      const updatedMinerInfo = await response.json();
+      
+      setMinerInfo(updatedMinerInfo);
+      setMinerId(minerId);
+      fetchMiners(); // Обновляем данные о майнерах
+
+    } catch (error) {
+      console.error('Ошибка при обновлении майнера:', error);
     }
   }, [userData]);
-
-  const handleUpgrade = async (minerId: number) => {
-  try {
-    const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/user_miner/${userData?.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ minerId }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to upgrade miner');
-    }
-
-    // Обновление данных после успешного обновления miner_id
-    const updatedMinerInfo = await response.json();
-    
-    // Обновляем данные о майнере
-    setMinerInfo(updatedMinerInfo);
-
-    // Обновляем данные о майнерах
-    fetchMiners();
-
-    // Устанавливаем новый id майнера
-    setMinerId(minerId);
-  } catch (error) {
-    console.error('Ошибка при обновлении майнера:', error);
-  }
-};
 
   useEffect(() => {
     const loadScript = () => {
@@ -116,6 +104,25 @@ const Boost: React.FC = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (userData) {
+      fetchMiners();
+      fetchMiner();
+    }
+  }, [userData, fetchMiners, fetchMiner]);
+
+  useEffect(() => {
+    // Обновляем компонент после изменения состояний
+    if (minerInfo.lvl !== undefined && miners.length > 0) {
+      forceUpdate();
+    }
+  }, [minerInfo, miners]);
+
+  const forceUpdate = useCallback(() => {
+    setMinerInfo({ ...minerInfo });
+    setMiners([...miners]);
+  }, [minerInfo, miners]);
+
   return (
     <div className="content">
       <div className="boost-content">
@@ -136,16 +143,14 @@ const Boost: React.FC = () => {
               </div>
               <div className="boost-action">
                 {minerInfo.lvl !== undefined && miner.lvl !== undefined && miner.lvl === minerInfo.lvl + 1 && (
-  <button
-    type="button"
-    className="boost-upgrade"
-    onClick={() => handleUpgrade(miner.miner_id)}
-  >
-    Upgrade
-  </button>
-)}
-
-
+                  <button
+                    type="button"
+                    className="boost-upgrade"
+                    onClick={() => handleUpgrade(miner.miner_id)}
+                  >
+                    Upgrade
+                  </button>
+                )}
               </div>
               <div className="line-upgrade"></div>
             </div>
@@ -157,4 +162,5 @@ const Boost: React.FC = () => {
 };
 
 export default Boost;
+
 
