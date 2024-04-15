@@ -123,7 +123,7 @@ const Boost: React.FC = () => {
       <div className="boost-content">
         <div className="boost-list">
           {miners.map((miner) => (
-            <div key={miner.miner_id} className="boost-item">
+            <div key={miner.miner_id} className={`boost-item ${miner.lvl !== undefined && miner.lvl !== minerInfo.lvl + 1 ? 'boost-closed' : ''}`}>
               <div className="boost-description">
                 <div className="boost-watch">
                   <img src={miner.miner_image_url} className="boost-image" alt={miner.name} />
