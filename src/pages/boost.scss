@@ -49,6 +49,10 @@
     justify-content: center;
 }
 
+.boost-item > .line-upgrade:nth-last-child() {
+    display: none;
+}
+
 .boost-watch {
     display: flex;
     max-width: 160px;

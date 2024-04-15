@@ -21,10 +21,27 @@ interface Miner {
   miner_image_url: string;
 }
 
+const fetchMiner = async (userId: string, setMinerInfo: React.Dispatch<any>) => {
+  try {
+    const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/miner/${userId}`);
+    if (!response.ok) {
+      throw new Error('Error fetching miner info');
+    }
+    const data = await response.json();
+    if (data) {
+      setMinerInfo(data);
+    } else {
+      console.error('Ошибка: Не удалось получить значения майнера из ответа API.');
+    }
+  } catch (error) {
+    console.error('Ошибка при получении майнера:', error);
+  }
+};
+
 const Boost: React.FC = () => {
   const [userData, setUserData] = useState<TelegramUserData | null>(null);
   const [miners, setMiners] = useState<Miner[]>([]);
-  const [userLevel, setUserLevel] = useState<number | null>(null);
+  const [minerInfo, setMinerInfo] = useState<any>({});
 
   useEffect(() => {
     const fetchMiners = async () => {
@@ -68,18 +85,10 @@ const Boost: React.FC = () => {
       if (user) {
         setUserData(user);
         setUserLevel(user.lvl);
+        fetchMiner(userData.id.toString(), setMinerInfo);
       }
     }
   }, []);
-
-  const handleUpgrade = (minerLvl: number) => {
-    if (userLevel && minerLvl === userLevel + 1) {
-      // Здесь можно добавить логику обновления уровня пользователя или другие действия при нажатии кнопки Upgrade
-      console.log(`Upgrade to level ${minerLvl}`);
-    } else {
-      console.log('Upgrade is not available for this miner');
-    }
-  };
 
   return (
     <div className="content">
@@ -100,14 +109,13 @@ const Boost: React.FC = () => {
                 </div>
               </div>
               <div className="boost-action">
+                  {minerInfo.lvl === (miner.lvl ?? 0) +1 ? (
                 <button
                   type="button"
-                  className="boost-upgrade"
-                  onClick={() => handleUpgrade(miner.lvl)}
-                  disabled={userLevel !== null && miner.lvl !== userLevel + 1}
-                >
+                  className="boost-upgrade">
                   Upgrade
                 </button>
+                ) : miner.lvl > minerInfo.lvl()}
               </div>
               <div className="line-upgrade"></div>
             </div>
