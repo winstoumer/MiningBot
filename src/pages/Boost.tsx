@@ -26,6 +26,28 @@ const Boost: React.FC = () => {
   const [miners, setMiners] = useState<Miner[]>([]);
   const [minerInfo, setMinerInfo] = useState<any>({});
   const [minerId, setMinerId] = useState<number | null>(null); // добавляем состояние для хранения id майнера
+  // Добавляем состояние для баланса монет
+const [balance, setBalance] = useState<number | null>(null);
+
+// Вызываем API для получения баланса монет
+useEffect(() => {
+  const fetchBalance = async () => {
+    try {
+      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userData?.id}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch balance');
+      }
+      const data = await response.json();
+      setBalance(data.coins);
+    } catch (error) {
+      console.error('Error fetching balance:', error);
+    }
+  };
+
+  if (userData) {
+    fetchBalance();
+  }
+}, [userData]);
 
   const fetchMiners = async () => {
     try {
@@ -122,6 +144,7 @@ const Boost: React.FC = () => {
     <div className="content">
       <div className="boost-content">
         <div className="boost-list">
+            <div className="balance">Balance: {balance !== null ? balance : 'Loading...'}</div>
           {miners.map((miner) => (
             <div key={miner.miner_id} className={`boost-item ${miner.lvl !== undefined && miner.lvl !== minerInfo.lvl + 1 ? 'boost-closed' : ''}`}>
               <div className="boost-description">
