@@ -41,24 +41,26 @@ const Boost: React.FC = () => {
   };
 
   useEffect(() => {
-    const fetchMiner = async () => {
-      try {
-        const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/miner/${userData?.id}`);
+  const fetchMiner = async () => {
+    try {
+      if (userData) { // Добавляем проверку на null
+        const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/miner/${userData.id}`);
         if (!response.ok) {
           throw new Error('Error fetching miner info');
         }
         const data = await response.json();
         setMinerInfo(data);
-      } catch (error) {
-        console.error('Ошибка при получении майнера:', error);
       }
-    };
-
-    if (userData) {
-      fetchMiners();
-      fetchMiner();
+    } catch (error) {
+      console.error('Ошибка при получении майнера:', error);
     }
-  }, [userData]);
+  };
+
+  if (userData) { // Добавляем проверку на null
+    fetchMiner();
+  }
+}, [userData]);
+
 
   const handleUpgrade = async (minerId: number) => {
     try {
