@@ -98,52 +98,30 @@ useEffect(() => {
       throw new Error('Failed to upgrade miner');
     }
 
-    // Получаем текущее значение coins пользователя
+    // Получаем обновленную информацию о майнере
+    const updatedMinerInfo = await response.json();
+    
+    // Обновляем данные о майнере
+    setMinerInfo(updatedMinerInfo);
+
+    // Обновляем данные о майнерах
+    fetchMiners();
+
+    // Получаем текущий баланс пользователя
     const balanceResponse = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userData?.id}`);
     if (!balanceResponse.ok) {
       throw new Error('Failed to fetch user balance');
     }
     const balanceData = await balanceResponse.json();
-    const currentCoins = balanceData.coins;
+    const updatedBalance = balanceData.coins;
 
-    // Получаем цену майнера
-    const miner = miners.find((miner) => miner.miner_id === minerId);
-    if (!miner) {
-      throw new Error('Miner not found');
-    }
-    const minerPrice = parseFloat(miner.price_miner);
-
-    // Вычисляем новое значение coins после обновления
-    const updatedCoins = currentCoins - minerPrice;
-
-    // Обновляем значение coins в базе данных
-    const updateBalanceResponse = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userData?.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ coins: updatedCoins }),
-    });
-    if (!updateBalanceResponse.ok) {
-      throw new Error('Failed to update user balance');
-    }
-
-    // Обновляем состояние майнера после успешного обновления
-    const updatedMinerInfo = await response.json();
-    setMinerInfo(updatedMinerInfo);
-
-    // Задержка для обновления данных о майнерах
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    // Обновляем данные о майнерах
-    fetchMiners();
-
-    // Устанавливаем новый id майнера
-    setMinerId(minerId);
+    // Обновляем баланс пользователя
+    setBalance(updatedBalance);
   } catch (error) {
     console.error('Ошибка при обновлении майнера:', error);
   }
 };
+
 
 
   useEffect(() => {
