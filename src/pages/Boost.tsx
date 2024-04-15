@@ -27,7 +27,7 @@ const Boost: React.FC = () => {
   const [minerInfo, setMinerInfo] = useState<any>({});
   const [minerId, setMinerId] = useState<number | null>(null); // добавляем состояние для хранения id майнера
   // Добавляем состояние для баланса монет
-const [balance, setBalance] = useState<number | null>(null);
+const [balance, setBalance] = useState<number | null>(0);
 
 // Вызываем API для получения баланса монет
 useEffect(() => {
