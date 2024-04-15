@@ -40,29 +40,27 @@ const Boost: React.FC = () => {
     }
   };
 
-  useEffect(() => {
+useEffect(() => {
   const fetchMiner = async () => {
-    try {
-      if (userData) { // Добавляем проверку на null
-        const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/miner/${userData.id}`);
-        if (!response.ok) {
-          throw new Error('Error fetching miner info');
-        }
-        const data = await response.json();
-        setMinerInfo(data);
-      }
-    } catch (error) {
-      console.error('Ошибка при получении майнера:', error);
+  try {
+    const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/miner/${userData?.id}`);
+    if (!response.ok) {
+      throw new Error('Error fetching miner info');
     }
-  };
-
-  if (userData) { // Добавляемп проверку на null
-    fetchMiner();
+    const data = await response.json();
+    setMinerInfo(data);
+  } catch (error) {
+    console.error('Ошибка при получении майнера:', error);
   }
-}, [userData]);
+};
 
+      useEffect(() => {
+    if (userData) {
+      fetchMiners();
+    }
+  }, [userData]);
 
-  const handleUpgrade = async (minerId: number) => {
+    const handleUpgrade = async (minerId: number) => {
     try {
       const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/user_miner/${userData?.id}`, {
         method: 'PUT',
@@ -79,7 +77,9 @@ const Boost: React.FC = () => {
       // Обновление данных после успешного обновления miner_id
       const updatedMinerInfo = await response.json();
       setMinerInfo(updatedMinerInfo);
+        if (userData) {
       setMinerId(userData.id);
+    }
       fetchMiners();
     } catch (error) {
       console.error('Ошибка при обновлении майнера:', error);
@@ -131,15 +131,15 @@ const Boost: React.FC = () => {
                 </div>
               </div>
               <div className="boost-action">
-                {minerInfo && miner.lvl === (minerInfo.lvl ?? 0) + 1 && (
-                  <button
-                    type="button"
-                    className="boost-upgrade"
-                    onClick={() => handleUpgrade(miner.miner_id)}
-                  >
-                    Upgrade
-                  </button>
-                )}
+                  {minerInfo && miner.lvl === (minerInfo.lvl ?? 0) + 1 && (
+    <button
+      type="button"
+      className="boost-upgrade"
+      onClick={() => handleUpgrade(miner.miner_id)}
+    >
+      Upgrade
+    </button>
+  )}
               </div>
               <div className="line-upgrade"></div>
             </div>
