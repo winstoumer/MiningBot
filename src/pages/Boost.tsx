@@ -84,12 +84,14 @@ useEffect(() => {
 
   const handleUpgrade = async (minerId: number) => {
   try {
+    let minerPrice = 0;
+
     // Получаем цену майнера
     const miner = miners.find((miner) => miner.miner_id === minerId);
     if (!miner) {
       throw new Error('Miner not found');
     }
-    const minerPrice = parseFloat(miner.price_miner);
+    minerPrice = parseFloat(miner.price_miner);
 
     // Проверяем, есть ли достаточно монет на балансе для покупки майнера
     if (balance !== null && balance < minerPrice) {
@@ -110,9 +112,9 @@ useEffect(() => {
     const updatedMinerInfo = await responseMiner.json();
     setMinerInfo(updatedMinerInfo);
 
-    const minerPrice = parseFloat(miner.price_miner);
-if (!isNaN(minerPrice) && balance !== null) {
-  const updatedBalance = parseFloat(balance) - minerPrice;
+    // Обновляем баланс монет
+    if (balance !== null) {
+      const updatedBalance = parseFloat(balance) - minerPrice;
       const responseBalance = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userData?.id}`, {
         method: 'PUT',
         headers: {
@@ -137,6 +139,7 @@ if (!isNaN(minerPrice) && balance !== null) {
     console.error('Ошибка при обновлении майнера:', error);
   }
 };
+
 
   useEffect(() => {
     const loadScript = () => {
