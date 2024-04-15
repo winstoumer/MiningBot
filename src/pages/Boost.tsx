@@ -64,6 +64,28 @@ useEffect(() => {
     }
 }, [userData]);
 
+    const handleUpgrade = async (minerId: number) => {
+    try {
+      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/user_miner/${userData?.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ minerId }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upgrade miner');
+      }
+
+      // Обновление данных после успешного обновления miner_id
+      const updatedMinerInfo = await response.json();
+      setMinerInfo(updatedMinerInfo);
+    } catch (error) {
+      console.error('Ошибка при обновлении майнера:', error);
+    }
+  };
+
   useEffect(() => {
     const loadScript = () => {
       const script = document.createElement('script');
@@ -113,6 +135,7 @@ useEffect(() => {
     <button
       type="button"
       className="boost-upgrade"
+      onClick={() => handleUpgrade(miner.miner_id)}
     >
       Upgrade
     </button>
