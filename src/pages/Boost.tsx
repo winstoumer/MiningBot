@@ -46,7 +46,7 @@ const Boost: React.FC = () => {
   }, [userData]);
 
 useEffect(() => {
-  const fetchMiner = async (setMinerInfo: React.Dispatch<any>) => {
+  const fetchMiner = async () => {
   try {
     const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/miner/${userData?.id}`);
     if (!response.ok) {
