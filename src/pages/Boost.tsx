@@ -22,29 +22,28 @@ interface Miner {
 }
 
 const Boost: React.FC = () => {
-
-    const [userData, setUserData] = useState<TelegramUserData | null>(null);
-
-    const [miners, setMiners] = useState<Miner[]>([]);
+  const [userData, setUserData] = useState<TelegramUserData | null>(null);
+  const [miners, setMiners] = useState<Miner[]>([]);
+  const [userLevel, setUserLevel] = useState<number | null>(null);
 
   useEffect(() => {
-  const fetchMiners = async () => {
-    try {
-      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/miners/${userData?.id}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch miners');
+    const fetchMiners = async () => {
+      try {
+        const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/miners/${userData?.id}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch miners');
+        }
+        const data = await response.json();
+        setMiners(data);
+      } catch (error) {
+        console.error('Error fetching miners:', error);
       }
-      const data = await response.json();
-      setMiners(data);
-    } catch (error) {
-      console.error('Error fetching miners:', error);
-    }
-  };
+    };
 
-  if (userData) {
-    fetchMiners();
-  }
-}, [userData]);
+    if (userData) {
+      fetchMiners();
+    }
+  }, [userData]);
 
   useEffect(() => {
     const loadScript = () => {
@@ -53,7 +52,7 @@ const Boost: React.FC = () => {
       script.async = true;
       script.onload = () => {
         if (window.Telegram && window.Telegram.WebApp) {
-            window.Telegram.WebApp.setHeaderColor('#ffffff');
+          window.Telegram.WebApp.setHeaderColor('#ffffff');
           window.Telegram.WebApp.expand();
         }
       };
@@ -65,34 +64,52 @@ const Boost: React.FC = () => {
 
   useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp) {
-      setUserData(window.Telegram.WebApp.initDataUnsafe?.user);
+      const user = window.Telegram.WebApp.initDataUnsafe?.user;
+      if (user) {
+        setUserData(user);
+        setUserLevel(user.lvl);
+      }
     }
   }, []);
 
+  const handleUpgrade = (minerLvl: number) => {
+    if (userLevel && minerLvl === userLevel + 1) {
+      // Здесь можно добавить логику обновления уровня пользователя или другие действия при нажатии кнопки Upgrade
+      console.log(`Upgrade to level ${minerLvl}`);
+    } else {
+      console.log('Upgrade is not available for this miner');
+    }
+  };
+
   return (
-      <div className="content">
+    <div className="content">
       <div className="boost-content">
         <div className="boost-list">
           {miners.map((miner) => (
             <div key={miner.miner_id} className="boost-item">
-                <div className="boost-description">
-              <div className="boost-watch">
-                <img src={miner.miner_image_url} className="boost-image" alt={miner.name} />
-              </div>
-              <div className="boost-info">
-                <div className="boost-name">
-                  <span className="boost-level">{`${miner.lvl} level`}</span>
+              <div className="boost-description">
+                <div className="boost-watch">
+                  <img src={miner.miner_image_url} className="boost-image" alt={miner.name} />
                 </div>
-                <div className="boost-mined">{`${miner.coin_mined} in 1 hours`}</div>
-                <div className="boost-price">{`${miner.price_miner} C`}</div>
-              </div>
-             </div>
-                <div className="boost-action">
-                  <button type="button" className="boost-upgrade">
-                    Upgrade
-                  </button>
+                <div className="boost-info">
+                  <div className="boost-name">
+                    <span className="boost-level">{`${miner.lvl} level`}</span>
+                  </div>
+                  <div className="boost-mined">{`${miner.coin_mined} in 1 hours`}</div>
+                  <div className="boost-price">{`${miner.price_miner} C`}</div>
                 </div>
-                <div className="line-upgrade"></div>
+              </div>
+              <div className="boost-action">
+                <button
+                  type="button"
+                  className="boost-upgrade"
+                  onClick={() => handleUpgrade(miner.lvl)}
+                  disabled={userLevel !== null && miner.lvl !== userLevel + 1}
+                >
+                  Upgrade
+                </button>
+              </div>
+              <div className="line-upgrade"></div>
             </div>
           ))}
         </div>
