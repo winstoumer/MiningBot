@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom'; // Импортируем useHistory из react-router-dom
 import './boost.scss';
 
 type TelegramUserData = {
@@ -22,6 +23,8 @@ interface Miner {
 }
 
 const Boost: React.FC = () => {
+
+  const history = useHistory(); // Используем useHistory для навигации
   const [userData, setUserData] = useState<TelegramUserData | null>(null);
   const [miners, setMiners] = useState<Miner[]>([]);
   const [minerInfo, setMinerInfo] = useState<any>({});
@@ -85,6 +88,7 @@ const Boost: React.FC = () => {
 
     // Устанавливаем новый id майнера
     setMinerId(minerId);
+    history.push('/home'); // Переходим на страницу Home 
   } catch (error) {
     console.error('Ошибка при обновлении майнера:', error);
   }
