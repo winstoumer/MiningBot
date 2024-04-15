@@ -76,7 +76,12 @@ const Boost: React.FC = () => {
 
       // Обновление данных после успешного обновления miner_id
       const updatedMinerInfo = await response.json();
-      await setMinerInfo(updatedMinerInfo);
+      console.log("Before update - minerInfo.lvl:", minerInfo.lvl);
+console.log("Before update - miner.lvl:", miner.lvl);
+await setMinerInfo(updatedMinerInfo);
+console.log("After update - minerInfo.lvl:", minerInfo.lvl);
+console.log("After update - miner.lvl:", miner.lvl);
+
       if (userData) {
         await setMinerId(userData.id);
         fetchMiners();
