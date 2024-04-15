@@ -90,6 +90,7 @@ const Boost: React.FC = () => {
                     Upgrade
                   </button>
                 </div>
+                <div className="line-upgrade"></div>
             </div>
           ))}
         </div>
