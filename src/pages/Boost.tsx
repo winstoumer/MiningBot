@@ -17,7 +17,7 @@ interface Miner {
   time_mined: number;
   name: string;
   coin_mined: string;
-  price_miner: string;
+  price_miner: number;
   miner_image_url: string;
 }
 
@@ -84,6 +84,27 @@ useEffect(() => {
 
   const handleUpgrade = async (minerId: number) => {
   try {
+    // Выполняем запрос на обновление майнера
+    const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/user_miner/${userData?.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ minerId }),
+    });
+
+    // Проверяем успешность запроса
+    if (!response.ok) {
+      throw new Error('Failed to upgrade miner');
+    }
+
+    // Получаем текущее значение coins пользователя
+    const balanceResponse = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userData?.id}`);
+    if (!balanceResponse.ok) {
+      throw new Error('Failed to fetch user balance');
+    }
+    const balanceData = await balanceResponse.json();
+    const currentCoins = balanceData.coins;
 
     // Получаем цену майнера
     const miner = miners.find((miner) => miner.miner_id === minerId);
@@ -92,42 +113,27 @@ useEffect(() => {
     }
     const minerPrice = parseFloat(miner.price_miner);
 
-    // Проверяем, есть ли достаточно монет на балансе для покупки майнера
-    if (balance !== null && balance < minerPrice) {
-      throw new Error('Insufficient balance');
-    }
+    // Вычисляем новое значение coins после обновления
+    const updatedCoins = currentCoins - minerPrice;
 
-    // Обновляем данные о майнере
-    const responseMiner = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/user_miner/${userData?.id}`, {
+    // Обновляем значение coins в базе данных
+    const updateBalanceResponse = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userData?.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ minerId }),
+      body: JSON.stringify({ coins: updatedCoins }),
     });
-    if (!responseMiner.ok) {
-      throw new Error('Failed to upgrade miner');
+    if (!updateBalanceResponse.ok) {
+      throw new Error('Failed to update user balance');
     }
-    const updatedMinerInfo = await responseMiner.json();
+
+    // Обновляем состояние майнера после успешного обновления
+    const updatedMinerInfo = await response.json();
     setMinerInfo(updatedMinerInfo);
 
-    // Обновляем баланс монет
-    if (balance !== null) {
-      const updatedBalance = parseFloat(balance) - parseFloat(minerPrice);
-      const responseBalance = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/coins/${userData?.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ coins: updatedBalance }),
-      });
-      if (!responseBalance.ok) {
-        throw new Error('Failed to update balance');
-      }
-
-      // Обновляем состояние баланса монет
-      setBalance(updatedBalance);
-    }
+    // Задержка для обновления данных о майнерах
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
     // Обновляем данные о майнерах
     fetchMiners();
