@@ -203,7 +203,7 @@ useEffect(() => {
                 </div>
               </div>
               <div className="boost-action">
-                {minerInfo.lvl !== undefined && miner.lvl !== undefined && miner.lvl === minerInfo.lvl + 1 && (
+                {minerInfo.lvl !== undefined && miner.lvl !== undefined && miner.lvl === minerInfo.lvl + 1 && balance !== null && balance >= parseFloat(miner.price_miner) && (
   <button
     type="button"
     className="boost-upgrade"
@@ -212,6 +212,7 @@ useEffect(() => {
     Upgrade
   </button>
 )}
+
 
 
               </div>
