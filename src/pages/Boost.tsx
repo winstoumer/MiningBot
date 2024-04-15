@@ -80,7 +80,7 @@ const Boost: React.FC = () => {
     // Обновляем данные о майнере
     setMinerInfo(updatedMinerInfo);
 
-    await new Promise(resolve => setTimeout(resolve, 100)); // Примерно 100 миллисекунд
+    await new Promise(resolve => setTimeout(resolve, 1000)); // Примерно 100 миллисекунд
       
     // Обновляем данные о майнерах
     fetchMiners();
