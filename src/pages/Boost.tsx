@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom'; // Импортируем useHistory из react-router-dom
+import { useHistory } from 'react-router'; // Попробуй использовать такой импорт
 import './boost.scss';
 
 type TelegramUserData = {
