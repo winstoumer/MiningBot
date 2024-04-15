@@ -61,35 +61,34 @@ const Boost: React.FC = () => {
   }, [userData]);
 
   const handleUpgrade = async (minerId: number) => {
-    try {
-      const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/user_miner/${userData?.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ minerId }),
-      });
+  try {
+    const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/api/user_miner/${userData?.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ minerId }),
+    });
 
-      if (!response.ok) {
-        throw new Error('Failed to upgrade miner');
-      }
-
-      // Обновление данных после успешного обновления miner_id
-      const updatedMinerInfo = await response.json();
-      console.log("Before update - minerInfo.lvl:", minerInfo.lvl);
-console.log("Before update - miner.lvl:", miner.lvl);
-await setMinerInfo(updatedMinerInfo);
-console.log("After update - minerInfo.lvl:", minerInfo.lvl);
-console.log("After update - miner.lvl:", miner.lvl);
-
-      if (userData) {
-        await setMinerId(userData.id);
-        fetchMiners();
-      }
-    } catch (error) {
-      console.error('Ошибка при обновлении майнера:', error);
+    if (!response.ok) {
+      throw new Error('Failed to upgrade miner');
     }
-  };
+
+    // Обновление данных после успешного обновления miner_id
+    const updatedMinerInfo = await response.json();
+    
+    // Обновляем данные о майнере
+    setMinerInfo(updatedMinerInfo);
+
+    // Обновляем данные о майнерах
+    fetchMiners();
+
+    // Устанавливаем новый id майнера
+    setMinerId(minerId);
+  } catch (error) {
+    console.error('Ошибка при обновлении майнера:', error);
+  }
+};
 
   useEffect(() => {
     const loadScript = () => {
