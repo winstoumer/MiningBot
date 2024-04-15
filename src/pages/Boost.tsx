@@ -25,6 +25,7 @@ const Boost: React.FC = () => {
   const [userData, setUserData] = useState<TelegramUserData | null>(null);
   const [miners, setMiners] = useState<Miner[]>([]);
   const [minerInfo, setMinerInfo] = useState<any>({});
+  const [minerId, setMinerId] = useState<number | null>(null); // добавляем состояние для хранения id майнера
 
   const fetchMiners = async () => {
     try {
