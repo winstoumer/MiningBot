@@ -1,6 +1,6 @@
 import './navigation.scss';
 import React, { useEffect } from 'react';
-import { Link, useLocation, useHistory } from 'react-router';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 
 export const Navigation = () => {
   const history = useHistory();
