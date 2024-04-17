@@ -1,6 +1,6 @@
 // components/PageComponent/PageComponent.tsx
 import React, { useEffect, ReactNode } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 interface PageComponentProps {
   children: ReactNode;
@@ -8,6 +8,7 @@ interface PageComponentProps {
 
 const PageComponent: React.FC<PageComponentProps> = ({ children }) => {
   const location = useLocation();
+  const history = useHistory();
 
   useEffect(() => {
     const loadScript = () => {
@@ -29,25 +30,26 @@ const PageComponent: React.FC<PageComponentProps> = ({ children }) => {
   useEffect(() => {
     const backButton = window.Telegram.WebApp.BackButton;
 
-    if (window.location.pathname !== '/') {
+    if (location.pathname !== '/') {
       backButton.show();
     } else {
       backButton.hide();
     }
 
     backButton.onClick(() => {
-      window.history.back(); // Используем нативную JavaScript функцию для перехода назад
+      history.goBack(); // Используем метод history.goBack для перехода назад
     });
 
     // Очистка обработчика при размонтировании компонента
     return () => {
       backButton.hide();
     };
-  }, [location]);
+  }, [history, location]);
 
   return <div>{children}</div>;
 };
 
 export default PageComponent;
+
 
 
