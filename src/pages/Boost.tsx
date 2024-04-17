@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './boost.scss';
 import PageComponent from '../components/PageComponent/PageComponent';
-import { useLocation } from 'react-router-dom';
 
 type TelegramUserData = {
   id: number;
@@ -30,27 +29,6 @@ const Boost: React.FC = () => {
   const [minerId, setMinerId] = useState<number | null>(null); // добавляем состояние для хранения id майнера
   // Добавляем состояние для баланса монет
 const [balance, setBalance] = useState<number | null>(0);
-
-const location = useLocation();
-
-  useEffect(() => {
-    const backButton = window.Telegram.WebApp.BackButton;
-
-    if (window.location.pathname !== '/') {
-      backButton.show();
-    } else {
-      backButton.hide();
-    }
-
-    backButton.onClick(() => {
-      window.history.back(); // Используем нативную JavaScript функцию для перехода назад
-    });
-
-    // Очистка обработчика при размонтировании компонента
-    return () => {
-      backButton.hide();
-    };
-  }, [location]);
      
 // Вызываем API для получения баланса монет
 useEffect(() => {
