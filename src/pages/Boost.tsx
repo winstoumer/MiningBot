@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './boost.scss';
 import PageComponent from '../components/PageComponent/PageComponent';
-import { useHistory } from 'react-router-dom'; // Добавить этот импорт
 
 type TelegramUserData = {
   id: number;
