@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './boost.scss';
+import PageComponent from '../components/PageComponent/PageComponent';
 
 type TelegramUserData = {
   id: number;
@@ -182,7 +183,8 @@ useEffect(() => {
   }, []);
 
   return (
-    <div className="content">
+    <PageComponent>
+        <div className="content">
       <div className="boost-content">
         <div className="boost-list">
             <div className="balance pad-bottom">
@@ -211,17 +213,16 @@ useEffect(() => {
   >
     Upgrade
   </button>
-)}
-
-
-
-              </div>
+                )}
+                </div>
               <div className="line-upgrade"></div>
             </div>
           ))}
         </div>
       </div>
     </div>
+    </PageComponent>
+    
   );
 };
 
