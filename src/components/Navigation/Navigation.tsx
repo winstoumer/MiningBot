@@ -24,7 +24,7 @@ export const Navigation = () => {
     const location = useLocation();
 
   useEffect(() => {
-    const backButton = Telegram.WebApp.BackButton;
+    const backButton = window.Telegram.WebApp.BackButton;
 
     if (location.pathname !== '/') {
       backButton.show();
