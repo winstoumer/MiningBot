@@ -1,10 +1,11 @@
 import './navigation.scss';
 import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import PageComponent from '../components/PageComponent/PageComponent';
 
 export const Navigation = () => {
     
-    return <div className="bottom-navigation">
+    return <PageComponent><div className="bottom-navigation">
         <div className="navigation-block">
            <Link to="/">Mining</Link>
         </div>
@@ -18,4 +19,5 @@ export const Navigation = () => {
             <Link to="/market">Box</Link>
         </div>
     </div>
+    </PageComponent>
 };
