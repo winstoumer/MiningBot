@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './task.scss';
+import PageComponent from '../components/PageComponent/PageComponent';
 
 type TelegramUserData = {
   id: number;
@@ -189,7 +190,9 @@ const Task: React.FC = () => {
     </div> },
     ];
 
-  return <Tabs tabs={tabs} />;
+  return <PageComponent>
+      <Tabs tabs={tabs} />
+  </PageComponent>;
 };
 
 export default Task;
