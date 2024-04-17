@@ -4,7 +4,7 @@ import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 import { Navigation } from "./components/Navigation/Navigation";
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useHistory, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import Boost from './pages/Boost';
 import Market from './pages/Market';
@@ -14,9 +14,6 @@ import TelegramUser from "./components/TelegramUser/TelegramUser";
 import './telegram.d.ts';
 
 function App() {
-  const history = useHistory();
-  const location = useLocation();
-
   useEffect(() => {
     const loadScript = () => {
       const script = document.createElement('script');
@@ -37,21 +34,21 @@ function App() {
   useEffect(() => {
     const backButton = window.Telegram.WebApp.BackButton;
 
-    if (location.pathname !== '/') {
+    if (window.location.pathname !== '/') {
       backButton.show();
     } else {
       backButton.hide();
     }
 
     backButton.onClick(() => {
-      history.goBack();
+      window.history.back(); // Используем нативную JavaScript функцию для перехода назад
     });
 
     // Очистка обработчика при размонтировании компонента
     return () => {
       backButton.hide();
     };
-  }, [history, location]);
+  }, []);
 
   return (
     <TonConnectUIProvider
@@ -102,4 +99,5 @@ function App() {
 }
 
 export default App;
+
 
