@@ -3,10 +3,9 @@ import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const PageComponent: React.FC = ({ children }) => {
-
   const location = useLocation();
 
-   useEffect(() => {
+  useEffect(() => {
     const loadScript = () => {
       const script = document.createElement('script');
       script.src = 'https://telegram.org/js/telegram-web-app.js';
@@ -22,8 +21,6 @@ const PageComponent: React.FC = ({ children }) => {
 
     loadScript();
   }, []); 
-
-  const location = useLocation();
 
   useEffect(() => {
     const backButton = window.Telegram.WebApp.BackButton;
@@ -48,3 +45,4 @@ const PageComponent: React.FC = ({ children }) => {
 };
 
 export default PageComponent;
+
