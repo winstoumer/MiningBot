@@ -1,8 +1,12 @@
 // components/PageComponent/PageComponent.tsx
-import React, { useEffect } from 'react';
+import React, { useEffect, ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const PageComponent: React.FC = ({ children }) => {
+interface PageComponentProps {
+  children: ReactNode;
+}
+
+const PageComponent: React.FC<PageComponentProps> = ({ children }) => {
   const location = useLocation();
 
   useEffect(() => {
@@ -45,4 +49,5 @@ const PageComponent: React.FC = ({ children }) => {
 };
 
 export default PageComponent;
+
 
