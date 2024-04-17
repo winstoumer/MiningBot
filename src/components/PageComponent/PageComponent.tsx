@@ -36,7 +36,7 @@ const PageComponent: React.FC<PageComponentProps> = ({ children }) => {
     }
 
     backButton.onClick(() => {
-      navigate(-1); // Используем navigate с отрицательным числом для перехода назад
+      navigate(-1); /// Используем navigate с отрицательным числом для перехода назад
     });
 
     // Очистка обработчика при размонтировании компонента
