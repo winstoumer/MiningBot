@@ -1,6 +1,6 @@
 // components/PageComponent/PageComponent.tsx
 import React, { useEffect, ReactNode } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom'; // Добавили import useHistory
 
 interface PageComponentProps {
   children: ReactNode;
@@ -8,7 +8,7 @@ interface PageComponentProps {
 
 const PageComponent: React.FC<PageComponentProps> = ({ children }) => {
   const location = useLocation();
-  const history = useHistory();
+  const history = useHistory(); // Использовали useHistory
 
   useEffect(() => {
     const loadScript = () => {
@@ -37,7 +37,7 @@ const PageComponent: React.FC<PageComponentProps> = ({ children }) => {
     }
 
     backButton.onClick(() => {
-      history.goBack(); // Используем метод history.goBack для перехода назад
+      history.goBack(); // Теперь используем метод history.goBack для перехода назад
     });
 
     // Очистка обработчика при размонтировании компонента
@@ -50,6 +50,7 @@ const PageComponent: React.FC<PageComponentProps> = ({ children }) => {
 };
 
 export default PageComponent;
+
 
 
 
