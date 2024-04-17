@@ -1,7 +1,7 @@
 import './navigation.scss';
 import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import PageComponent from '../components/PageComponent/PageComponent';
+import PageComponent from '../PageComponent/PageComponent';
 
 export const Navigation = () => {
     
