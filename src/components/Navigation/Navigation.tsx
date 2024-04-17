@@ -13,5 +13,8 @@ export const Navigation = () => {
         <div className="navigation-block">
             <Link to="/task">Earn</Link>
         </div>
+        <div className="navigation-block">
+            <Link to="/task">Box</Link>
+        </div>
     </div>
 }
