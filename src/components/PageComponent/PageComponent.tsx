@@ -1,14 +1,9 @@
 // components/PageComponent/PageComponent.tsx
-import React, { useEffect, ReactNode } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-interface PageComponentProps {
-  children: ReactNode;
-  onBackClick: () => void; // Обработчик нажатия кнопки "Назад"
-}
-
-const PageComponent: React.FC<PageComponentProps> = ({ children, onBackClick }) => {
-  const location = useLocation();
+const PageComponent: React.FC = ({ children }) => {
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadScript = () => {
@@ -30,26 +25,27 @@ const PageComponent: React.FC<PageComponentProps> = ({ children, onBackClick }) 
   useEffect(() => {
     const backButton = window.Telegram.WebApp.BackButton;
 
-    if (location.pathname !== '/') {
+    if (window.location.pathname !== '/') {
       backButton.show();
     } else {
       backButton.hide();
     }
 
     backButton.onClick(() => {
-      onBackClick(); // Вызываем обработчик нажатия кнопки "Назад"
+      navigate(-1); // Используем navigate с отрицательным числом для перехода назад
     });
 
     // Очистка обработчика при размонтировании компонента
     return () => {
       backButton.hide();
     };
-  }, [location, onBackClick]);
+  }, [navigate]);
 
   return <div>{children}</div>;
 };
 
 export default PageComponent;
+
 
 
 
