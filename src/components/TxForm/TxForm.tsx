@@ -16,7 +16,7 @@ const commentPayload = body.toBoc().toString("base64");
 // In this example, we are using a predefined smart contract state initialization (`stateInit`)
 // to interact with an "EchoContract". This contract is designed to send the value back to the sender,
 // serving as a testing tool to prevent users from accidentally spending money.
-const defaultTx: SendTransactionRequest = {
+const defaultTx: SendTransactionRequest & { comment?: string } = {
   // The transaction is valid for 10 minutes from now, in unix epoch seconds.
   validUntil: Math.floor(Date.now() / 1000) + 600,
   messages: [
@@ -30,6 +30,7 @@ const defaultTx: SendTransactionRequest = {
       stateInit: 'te6cckEBBAEAOgACATQCAQAAART/APSkE/S88sgLAwBI0wHQ0wMBcbCRW+D6QDBwgBDIywVYzxYh+gLLagHPFsmAQPsAlxCarA==',
       // (optional) Payload in boc base64 format.
       payload: 'te6ccsEBAQEADAAMABQAAAAASGVsbG8hCaTc/g==',
+      comment: 'Your comment here',
     },
 
     // Uncomment the following message to send two messages in one transaction.
