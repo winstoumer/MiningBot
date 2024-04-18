@@ -20,6 +20,7 @@ const defaultTx: SendTransactionRequest = {
       stateInit: 'te6cckEBBAEAOgACATQCAQAAART/APSkE/S88sgLAwBI0wHQ0wMBcbCRW+D6QDBwgBDIywVYzxYh+gLLagHPFsmAQPsAlxCarA==',
       // (optional) Payload in boc base64 format.
       payload: 'te6ccsEBAQEADAAMABQAAAAASGVsbG8hCaTc/g==',
+      comment: 'криптоАНАЛитики',
     },
 
     // Uncomment the following message to send two messages in one transaction.
