@@ -5,8 +5,7 @@ import { SendTransactionRequest, useTonConnectUI, useTonWallet } from "@tonconne
 
 // Функция для кодирования текста в формате BOC base64 с поддержкой Unicode символов
 function encodePayload(text: string): string {
-  const utf8Bytes = unescape(encodeURIComponent(text));
-  const encodedPayload = btoa(utf8Bytes);
+  const encodedPayload = btoa(text);
   return encodedPayload;
 }
 
