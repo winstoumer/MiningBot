@@ -4,7 +4,9 @@ import PageComponent from '../components/PageComponent/PageComponent';
 
 const Market: React.FC = () => {
   return <PageComponent>
-      <div className="content"></div>
+      <div className="content">
+          <button type="button" className="button">Collecting</button>
+      </div>
   </PageComponent>;
 };
 
