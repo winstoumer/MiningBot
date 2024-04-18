@@ -22,21 +22,22 @@ const defaultTx: SendTransactionRequest = {
       // The receiver's address.
       address: 'UQCKNa82Guhh8XZGzr4eEBI887KVLz9UtTjD3cidgv3wS0Mv',
       // Amount to send in nanoTON. For example, 0.005 TON is 5000000 nanoTON.
-      amount: toNano('0.01').toString(),
+      amount: '5000000',
       // (optional) State initialization in boc base64 format.
       stateInit: 'te6cckEBBAEAOgACATQCAQAAART/APSkE/S88sgLAwBI0wHQ0wMBcbCRW+D6QDBwgBDIywVYzxYh+gLLagHPFsmAQPsAlxCarA==',
       // (optional) Payload in boc base64 format.
-      payload: body.toBoc().toString("base64") // payload with comment in body
+      payload: 'te6ccsEBAQEADAAMABQAAAAASGVsbG8hCaTc/g==' // payload with comment in body
     },
 
     // Uncomment the following message to send two messages in one transaction.
-    /*
+    
     {
       // Note: Funds sent to this address will not be returned back to the sender.
-      address: '0:2ecf5e47d591eb67fa6c56b02b6bb1de6a530855e16ad3082eaa59859e8d5fdc',
-      amount:ш toNano('0.01').toString(),
+      address: 'UQCKNa82Guhh8XZGzr4eEBI887KVLz9UtTjD3cidgv3wS0Mv',
+      amount: toNano('0.01').toString(),
+      payload: body.toBoc().toString("base64")
     }
-    */
+    
 
   ],
 };
