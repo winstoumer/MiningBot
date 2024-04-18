@@ -2,6 +2,7 @@ import React from 'react'
 import './market.scss';
 import { useTonConnectUI } from '@tonconnect/ui-react';
 import { beginCell } from '@ton/ton'
+const [tonConnectUI] = useTonConnectUI();
 
 const body = beginCell()
   .storeUint(0, 32) // write 32 zero bits to indicate that a text comment will follow
