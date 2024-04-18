@@ -1,7 +1,6 @@
 import React from 'react'
 import './market.scss';
 import { useTonConnectUI } from '@tonconnect/ui-react';
-import { beginCell } from '@ton/ton'
 
 import {beginCell, toNano, Address} from '@ton/ton'
     // transfer#0f8a7ea5 query_id:uint64 amount:(VarUInteger 16) destination:MsgAddress
