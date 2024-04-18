@@ -1,7 +1,7 @@
 import React from 'react'
 import './market.scss';
 import PageComponent from '../components/PageComponent/PageComponent';
-import TxForm from "./components/TxForm/TxForm";
+import {TxForm} from "./components/TxForm/TxForm";
 
 const Market: React.FC = () => {
   return <PageComponent>
