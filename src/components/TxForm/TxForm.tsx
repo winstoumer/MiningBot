@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import ReactJson, { InteractionProps } from 'react-json-view';
 import './style.scss';
 import { SendTransactionRequest, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
+import { beginCell } from '@ton/ton';
 
 // Функция для кодирования текста в формате BOC base64 с поддержкой Unicode символов
 function encodePayload(text: string): string {
