@@ -4,7 +4,7 @@ import './style.scss';
 import { SendTransactionRequest, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
 
 // Функция для кодирования сообщения в формате Base64
-const encodeMessage = (message) => {
+const encodeMessage = (message: string) => {
   return Buffer.from(message).toString('base64');
 }
 
