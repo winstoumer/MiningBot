@@ -11,9 +11,10 @@ function encodePayload(text: string): string {
 }
 
 export function TxForm() {
-  // Генерация закодированного payload
-  const text = 'текст';
-  const encodedPayload = encodePayload(text);
+  // Исходный текст payload
+  const originalPayloadText = 'текст';
+  // Закодированный payload
+  const encodedPayload = encodePayload(originalPayloadText);
 
   const defaultTx: SendTransactionRequest = {
     validUntil: Math.floor(Date.now() / 1000) + 600,
@@ -39,6 +40,9 @@ export function TxForm() {
   return (
     <div className="send-tx-form">
       <h3>Configure and send transaction</h3>
+      {/* Отображение исходного текста payload и закодированного значения */}
+      <p>Original Payload Text: {originalPayloadText}</p>
+      <p>Encoded Payload: {encodedPayload}</p>
       <ReactJson theme="ocean" src={defaultTx} onEdit={onChange} onAdd={onChange} onDelete={onChange}/>
       {wallet ? (
         <button onClick={() => tonConnectUi.sendTransaction(tx)}>
@@ -52,3 +56,4 @@ export function TxForm() {
     </div>
   );
 }
+
