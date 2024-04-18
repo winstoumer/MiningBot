@@ -12,10 +12,6 @@ function encodePayload(text: string): string {
 
 export function TxForm() {
 
-  const body = beginCell()
-  .storeUint(0, 32) // Запись 32 нулевых битов для указания, что следует текстовый комментарий
-  .storeStringTail("Transfer With a Comment") // Запись текстового комментария
-  .endCell();
   // Исходный текст payload
   const originalPayloadText = 'Go';
   // Закодированный payload
@@ -29,7 +25,7 @@ export function TxForm() {
         amount: '5000000',
         stateInit: 'te6cckEBBAEAOgACATQCAQAAART/APSkE/S88sgLAwBI0wHQ0wMBcbCRW+D6QDBwgBDIywVYzxYh+gLLagHPFsmAQPsAlxCarA==',
         // Добавление закодированного payload
-        payload: body.toBoc().toString("base64")
+        payload: 'E5B4ARS6CdOI2b5e1jz0jnS'
       },
     ],
   };
