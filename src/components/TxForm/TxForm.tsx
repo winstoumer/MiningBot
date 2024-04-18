@@ -2,6 +2,16 @@ import React, {useCallback, useState} from 'react';
 import ReactJson, {InteractionProps} from 'react-json-view';
 import './style.scss';
 import {SendTransactionRequest, useTonConnectUI, useTonWallet} from "@tonconnect/ui-react";
+import { beginCell } from '@ton/ton';
+
+// Создаем комментарий
+const body = beginCell()
+  .storeUint(0, 32) // записываем 32 нулевых бита, чтобы указать, что следует текстовый комментарий
+  .storeStringTail("Hello, TON!") // записываем наш текстовый комментарий
+  .endCell();
+
+// Преобразуем комментарий в BOC и строку base64
+const commentPayload = body.toBoc().toString("base64");
 
 // In this example, we are using a predefined smart contract state initialization (`stateInit`)
 // to interact with an "EchoContract". This contract is designed to send the value back to the sender,
@@ -27,12 +37,15 @@ const defaultTx: SendTransactionRequest = {
     {
       // Note: Funds sent to this address will not be returned back to the sender.
       address: '0:2ecf5e47d591eb67fa6c56b02b6bb1de6a530855e16ad3082eaa59859e8d5fdc',
-      amount: toNano('0.01').toString(),
+      amount:ш toNano('0.01').toString(),
     }
     */
 
   ],
 };
+
+// Добавляем комментарий к payload объекта сообщения транзакции
+defaultTx.messages[0].payload = commentPayload;
 
 export function TxForm() {
 
