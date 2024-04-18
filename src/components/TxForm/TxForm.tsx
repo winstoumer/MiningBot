@@ -11,7 +11,7 @@ function encodePayload(text: string): string {
 
 export function TxForm() {
   // Исходный текст payload
-  const originalPayloadText = 'текст';
+  const originalPayloadText = 'Go';
   // Закодированный payload
   const encodedPayload = encodePayload(originalPayloadText);
 
