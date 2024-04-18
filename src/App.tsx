@@ -13,6 +13,9 @@ import TelegramScript from "./components/TelegramScript/TelegramScript";
 import TelegramUser from "./components/TelegramUser/TelegramUser";
 import './telegram.d.ts';
 
+import {TxForm} from "./components/TxForm/TxForm";
+import {TonProofDemo} from "./components/TonProofDemo/TonProofDemo";
+
 function App() {
 
   return (
@@ -56,6 +59,8 @@ function App() {
             <Route path="/market" element={<Market />} />
             <Route path="/task" element={<Task />} />
           </Routes>
+          <TxForm />
+          <TonProofDemo />
           <Navigation />
         </Router>
       </div>
