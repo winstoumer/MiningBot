@@ -59,8 +59,6 @@ function App() {
             <Route path="/market" element={<Market />} />
             <Route path="/task" element={<Task />} />
           </Routes>
-          <TxForm />
-          <TonProofDemo />
           <Navigation />
         </Router>
       </div>
