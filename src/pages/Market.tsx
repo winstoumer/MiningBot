@@ -10,10 +10,6 @@ import {beginCell, toNano, Address} from '@ton/ton'
 
     const destinationAddress = Address.parse('UQCKNa82Guhh8XZGzr4eEBI887KVLz9UtTjD3cidgv3wS0Mv');
 
-    const forwardPayload = beginCell()
-        .storeUint(0, 32) // 0 opcode means we have a comment
-        .storeStringTail('Hello, TON!')
-        .endCell();
 
 const body = beginCell()
   .storeUint(0, 32) // write 32 zero bits to indicate that a text comment will follow
