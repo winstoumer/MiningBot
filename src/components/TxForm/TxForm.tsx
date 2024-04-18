@@ -3,6 +3,13 @@ import ReactJson, {InteractionProps} from 'react-json-view';
 import './style.scss';
 import {SendTransactionRequest, useTonConnectUI, useTonWallet} from "@tonconnect/ui-react";
 
+import { beginCell } from '@ton/ton'
+
+const body = beginCell()
+  .storeUint(0, 32) // write 32 zero bits to indicate that a text comment will follow
+  .storeStringTail("Hello, TON!") // write our text comment
+  .endCell();
+
 // In this example, we are using a predefined smart contract state initialization (`stateInit`)
 // to interact with an "EchoContract". This contract is designed to send the value back to the sender,
 // serving as a testing tool to prevent users from accidentally spending money.
@@ -19,8 +26,7 @@ const defaultTx: SendTransactionRequest & { comment?: string } = {
       // (optional) State initialization in boc base64 format.
       stateInit: 'te6cckEBBAEAOgACATQCAQAAART/APSkE/S88sgLAwBI0wHQ0wMBcbCRW+D6QDBwgBDIywVYzxYh+gLLagHPFsmAQPsAlxCarA==',
       // (optional) Payload in boc base64 format.
-      payload: 'te6ccsEBAQEADAAMABQAAAAASGVsbG8hCaTc/g==',
-      comment: 'Your comment here',
+      payload: body.toBoc().toString("base64"), // payload with comment in body
     },
 
     // Uncomment the following message to send two messages in one transaction.
