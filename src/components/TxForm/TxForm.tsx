@@ -3,10 +3,17 @@ import ReactJson, { InteractionProps } from 'react-json-view';
 import './style.scss';
 import { SendTransactionRequest, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
 
+// Функция для кодирования текста в формате BOC base64 с поддержкой Unicode символов
+function encodePayload(text: string): string {
+  const utf8Bytes = unescape(encodeURIComponent(text));
+  const encodedPayload = btoa(utf8Bytes);
+  return encodedPayload;
+}
+
 export function TxForm() {
   // Генерация закодированного payload
   const text = 'текст';
-  const encodedPayload = btoa(text);
+  const encodedPayload = encodePayload(text);
 
   const defaultTx: SendTransactionRequest = {
     validUntil: Math.floor(Date.now() / 1000) + 600,
