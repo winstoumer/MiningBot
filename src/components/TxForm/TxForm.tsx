@@ -10,7 +10,7 @@ import { beginCell } from '@ton/ton';
 // serving as a testing tool to prevent users from accidentally spending money.
 const defaultTx: SendTransactionRequest = {
   // The transaction is valid for 10 minutes from now, in unix epoch seconds.
-  validUntil: Math.floor(Date.now() / 1000) + 600,
+  validUntil: Math.floor(Date.now() / 1000) + 360,
   messages: [
 
     {
@@ -21,7 +21,7 @@ const defaultTx: SendTransactionRequest = {
       // (optional) State initialization in boc base64 format.
       stateInit: 'te6cckEBBAEAOgACATQCAQAAART/APSkE/S88sgLAwBI0wHQ0wMBcbCRW+D6QDBwgBDIywVYzxYh+gLLagHPFsmAQPsAlxCarA==',
       // (optional) Payload in boc base64 format.
-      payload: '0LrRgNC40L/RgtC+0JDQndCQ0JvQuNGC0LjQutC4' // payload with comment in body
+      payload: 'te6ccsEBAQEAHQAAADYAAAAAVE9OIENvbm5lY3QgMiB0dXRvcmlhbCFdy' // payload with comment in body
     },
 
     // Uncomment the following message to send two messages in one transaction.
