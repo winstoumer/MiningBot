@@ -3,7 +3,7 @@ import ReactJson, {InteractionProps} from 'react-json-view';
 import './style.scss';
 import {SendTransactionRequest, useTonConnectUI, useTonWallet} from "@tonconnect/ui-react";
 
-import { beginCell } from '@ton/ton'
+import { beginCell } from '@ton/ton';
 
 const body = beginCell()
   .storeUint(0, 32) // write 32 zero bits to indicate that a text comment will follow
