@@ -1,59 +1,34 @@
-import React, { useCallback, useState } from 'react';
-import ReactJson, { InteractionProps } from 'react-json-view';
-import './style.scss';
-import { SendTransactionRequest, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
-import { beginCell } from '@ton/ton';
+import React from 'react';
 
-// Функция для кодирования текста в формате BOC base64 с поддержкой Unicode символов
-function encodePayload(text: string): string {
-  const encodedPayload = btoa(text);
-  return encodedPayload;
-}
+import { useTonConnectUI } from '@tonconnect/ui-react';
+import { beginCell, toNano, Address } from '@ton/ton';
+
+const destinationAddress = 'UQCKNa82Guhh8XZGzr4eEBI887KVLz9UtTjD3cidgv3wS0Mv';
+
+const body = beginCell()
+  .storeUint(0, 32)
+  .storeStringTail("Hello, TON!")
+  .endCell();
+
+const myTransaction = {
+  validUntil: Math.floor(Date.now() / 1000) + 360,
+  messages: [
+    {
+      address: destinationAddress,
+      amount: toNano("0.05").toString(),
+      payload: body.toBoc().toString("base64")
+    }
+  ]
+};
 
 export function TxForm() {
-
-  // Исходный текст payload
-  const originalPayloadText = 'Go';
-  // Закодированный payload
-  const encodedPayload = encodePayload(originalPayloadText);
-
-  const defaultTx: SendTransactionRequest = {
-    validUntil: Math.floor(Date.now() / 1000) + 600,
-    messages: [
-      {
-        address: 'UQCKNa82Guhh8XZGzr4eEBI887KVLz9UtTjD3cidgv3wS0Mv',
-        amount: '5000000',
-        stateInit: 'te6cckEBBAEAOgACATQCAQAAART/APSkE/S88sgLAwBI0wHQ0wMBcbCRW+D6QDBwgBDIywVYzxYh+gLLagHPFsmAQPsAlxCarA==',
-        // Добавление закодированного payload
-        payload: 'E5B4ARS6CdOI2b5e1jz0jnS'
-      },
-    ],
-  };
-
-  const [tx, setTx] = useState(defaultTx);
-  const wallet = useTonWallet();
-  const [tonConnectUi] = useTonConnectUI();
-
-  const onChange = useCallback((value: InteractionProps) => {
-    setTx(value.updated_src as SendTransactionRequest)
-  }, []);
+  const [tonConnectUI, setOptions] = useTonConnectUI();
 
   return (
-    <div className="send-tx-form">
-      <h3>Configure and send transaction</h3>
-      {/* Отображение исходного текста payload и закодированного значения */}
-      <p>Original Payload Text: {originalPayloadText}</p>
-      <p>Encoded Payload: {encodedPayload}</p>
-      <ReactJson theme="ocean" src={defaultTx} onEdit={onChange} onAdd={onChange} onDelete={onChange}/>
-      {wallet ? (
-        <button onClick={() => tonConnectUi.sendTransaction(tx)}>
-          Send transaction
-        </button>
-      ) : (
-        <button onClick={() => tonConnectUi.openModal()}>
-          Connect wallet to send the transaction
-        </button>
-      )}
+    <div>
+      <button onClick={() => tonConnectUI.sendTransaction(myTransaction)}>
+        Send transaction
+      </button>
     </div>
   );
 }
