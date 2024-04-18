@@ -2,10 +2,15 @@ import React, { useCallback, useState } from 'react';
 import ReactJson, { InteractionProps } from 'react-json-view';
 import './style.scss';
 import { SendTransactionRequest, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
+import { beginCell } from '@ton/ton'; // Импортируем beginCell из TON SDK
 
 // Функция для кодирования сообщения в формате Base64
 const encodeMessage = (message: string) => {
-  return Buffer.from(message).toString('base64');
+  const body = beginCell()
+    .storeUint(0, 32)
+    .storeStringTail(message)
+    .endCell();
+  return body.toBoc().toString("base64");
 }
 
 export function TxForm() {
@@ -56,5 +61,6 @@ export function TxForm() {
     </div>
   );
 }
+
 
 
