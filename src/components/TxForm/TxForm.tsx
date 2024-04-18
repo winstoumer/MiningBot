@@ -33,7 +33,7 @@ const defaultTx: SendTransactionRequest = {
     
     //{
       // Note: Funds sent to this address will not be returned back to the sender.
-      address: 'UQCKNa82Guhh8XZGzr4eEBI887KVLz9UtTjD3cidgv3wS0Mv',
+      //address: 'UQCKNa82Guhh8XZGzr4eEBI887KVLz9UtTjD3cidgv3wS0Mv',
       //amount: toNano('0.01').toString(),
       //payload: body.toBoc().toString("base64")
     //}
