@@ -19,7 +19,7 @@ function App() {
 
   return (
     <TonConnectUIProvider
-      manifestUrl="./docs/tonconnect-manifest.json"
+      manifestUrl="./miningwebbot/tonconnect-manifest.json"
       uiPreferences={{ theme: THEME.DARK }}
       walletsListConfiguration={{
         includeWallets: [
