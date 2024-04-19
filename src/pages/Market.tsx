@@ -5,8 +5,6 @@ import {SendTransactionRequest, useTonConnectUI, useTonWallet} from "@tonconnect
 
 const Market: React.FC = () => {
 
-  import {SendTransactionRequest, useTonConnectUI, useTonWallet} from "@tonconnect/ui-react";
-
 // In this example, we are using a predefined smart contract state initialization (`stateInit`)
 // to interact with an "EchoContract". This contract is designed to send the value back to the sender,
 // serving as a testing tool to prevent users from accidentally spending money.
