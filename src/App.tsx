@@ -13,7 +13,6 @@ import TelegramScript from "./components/TelegramScript/TelegramScript";
 import TelegramUser from "./components/TelegramUser/TelegramUser";
 import './telegram.d.ts';
 
-import {TxForm} from "./components/TxForm/TxForm";
 import {TonProofDemo} from "./components/TonProofDemo/TonProofDemo";
 
 function App() {
