@@ -43,7 +43,7 @@ const Home: React.FC = () => {
       script.async = true;
       script.onload = () => {
         if (window.Telegram && window.Telegram.WebApp) {
-          window.Telegram.WebApp.setHeaderColor('#ffffff');
+          window.Telegram.WebApp.setHeaderColor('#000000');
           window.Telegram.WebApp.expand();
         }
       };
