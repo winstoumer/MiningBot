@@ -1,5 +1,5 @@
 .balance {
-    color: #1F1F1F;
+    color: white;
     font-size: 50px;
     font-weight: 900;
     line-height: 32px;
@@ -24,7 +24,7 @@
 
 .info-mine-count {
     font-size: 14px;
-    color: #3E99BD;
+    color: white;
 }
 
 .set-mining {
@@ -32,19 +32,19 @@
     flex-direction: column;
     gap: 4px;
     font-weight: 300;
-    color: #1F1F1F;
+    color: white;
 }
 
 #counter {
-    color: #24282A;
+    color: white;
 }
 
 .prm-set {
-    color: #24282A;
+    color: white;
 }
 
 .token-title {
-    color: #203036;
+    color: white;
     font-size: 16px;
     font-weight: 300;
 }
@@ -55,8 +55,6 @@
 }
 
 .watch-machine {
-    margin-top: 20px;
-margin-bottom: 20px;
     display: flex;
     width: 200px;
     height: 200px;
@@ -65,6 +63,7 @@ margin-bottom: 20px;
     justify-content: center;
     align-items: center;
 margin-top: 20px;
+margin-bottom: 20px;
     overflow: hidden;
 }
 
