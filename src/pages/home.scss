@@ -88,6 +88,7 @@ margin-top: 20px;
 }
 
 .collecting-now {
+    opacity: 0;
     animation: fadeInOut 2s ease infinite; /* Примерно каждые 2 секунды */
     background-color: transparent;
     color: #151A31;
@@ -95,7 +96,6 @@ margin-top: 20px;
 
 
 @keyframes fadeInOut {
-  0% { opacity: 0; }
-  50% { opacity: 1; }
-  100% { opacity: 0; }
+  0%, 100% { opacity: 0; } /* Начало и конец - нулевая прозрачность */
+  50% { opacity: 1; } /* Половина времени - максимальная прозрачность */
 }
