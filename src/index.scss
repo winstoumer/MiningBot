@@ -76,6 +76,7 @@ code {
     gap: 12px;
 }
 
+/*
 .tab-button {
     border: none;
     border-radius: 40px;
@@ -87,11 +88,42 @@ code {
     font-weight: 800;
     background-color: #EAF6FB;
 }
-
+*/
 .active {
-    background-color: #207CFA;
-    color: white;
+    color: #207CFA;
 }
 
 .tab-content {
+}
+
+.tab-button {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2F2F2F;
+  width: 100%;
+    height: 42px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  position: relative;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-button.active {
+    color: #207CFA;
+  border-bottom: 3px solid #207CFA; /* Цвет и толщина активной бордюры */
+    border-radius: 0px 0px 0px 0px;
+}
+
+.tab-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; /* Расстояние, на которое опустится бордюра */
+  left: 0;
+  width: 100%;
+  height: 3px; /* Толщина бордюры */
+    color: #207CFA;
+  background-color: #207CFA; /* Цвет бордюры */
+   /* Закругление только нижнего края */
+  transition: bottom 0.3s ease; /* Анимация движения бордюры */
 }
