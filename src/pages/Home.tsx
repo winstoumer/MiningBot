@@ -356,7 +356,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
       <PageComponent>
     <div className="content">
       <div className="balance">
-        <div className="title-block">Total balance (MEEN)</div>
+        <div className="title-block">Balance MEEN</div>
         <div className="total-balance">{coins.toFixed(2)}</div>
       </div>
       <div className="content-machine">
