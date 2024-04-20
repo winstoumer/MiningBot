@@ -94,6 +94,11 @@ margin-top: 20px;
     color: #151A31;
 }
 
+.collecting-now.hidden-claim-button {
+    opacity: 0;
+  animation: none; /* Остановка предыдущей анимации */
+}
+
 @keyframes fadeInOut {
   0% { opacity: 0; }
   50% { opacity: 1; }
