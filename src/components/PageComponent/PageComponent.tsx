@@ -16,7 +16,7 @@ const PageComponent: React.FC<PageComponentProps> = ({ children }) => {
       script.async = true;
       script.onload = () => {
         if (window.Telegram && window.Telegram.WebApp) {
-          window.Telegram.WebApp.setHeaderColor('#ffffff');
+          window.Telegram.WebApp.setHeaderColor('#000000');
           window.Telegram.WebApp.expand();
 
           // Set up the back button after the script is loaded and Telegram WebApp is available
