@@ -83,6 +83,7 @@ margin-bottom: 20px;
     height: 36px;
     padding: 0 20px;
     border-radius: 20px;
+    border: none;
     font-size: 16px;
     font-weight: 500;
     color: white;
@@ -92,7 +93,7 @@ margin-bottom: 20px;
     opacity: 0;
     animation: fadeInOut 2s ease infinite; /* Примерно каждые 2 секунды */
     background-color: transparent;
-    color: #151A31;
+    color: white;
 }
 
 
