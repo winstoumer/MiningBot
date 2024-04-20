@@ -152,7 +152,7 @@ const Task: React.FC = () => {
     const tabs: Tab[] = [
     { title: 'Earn',
      content: (
-         <div>
+         <div className="content">
         <div className="task-list">
           {tasks.map(task => (
             <div key={task.id} style={{ cursor: 'pointer', opacity: task.completed ? 0.5 : 1 }} className="task-name">
