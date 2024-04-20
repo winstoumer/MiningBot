@@ -47,7 +47,7 @@ const PageComponent: React.FC<PageComponentProps> = ({ children }) => {
     };
   }, [navigate]);
 
-  return <div>{children}</div>;
+  return <>{children}</>;
 };
 
 export default PageComponent;
