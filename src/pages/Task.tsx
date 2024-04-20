@@ -152,7 +152,7 @@ const Task: React.FC = () => {
     const tabs: Tab[] = [
     { title: 'Earn',
      content: (
-         <div className="content">
+         <div>
         <div className="task-list">
           {tasks.map(task => (
             <div key={task.id} style={{ cursor: 'pointer', opacity: task.completed ? 0.5 : 1 }} className="task-name">
@@ -178,7 +178,7 @@ const Task: React.FC = () => {
       </div>
      ) },
     { title: 'Referral', content: <div>
-        <div className="content">
+        <div>
             <div className="referral-manage">
                 <img src="https://i.ibb.co/ZGnmL9v/Designer-97.jpg" className="referral-image" />
                 <div className="referral-info">You will receive 100 coins for each invitee.</div>
