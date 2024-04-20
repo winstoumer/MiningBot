@@ -162,11 +162,9 @@ const Task: React.FC = () => {
                 </div>
                 <div className="task-info">
                   <div className="task-name">{task.name}</div>
-                  {!task.completed && (
                     <div className="task-rewards">
                       {task.coin_reward} MEEN
                     </div>
-                  )}
                   <div className="complete-task">
                       {!task.completed && (
         <button onClick={() => !task.completed && handleTaskCompletion(task.id, task.url)} className="go">Go</button>
