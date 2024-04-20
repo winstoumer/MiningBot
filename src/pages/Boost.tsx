@@ -203,7 +203,6 @@ useEffect(() => {
       </div>
     </div>
     </PageComponent>
-    
   );
 };
 
