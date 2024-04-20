@@ -88,16 +88,11 @@ margin-top: 20px;
 }
 
 .collecting-now {
-    opacity: 1;
     animation: fadeInOut 2s ease infinite; /* Примерно каждые 2 секунды */
     background-color: transparent;
     color: #151A31;
 }
 
-.collecting-now.hidden-claim-button {
-    opacity: 0;
-  animation: none; /* Остановка предыдущей анимации */
-}
 
 @keyframes fadeInOut {
   0% { opacity: 0; }

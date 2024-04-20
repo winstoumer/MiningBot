@@ -384,7 +384,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
       </div>
       <div className="actions-mining">
          <button 
-    className={`claim-coins-btn ${hoursLeft <= 0 && minutesLeft <= 0 && secondsLeft <= 0 ? '' : 'collecting-now hidden-claim-button'}`} 
+    className={`claim-coins-btn ${hoursLeft <= 0 && minutesLeft <= 0 && secondsLeft <= 0 ? '' : 'collecting-now'}`} 
     onClick={claimCoinsNow} 
     disabled={hoursLeft > 0 || minutesLeft > 0 || secondsLeft > 0}
 >
