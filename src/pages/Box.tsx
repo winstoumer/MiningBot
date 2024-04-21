@@ -6,7 +6,7 @@ import PageComponent from '../components/PageComponent/PageComponent';
 const Box: React.FC = () => {
     return 
         <PageComponent>
-            <div>test</div>
+            <div>test2</div>
         </PageComponent>
 };
 export default Box;
