@@ -180,7 +180,7 @@ const Task: React.FC = () => {
     { title: 'Referral', content: <div>
         <div>
             <div className="referral-manage">
-                <img src="https://i.ibb.co/ZGnmL9v/Designer-97.jpg" className="referral-image" />
+                <img src="https://i.ibb.co/1KnjQ0t/Designer-105.jpg" className="referral-image" />
                 <div className="referral-info">You will receive 100 coins for each invitee.</div>
                 <button type="button" className="go" onClick={handleCopyLink}>Get referral link</button>
             </div>
