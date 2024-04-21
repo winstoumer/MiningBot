@@ -8,6 +8,7 @@ const Box: React.FC = () => {
         <PageComponent>
             <div className="box-container">
                 <div className="box-body">
+                    <div className="count-box">0</div>
                     <div className="watch-box">
                         <img src="https://i.ibb.co/jLcwk8W/IMG-1679.jpg" className="box-image" />
                     </div>
