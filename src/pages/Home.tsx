@@ -50,12 +50,6 @@ const Home: React.FC = () => {
     }
   }, [userData]);
 
-  useEffect(() => {
-    const headerColor = '#ffffff';
-    if (window.Telegram?.WebApp) {
-      window.Telegram.WebApp.setHeaderColor(headerColor);
-    }
-  }, []);
 
   useEffect(() => {
     const startCount = 0;
