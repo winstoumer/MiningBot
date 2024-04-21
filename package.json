@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ton/core": "^0.56.3",
     "@ton/ton": "^13.11.1",
     "@tonconnect/ui-react": "2.0.0",
     "axios": "^1.6.8",
