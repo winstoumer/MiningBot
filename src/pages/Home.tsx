@@ -366,13 +366,6 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
       </div>
       <div className="general-token">
         <div className="set-mining">
-          <div className="token-title">Level</div>
-          <div className="token">
-            <span className="prm-set">{minerInfo.lvl}</span>
-          </div>
-          <div className="info-mine-count">{minerInfo.name}</div>
-        </div>
-        <div className="set-mining">
           <div className="token-title">
             Mining
           </div>
@@ -380,6 +373,13 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
             <span id="counter">{hoursLeft > 0 || minutesLeft > 0 ? `${hoursLeft}:${minutesLeft}:${secondsLeft}` : '00:00:00'}</span>
           </div>
           <div className="info-mine-count">{minerInfo.coin_mined} MEEN per {minerInfo.time_mined} h</div>
+        </div>
+        <div className="set-mining">
+          <div className="token-title">Level</div>
+          <div className="token">
+            <span className="prm-set">{minerInfo.lvl}</span>
+          </div>
+          <div className="info-mine-count">{minerInfo.name}</div>
         </div>
       </div>
       <div className="actions-mining">
