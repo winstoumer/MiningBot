@@ -16,7 +16,10 @@ export const Navigation = () => {
             <Link to="/task">Earn</Link>
         </div>
         <div className="navigation-block">
-            <Link to="/market">Box</Link>
+            <Link to="/market">Test</Link>
+        </div>
+        <div className="navigation-block">
+            <Link to="/box">Box</Link>
         </div>
     </div>
     </PageComponent>
