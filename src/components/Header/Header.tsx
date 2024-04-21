@@ -3,6 +3,6 @@ import './header.scss';
 
 export const Header = () => {
     return <header>
-        <TonConnectButton className="ton-button" style={{background: #000000;}} />
+        <TonConnectButton className="connect-wallet-button" />
     </header>
 }
