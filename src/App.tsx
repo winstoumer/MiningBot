@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Boost from './pages/Boost';
 import Market from './pages/Market';
 import Task from './pages/Task';
+import Box from './pages/Box';
 import TelegramScript from "./components/TelegramScript/TelegramScript";
 import TelegramUser from "./components/TelegramUser/TelegramUser";
 import './telegram.d.ts';
@@ -57,6 +58,7 @@ function App() {
             <Route path="/boost" element={<Boost />} />
             <Route path="/market" element={<Market />} />
             <Route path="/task" element={<Task />} />
+            <Route path="/box" element={<Box />} />
           </Routes>
           <Navigation />
         </Router>
