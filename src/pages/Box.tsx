@@ -11,7 +11,7 @@ const Box: React.FC = () => {
                     <div className="watch-box">
                         <img src="https://i.ibb.co/jLcwk8W/IMG-1679.jpg" className="box-image" />
                     </div>
-                    <div className="box-reward">
+                    <div className="box-rewards">
                     </div>
                     <div>
                         <button type="button" className="open-box">Open</button>
