@@ -1,8 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import ReactJson, { InteractionProps } from 'react-json-view';
 import './market.scss';
-import { SendTransactionRequest, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
-import { beginCell } from '@ton/core'; // Добавлен импорт для beginCell
+import { SendTransactionRequest, useTonConnectUI, useTonWallet, beginCell } from "@tonconnect/ui-react";
 
 const Market: React.FC = () => {
 
