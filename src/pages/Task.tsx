@@ -117,24 +117,6 @@ const Task: React.FC = () => {
     );
 }, []);
 
-
-  useEffect(() => {
-    const loadScript = () => {
-      const script = document.createElement('script');
-      script.src = 'https://telegram.org/js/telegram-web-app.js';
-      script.async = true;
-      script.onload = () => {
-        if (window.Telegram && window.Telegram.WebApp) {
-            window.Telegram.WebApp.setHeaderColor('#ffffff');
-          window.Telegram.WebApp.expand();
-        }
-      };
-      document.body.appendChild(script);
-    };
-
-    loadScript();
-  }, []);
-
   useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp) {
       setUserData(window.Telegram.WebApp.initDataUnsafe?.user);
