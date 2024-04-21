@@ -5,7 +5,9 @@ import PageComponent from '../components/PageComponent/PageComponent';
 const Box: React.FC = () => {
     return (
         <PageComponent>
-            <div>test2</div>
+            <div className="content">
+                <span className="dot-test">•••</span>
+            </div>
         </PageComponent>
     );
 };
