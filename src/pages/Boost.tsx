@@ -183,10 +183,8 @@ useEffect(() => {
                   </div>
                   <div className="boost-mined">{`${miner.coin_mined} in 1 hours`}</div>
                 {minerInfo.lvl === 1 ? 
-    <div></div> : 
-    <div className="boost-price">{`${miner.price_miner} MEEN`}</div>
+    <div className="boost-price">{`${miner.price_miner} MEEN`}</div> : <div></div>
 }
-
                 </div>
               </div>
               <div className="boost-action">
