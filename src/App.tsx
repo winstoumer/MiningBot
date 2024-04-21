@@ -20,7 +20,7 @@ function App() {
 
   return (
     <TonConnectUIProvider
-      manifestUrl="./miningwebbot/tonconnect-manifest.json"
+      manifestUrl="https://advisory-brandi-webapp.koyeb.app/api/json-x/tonconnect-manifest.json"
       uiPreferences={{ theme: THEME.DARK }}
       walletsListConfiguration={{
         includeWallets: [
