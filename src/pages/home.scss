@@ -91,6 +91,7 @@
 }
 
 .collecting-now {
+    font-weight: 300;
     opacity: 0;
     animation: fadeInOut 2s ease infinite; /* Примерно каждые 2 секунды */
     background-color: transparent;
