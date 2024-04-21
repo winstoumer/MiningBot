@@ -18,8 +18,8 @@
 
 .general-token {
     padding: 12px 20px;
-    display: grid;
-    grid-template-columns: 0.5fr 1.5fr;
+    display: flex;
+    justify-content: space-between;
     gap: 30px;
 }
 
