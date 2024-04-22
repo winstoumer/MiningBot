@@ -69,22 +69,33 @@ const Box: React.FC = () => {
 
 const decrementTotal = async (userId: number) => {
   try {
+    if (!boxData) {
+      console.error('boxData is null');
+      return;
+    }
+
     const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/box/${userId}`, {
-      method: 'PUT', // Используем метод PUT для обновления данных на сервере
+      method: 'PUT', 
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ // Отправляем новое значение total, уменьшенное на 1
+      body: JSON.stringify({ 
         total: boxData.total - 1,
       }),
     });
 
     if (response.ok) {
-      // Обновляем локальное состояние total после успешного обновления на сервере
-      setBoxData(prevState => ({
-        ...prevState,
-        total: prevState.total - 1,
-      }));
+      // Проверяем, что prevState не равно null
+      setBoxData(prevState => {
+        if (!prevState) {
+          console.error('prevState is null');
+          return prevState;
+        }
+        return {
+          ...prevState,
+          total: prevState.total - 1,
+        };
+      });
       console.log('Total updated successfully');
     } else {
       console.error('Failed to update total');
@@ -93,7 +104,6 @@ const decrementTotal = async (userId: number) => {
     console.error('Error updating total:', error);
   }
 };
-    
     
     const handleAddOrderNFT = async () => {
       if (!userData || !userTonAddress || !nftId) {
