@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import './box.scss';
 import PageComponent from '../components/PageComponent/PageComponent';
 import { v4 as uuidv4 } from 'uuid'; // Импортируем функцию для генерации UUID
