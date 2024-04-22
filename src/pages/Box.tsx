@@ -3,7 +3,7 @@ import './box.scss';
 import PageComponent from '../components/PageComponent/PageComponent';
 import { v4 as uuidv4 } from 'uuid'; // Импортируем функцию для генерации UUID
 import ReactJson, { InteractionProps } from 'react-json-view';
-import { SendTransactionRequest, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
+import { SendTransactionRequest, useTonConnectUI, useTonWallet, useTonAddress } from "@tonconnect/ui-react";
 import { beginCell } from '@ton/ton'; // Добавлен импорт для beginCell
 
 type TelegramUserData = {
