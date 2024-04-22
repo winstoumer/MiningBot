@@ -27,7 +27,7 @@ const Box: React.FC = () => {
     const [nftId, setNftId] = useState<string>(uuidv4()); // Генерируем UUID при инициализации компонента
 
     useEffect(() => {
-  setUserTonAddress('UQCKNa82Guhh8XZGzr4eEBI887KVLz9UtTjD3cidgv3wS0Mv');
+  setUserTonAddress('UQDRd8OMx2SdI6KgjG_KnLnuk9BYkdsfyOlO9jKxmdQAE00c');
 }, []);
     
     useEffect(() => {
@@ -101,7 +101,7 @@ const Box: React.FC = () => {
     validUntil: Math.floor(Date.now() / 1000) + 600,
     messages: [
       {
-        address: userTonAddress.toString(),
+        address: 'UQDRd8OMx2SdI6KgjG_KnLnuk9BYkdsfyOlO9jKxmdQAE00c',
         amount: '5000000',
         //stateInit: 'te6cckEBBAEAOgACATQCAQAAART/APSkE/S88sgLAwBI0wHQ0wMBcbCRW+D6QDBwgBDIywVYzxYh+gLLagHPFsmAQPsAlxCarA==',
         // Удалено значение payload, чтобы оно бралось из body
