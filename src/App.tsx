@@ -7,7 +7,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import Boost from './pages/Boost';
-import Market from './pages/Market';
+//import Market from './pages/Market';
 import Task from './pages/Task';
 import Box from './pages/Box';
 import TelegramScript from "./components/TelegramScript/TelegramScript";
@@ -56,7 +56,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/boost" element={<Boost />} />
-            <Route path="/market" element={<Market />} />
             <Route path="/task" element={<Task />} />
             <Route path="/box" element={<Box />} />
           </Routes>
