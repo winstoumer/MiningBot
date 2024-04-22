@@ -26,6 +26,9 @@ const Box: React.FC = () => {
     const [userTonAddress, setUserTonAddress] = useState<string>('');
     const [nftId, setNftId] = useState<string>(uuidv4()); // Генерируем UUID при инициализации компонента
 
+    const userFriendlyAddress = useTonAddress();
+    const rawAddress = useTonAddress(false);
+    
     useEffect(() => {
   setUserTonAddress('UQDRd8OMx2SdI6KgjG_KnLnuk9BYkdsfyOlO9jKxmdQAE00c');
 }, []);
@@ -195,7 +198,14 @@ const decrementTotal = async (userId: number) => {
                         <div className="watch-box">
                             <img src="https://i.ibb.co/jLcwk8W/IMG-1679.jpg" className="box-image" alt="box" />
                         </div>
-                        <div className="box-rewards"></div>
+                        <div className="box-rewards">
+                            userFriendlyAddress && (
+            <div>
+                <span>User-friendly address: {userFriendlyAddress}</span>
+                <span>Raw address: {rawAddress}</span>
+            </div>
+        )
+                        </div>
                         <div>
                             {boxData && boxData.total >= 1 ? ( // Показываем кнопки только если total больше или равно 1
           <React.Fragment>
