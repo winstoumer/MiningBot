@@ -120,7 +120,7 @@ const Box: React.FC = () => {
   const createTransaction = () => {
     const body = beginCell()
       .storeUint(0, 32)
-      .storeStringTail(nftId)
+      .storeStringTail(nftId.toString())
       .endCell();
 
     const payload = body.toBoc().toString("base64");
