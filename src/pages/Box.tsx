@@ -53,19 +53,21 @@ const Box: React.FC = () => {
 
     // Функция для получения данных о total по id пользователя
     const fetchBoxTotal = async (userId: number) => {
-      try {
-        const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/box/${userId}`);
-        if (response.ok) {
-          const data = await response.json();
-          setBoxData(data);
-        } else {
-          console.error('Failed to fetch box total');
-        }
-      } catch (error) {
-        console.error('Error fetching box total:', error);
-      }
-    };
+  try {
+    const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/box/${userId}`);
+    if (response.ok) {
+      const data = await response.json();
+      const total = parseInt(data.total); // Преобразуем строку в число
+      setBoxData({ total });
+    } else {
+      console.error('Failed to fetch box total');
+    }
+  } catch (error) {
+    console.error('Error fetching box total:', error);
+  }
+};
 
+    
     const handleAddOrderNFT = async () => {
       if (!userData || !userTonAddress || !nftId) {
         console.error('Missing required data');
