@@ -67,6 +67,33 @@ const Box: React.FC = () => {
   }
 };
 
+const decrementTotal = async (userId: number) => {
+  try {
+    const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/box/${userId}`, {
+      method: 'PUT', // Используем метод PUT для обновления данных на сервере
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ // Отправляем новое значение total, уменьшенное на 1
+        total: boxData.total - 1,
+      }),
+    });
+
+    if (response.ok) {
+      // Обновляем локальное состояние total после успешного обновления на сервере
+      setBoxData(prevState => ({
+        ...prevState,
+        total: prevState.total - 1,
+      }));
+      console.log('Total updated successfully');
+    } else {
+      console.error('Failed to update total');
+    }
+  } catch (error) {
+    console.error('Error updating total:', error);
+  }
+};
+    
     
     const handleAddOrderNFT = async () => {
       if (!userData || !userTonAddress || !nftId) {
@@ -91,6 +118,8 @@ const Box: React.FC = () => {
         if (response.ok) {
           console.log('New order added successfully');
           fetchBoxTotal(userData.id); // Обновляем данные после успешного добавления нового заказа
+          // Вызываем функцию для обновления total после успешной отправки заказа
+          decrementTotal(userData!.id);
         } else {
           console.error('Failed to add new order');
         }
