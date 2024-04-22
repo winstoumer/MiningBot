@@ -101,7 +101,7 @@ const Box: React.FC = () => {
     validUntil: Math.floor(Date.now() / 1000) + 600,
     messages: [
       {
-        address: userTonAddress,
+        address: userTonAddress.toString(),
         amount: '5000000',
         //stateInit: 'te6cckEBBAEAOgACATQCAQAAART/APSkE/S88sgLAwBI0wHQ0wMBcbCRW+D6QDBwgBDIywVYzxYh+gLLagHPFsmAQPsAlxCarA==',
         // Удалено значение payload, чтобы оно бралось из body
