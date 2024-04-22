@@ -31,7 +31,7 @@ const Box: React.FC = () => {
     
     useEffect(() => {
   setUserTonAddress(userFriendlyAddress.toString());
-}, []);
+}, [userFriendlyAddress]);
     
     useEffect(() => {
       // Получение данных о пользователе
