@@ -30,7 +30,7 @@ const Box: React.FC = () => {
     const rawAddress = useTonAddress(false);
     
     useEffect(() => {
-  setUserTonAddress('UQDRd8OMx2SdI6KgjG_KnLnuk9BYkdsfyOlO9jKxmdQAE00c');
+  setUserTonAddress(userFriendlyAddress.toString());
 }, []);
     
     useEffect(() => {
@@ -199,12 +199,7 @@ const decrementTotal = async (userId: number) => {
                             <img src="https://i.ibb.co/jLcwk8W/IMG-1679.jpg" className="box-image" alt="box" />
                         </div>
                         <div className="box-rewards">
-                            userFriendlyAddress && (
-            <div>
-                <span>User-friendly address: {userFriendlyAddress}</span>
-                <span>Raw address: {rawAddress}</span>
-            </div>
-        )
+                        
                         </div>
                         <div>
                             {boxData && boxData.total >= 1 ? ( // Показываем кнопки только если total больше или равно 1
