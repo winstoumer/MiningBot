@@ -2,6 +2,8 @@
     --default-button-color: #207CFA;
     --default-button-background-color: #151A31;
     --title-color: #B1B1B1;
+    --text-signature-yellow-color: rgb(231, 237, 30);
+    --text-signature-blue-color: #207CFA;
 }
 
 html, body, #root {
@@ -52,6 +54,16 @@ code {
     justify-content: space-between;
     height: 100%;
 }
+
+/* signature colors */
+.signature-yellow-color {
+    color: var(--text-signature-yellow-color);
+}
+
+.signature-blue-color {
+    color: var(--text-signature-blue-color);
+}
+/* end signature colors*/
 
 /* buttons */
 .default-button {

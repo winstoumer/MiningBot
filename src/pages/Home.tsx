@@ -349,14 +349,14 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
           <div className="token">
             <span id="counter">{hoursLeft > 0 || minutesLeft > 0 ? `${hoursLeft} : ${minutesLeft} : ${secondsLeft}` : '00 : 00 : 00'}</span>
           </div>
-          <div className="info-mine-count">{minerInfo.coin_mined} MEEN per {minerInfo.time_mined} h</div>
+          <div className="info-miner signature-yellow-color">{minerInfo.coin_mined} / {minerInfo.time_mined}h</div>
         </div>
         <div className="set-mining">
           <div className="title-ol">Level</div>
           <div className="token">
             <span className="prm-set">{minerInfo.lvl}</span>
           </div>
-          <div className="info-mine-count">{minerInfo.name}</div>
+          <div className="info-miner signature-blue-color">{minerInfo.name}</div>
         </div>
       </div>
       <div className="actions-mining">
