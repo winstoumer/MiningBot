@@ -199,7 +199,9 @@ const decrementTotal = async (userId: number) => {
                             <img src="https://i.ibb.co/jLcwk8W/IMG-1679.jpg" className="box-image" alt="box" />
                         </div>
                         <div className="box-rewards">
-                        
+                            <div className="item-box">
+                                NFT box
+                            </div>
                         </div>
                         <div>
                             {boxData && boxData.total >= 1 ? ( // Показываем кнопки только если total больше или равно 1
