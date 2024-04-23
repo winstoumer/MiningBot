@@ -349,7 +349,12 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
           <div className="token">
             <span id="counter">{hoursLeft > 0 || minutesLeft > 0 ? `${hoursLeft} : ${minutesLeft} : ${secondsLeft}` : '00 : 00 : 00'}</span>
           </div>
-          <div className="info-miner signature-yellow-color">{minerInfo.coin_mined} / {minerInfo.time_mined}h</div>
+          <div className="info-miner signature-yellow-color">
+              {minerInfo.coin_mined}
+              <span className="token-ic-14">
+                  <img src="https://i.ibb.co/nzbVcWv/timeminecoin-icon.png" className="token-icon" />
+              </span>
+              / {minerInfo.time_mined}h</div>
         </div>
         <div className="set-mining">
           <div className="title-ol">Level</div>
