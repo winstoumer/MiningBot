@@ -41,7 +41,7 @@
 
 
 .box-rewards {
-    border-radius: 12px;
+    border-radius: 20px;
     border: 1px solid #3D1D44;
     display: flex;
     flex-direction: column;
@@ -50,15 +50,11 @@
 }
 
 .item-box {
-    padding: 6px 12px;
+    padding: 6px 13px;
     width: 100%;
     font-size: 14px;
     font-weight: 300;
     color: #B20BD7;
-}
-
-.item-box:nth-child(1) {
-    //border-bottom: 1px solid #3D1D44;
 }
 
 .open-box {
