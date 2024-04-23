@@ -6,8 +6,8 @@
     text-align: center;
 }
 
-.title-block {
-    color: #B1B1B1;
+.title-ol {
+    color: var(--title-color);
     font-size: 16px;
     font-weight: 300;
 }
@@ -42,12 +42,6 @@
 
 .prm-set {
     color: white;
-}
-
-.token-title {
-    color: #B1B1B1;
-    font-size: 16px;
-    font-weight: 300;
 }
 
 .token {

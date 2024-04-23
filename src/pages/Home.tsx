@@ -333,7 +333,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
       <PageComponent>
     <div className="content">
       <div className="balance">
-        <div className="title-block">Balance MEEN</div>
+        <div className="title-ol">Balance MEEN</div>
         <div className="total-balance">{coins.toFixed(2)}</div>
       </div>
       <div className="content-machine">
@@ -343,7 +343,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
       </div>
       <div className="general-token">
         <div className="set-mining">
-          <div className="token-title">
+          <div className="title-ol">
             Mining
           </div>
           <div className="token">
@@ -352,7 +352,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
           <div className="info-mine-count">{minerInfo.coin_mined} MEEN per {minerInfo.time_mined} h</div>
         </div>
         <div className="set-mining">
-          <div className="token-title">Level</div>
+          <div className="title-ol">Level</div>
           <div className="token">
             <span className="prm-set">{minerInfo.lvl}</span>
           </div>
