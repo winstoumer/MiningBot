@@ -148,11 +148,11 @@ const Task: React.FC = () => {
                       <span className="token-ic-26">
                           <img src="https://i.ibb.co/nzbVcWv/timeminecoin-icon.png" className="token-icon" />
                       </span>
-                      {task.coin_reward}
+                        {task.coin_reward}
                     </div>
                   <div className="complete-task">
                       {!task.completed && (
-        <button onClick={() => !task.completed && handleTaskCompletion(task.id, task.url)} className="default-button">Go</button>
+        <button onClick={() => !task.completed && handleTaskCompletion(task.id, task.url)} className="default-button">></button>
       )}
                   </div>
                 </div>
