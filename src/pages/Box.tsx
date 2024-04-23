@@ -208,7 +208,7 @@ const decrementTotal = async (userId: number) => {
           <React.Fragment>
             {wallet ? (
               <button className="open-box" onClick={createTransaction}>
-                Pay 0.05 TON and open
+                Pay 0.005 TON and open
               </button>
             ) : (
               <button className="open-box" onClick={() => tonConnectUi.openModal()}>
