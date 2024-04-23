@@ -183,7 +183,11 @@ useEffect(() => {
                   </div>
                   <div className="boost-mined signature-yellow-color">{`${miner.coin_mined} / ${miner.time_mined}h`}</div>
                 {minerInfo.lvl === miner.lvl ? 
-    <div></div> : <div className="boost-price">{`${miner.price_miner} MEEN`}</div>
+    <div></div> : <div className="boost-price">{`${miner.price_miner}`}
+        <span className="token-ic-26">
+                          <img src="https://i.ibb.co/nzbVcWv/timeminecoin-icon.png" className="token-icon" />
+                      </span>
+    </div>
 }
                 </div>
               </div>

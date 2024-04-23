@@ -90,6 +90,9 @@
 }
 
 .boost-price {
+    display: flex;
+    gap: 4px;
+    align-items: center;
     font-size: 24px;
     font-weight: 800;
     color: #207CFA;
