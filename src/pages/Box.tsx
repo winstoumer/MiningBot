@@ -207,11 +207,11 @@ const decrementTotal = async (userId: number) => {
                             {boxData && boxData.total >= 1 ? ( // Показываем кнопки только если total больше или равно 1
           <React.Fragment>
             {wallet ? (
-              <button className="open-box" onClick={createTransaction}>
+              <button className="default-button" onClick={createTransaction}>
                 Open for 1 TON
               </button>
             ) : (
-              <button className="open-box" onClick={() => tonConnectUi.openModal()}>
+              <button className="default-button" onClick={() => tonConnectUi.openModal()}>
                 Connect wallet
               </button>
             )}

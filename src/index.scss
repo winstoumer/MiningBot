@@ -60,6 +60,19 @@ code {
     height: 100%;
 }
 
+/* buttons */
+.default-button {
+    font-size: 16px;
+    font-weight: 500;
+    color: #207CFA;
+    background-color: #151A31;
+    height: 36px;
+    padding: 0 20px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+}
+
 .title-page {
     font-size: 36px;
     font-weight: 800;
@@ -78,19 +91,6 @@ code {
     gap: 30px;
 }
 
-/*
-.tab-button {
-    border: none;
-    border-radius: 40px;
-    height: 42px;
-    padding: 0 14px;
-    width: 100%;
-    font-size: 20px;
-    color: #151A31;
-    font-weight: 800;
-    background-color: #EAF6FB;
-}
-*/
 .active {
     color: #207CFA;
 }

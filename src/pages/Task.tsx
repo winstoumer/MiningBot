@@ -149,7 +149,7 @@ const Task: React.FC = () => {
                     </div>
                   <div className="complete-task">
                       {!task.completed && (
-        <button onClick={() => !task.completed && handleTaskCompletion(task.id, task.url)} className="go">Go</button>
+        <button onClick={() => !task.completed && handleTaskCompletion(task.id, task.url)} className="default-button">Go</button>
       )}
                   </div>
                 </div>

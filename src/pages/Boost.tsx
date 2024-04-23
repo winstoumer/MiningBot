@@ -191,7 +191,7 @@ useEffect(() => {
                 {minerInfo.lvl !== undefined && miner.lvl !== undefined && miner.lvl === minerInfo.lvl + 1 && balance !== null && balance >= parseFloat(miner.price_miner) && (
   <button
     type="button"
-    className="boost-upgrade"
+    className="default-button"
     onClick={() => handleUpgrade(miner.miner_id)}
   >
     Upgrade
