@@ -146,7 +146,7 @@ const decrementTotal = async (userId: number) => {
     messages: [
       {
         address: 'UQDRd8OMx2SdI6KgjG_KnLnuk9BYkdsfyOlO9jKxmdQAE00c',
-        amount: '5000000',
+        amount: '1000000000',
         //stateInit: 'te6cckEBBAEAOgACATQCAQAAART/APSkE/S88sgLAwBI0wHQ0wMBcbCRW+D6QDBwgBDIywVYzxYh+gLLagHPFsmAQPsAlxCarA==',
         // Удалено значение payload, чтобы оно бралось из body
       },
@@ -208,7 +208,7 @@ const decrementTotal = async (userId: number) => {
           <React.Fragment>
             {wallet ? (
               <button className="open-box" onClick={createTransaction}>
-                Pay 0.005 TON and open
+                Open for 1 TON
               </button>
             ) : (
               <button className="open-box" onClick={() => tonConnectUi.openModal()}>
