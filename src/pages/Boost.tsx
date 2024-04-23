@@ -170,7 +170,8 @@ useEffect(() => {
         <div className="boost-list">
             <div className="balance pad-bottom">
                 <div className="title-balance">Balance:</div>
-                {balance !== null ? balance : 'Loading...'} MEEN</div>
+                {balance !== null ? balance : 'Loading...'}
+            </div>
           {miners.map((miner) => (
             <div key={miner.miner_id} className={`boost-item ${miner.lvl !== undefined && miner.lvl !== minerInfo.lvl + 1 ? 'boost-closed' : ''}`}>
               <div className="boost-description">

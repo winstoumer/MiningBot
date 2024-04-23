@@ -334,7 +334,12 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
     <div className="content">
       <div className="balance">
         <div className="title-ol">Balance MEEN</div>
-        <div className="total-balance">{coins.toFixed(2)}</div>
+        <div className="total-balance">
+            <span className="token-ic-50">
+                  <img src="https://i.ibb.co/nzbVcWv/timeminecoin-icon.png" className="token-icon" />
+              </span>
+            {coins.toFixed(2)}
+        </div>
       </div>
       <div className="content-machine">
         <div className="watch-machine">
