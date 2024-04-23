@@ -1,14 +1,7 @@
 :root {
-  --tg-theme-bg-color: var(--tg-theme-bg-color, #FFFFFF); /* Значение по умолчанию #FFFFFF */
-  --tg-theme-secondary-bg-color: var(--tg-theme-secondary-bg-color, #FFFFFF); /* Значение по умолчанию #F2F3F5 */
-}
-
-.bg-color {
-  background-color: var(--tg-theme-bg-color);
-}
-
-.secondary-bg-color {
-  background-color: var(--tg-theme-secondary-bg-color);
+    --default-button-color: #207CFA;
+    --default-button-background-color: #151A31;
+    
 }
 
 html, body, #root {
@@ -64,14 +57,15 @@ code {
 .default-button {
     font-size: 16px;
     font-weight: 500;
-    color: #207CFA;
-    background-color: #151A31;
+    color: var(--default-button-color);
+    background-color: var(--default-button-background-color);
     height: 36px;
     padding: 0 20px;
     border-radius: 20px;
     border: none;
     cursor: pointer;
 }
+/* end buttons */
 
 .title-page {
     font-size: 36px;
@@ -91,41 +85,25 @@ code {
     gap: 30px;
 }
 
-.active {
-    color: #207CFA;
-}
-
-.tab-content {
-}
-
 .tab-button {
     font-size: 20px;
     font-weight: 700;
     color: #2F2F2F;
     padding: 0;
     height: 42px;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  position: relative;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
     border-bottom: 3px solid transparent;
 }
 
 .tab-button.active {
-    color: #207CFA;
-  border-bottom: 3px solid #207CFA; /* Цвет и толщина активной бордюры */
-    border-radius: 0px 0px 0px 0px;
+    color: var(--default-button-color);
+    border-bottom: 3px solid var(--default-button-color);
 }
 
-.tab-button.active::after {
-  content: '';
-  position: absolute;
-  bottom: -3px; /* Расстояние, на которое опустится бордюра */
-  left: 0;
-  width: 100%;
-  height: 3px; /* Толщина бордюры */
-    color: #207CFA;
-  background-color: #207CFA; /* Цвет бордюры */
-   /* Закругление только нижнего края */
-  transition: bottom 0.3s ease; /* Анимация движения бордюры */
+.active {
+    color: var(--default-button-color);
 }
