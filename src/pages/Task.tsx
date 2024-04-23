@@ -145,7 +145,10 @@ const Task: React.FC = () => {
                 <div className="task-info">
                   <div className="task-name">{task.name}</div>
                     <div className="task-rewards">
-                      {task.coin_reward} MEEN
+                      {task.coin_reward} 
+                      <span className="token-ic-16">
+                          <img src="https://i.ibb.co/nzbVcWv/timeminecoin-icon.png" className="token-icon" />
+                      </span>
                     </div>
                   <div className="complete-task">
                       {!task.completed && (
