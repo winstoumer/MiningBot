@@ -333,7 +333,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
       <PageComponent>
     <div className="content">
       <div className="balance">
-        <div className="title-ol">Balance MEEN</div>
+        <div className="title-ol">Balance</div>
         <div className="total-balance">
             <span className="token-ic-50">
                   <img src="https://i.ibb.co/nzbVcWv/timeminecoin-icon.png" className="token-icon" />
