@@ -10,7 +10,7 @@
     margin-bottom: 25px;
     width: 3px;
     height: 20px;
-    background-color: gray;
+    background-color: white;
     border-radius: 4px;
 }
 
@@ -45,7 +45,7 @@
 }
 
 .boost-item:nth-child(n+2) > .line-upgrade {
-    display: none;
+    color: gray;
 }
 
 .boost-item:nth-last-child(1) > .line-upgrade {
