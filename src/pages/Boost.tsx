@@ -178,8 +178,8 @@ useEffect(() => {
         </div>
       </div>
           {miners.map((miner) => (
-            <div key={miner.miner_id} className={`boost-item ${miner.lvl !== undefined && miner.lvl !== minerInfo.lvl + 1 ? 'boost-closed' : ''}`}>
-              <div className="boost-description">
+            <div key={miner.miner_id} className="boost-item">
+              <div className={`boost-description ${miner.lvl !== undefined && miner.lvl !== minerInfo.lvl + 1 ? 'boost-closed' : ''}`}>
                 <div className="boost-watch">
                   <img src={miner.miner_image_url} className="boost-image" alt={miner.name} />
                 </div>

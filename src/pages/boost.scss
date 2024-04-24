@@ -44,6 +44,10 @@
     justify-content: center;
 }
 
+.boost-item:nth-child(1) > .line-upgrade {
+    opacity: 1;
+}
+
 .boost-item:nth-last-child(1) > .line-upgrade {
     display: none;
 }
