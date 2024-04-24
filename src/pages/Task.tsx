@@ -194,7 +194,7 @@ const Task: React.FC = () => {
         <div>
             <div className="referral-manage">
                 <div className="referral-count">
-                    {totalReferrals} <span className="text-signature">Referrals</span>
+                    <span className="text-signature">Invite</span> {totalReferrals}
                 </div>
                 <img src="https://i.ibb.co/1KnjQ0t/Designer-105.jpg" className="referral-image" />
                 <div className="referral-info">You will receive 100 coins for each invitee.</div>
