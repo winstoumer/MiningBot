@@ -44,7 +44,7 @@
     justify-content: center;
 }
 
-.boost-item:first-child(1) > .line-upgrade {
+.boost-item:nth-first-child > .line-upgrade {
     background-color: white;
 }
 
