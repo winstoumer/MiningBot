@@ -174,7 +174,7 @@ useEffect(() => {
             <span className="token-ic-50">
                   <img src="https://i.ibb.co/nzbVcWv/timeminecoin-icon.png" className="token-icon" />
               </span>
-            {balance !== null ? balance.toFixed(2) : 'Loading...'}
+            {balance !== null ? balance : 'Loading...'}
         </div>
       </div>
           {miners.map((miner) => (
