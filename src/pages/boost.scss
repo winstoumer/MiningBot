@@ -44,10 +44,6 @@
     justify-content: center;
 }
 
-.line-upgrade:first-child {
-    background-color: white;
-}
-
 .boost-item:nth-last-child(1) > .line-upgrade {
     display: none;
 }
