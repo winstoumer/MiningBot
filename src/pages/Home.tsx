@@ -349,7 +349,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
       <div className="general-token">
         <div className="set-mining">
           <div className="title-ol">
-            Mining
+            Time left
           </div>
           <div className="token">
             <span id="counter">{hoursLeft > 0 || minutesLeft > 0 ? `${hoursLeft} : ${minutesLeft} : ${secondsLeft}` : '00 : 00 : 00'}</span>
