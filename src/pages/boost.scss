@@ -45,7 +45,7 @@
 }
 
 .boost-item:nth-child(n+2) > .line-upgrade {
-    opacity: 0.5;
+    display: none;
 }
 
 .boost-item:nth-last-child(1) > .line-upgrade {
