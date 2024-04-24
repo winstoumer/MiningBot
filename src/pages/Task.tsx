@@ -53,6 +53,34 @@ const Task: React.FC = () => {
 
     const [userData, setUserData] = useState<TelegramUserData | null>(null);
 
+    const [totalReferrals, setTotalReferrals] = useState<number>(0);
+
+  useEffect(() => {
+    const fetchReferralCount = async () => {
+      
+      try {
+        if (!userData) return;
+        const userId = userData.id.toString();
+        const response = await fetch(`https://advisory-brandi-webapp.koyeb.app/referral/${userId}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setTotalReferrals(data.totalReferrals);
+      } catch (error) {
+        console.error('Error fetching referral count:', error);
+      }
+    };
+
+    fetchReferralCount();
+
+    // Установка интервала для обновления данных каждые 5 секунд
+    const intervalId = setInterval(fetchReferralCount, 5000);
+
+    // Очистка интервала при размонтировании компонента
+    return () => clearInterval(intervalId);
+  }, [userData]);
+
     useEffect(() => {
     const fetchTasks = async () => {
       try {
@@ -165,6 +193,9 @@ const Task: React.FC = () => {
     { title: 'Referral', content: <div>
         <div>
             <div className="referral-manage">
+                <div className="referral-count">
+                    {totalReferrals}
+                </div>
                 <img src="https://i.ibb.co/1KnjQ0t/Designer-105.jpg" className="referral-image" />
                 <div className="referral-info">You will receive 100 coins for each invitee.</div>
                 <button type="button" className="default-button" onClick={handleCopyLink}>Get referral link</button>
