@@ -168,10 +168,15 @@ useEffect(() => {
         <div className="content">
       <div className="boost-content">
         <div className="boost-list">
-            <div className="balance pad-bottom">
-                <div className="title-balance">Balance:</div>
-                {balance !== null ? balance : 'Loading...'}
-            </div>
+            <div className="balance">
+        <div className="title-ol">Balance</div>
+        <div className="total-balance">
+            <span className="token-ic-50">
+                  <img src="https://i.ibb.co/nzbVcWv/timeminecoin-icon.png" className="token-icon" />
+              </span>
+            {balance !== null ? balance.toFixed(2) : 'Loading...'}
+        </div>
+      </div>
           {miners.map((miner) => (
             <div key={miner.miner_id} className={`boost-item ${miner.lvl !== undefined && miner.lvl !== minerInfo.lvl + 1 ? 'boost-closed' : ''}`}>
               <div className="boost-description">
