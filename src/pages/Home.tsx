@@ -342,10 +342,10 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
         </div>
       </div>
       <div className="content-machine">
-        <div class="container">
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
+        <div className="container">
+    <div className="spark"></div>
+    <div className="spark"></div>
+    <div className="spark"></div>
   </div>
         <div className="watch-machine">
           <img src={minerInfo.miner_image_url} className="img-comp" alt="watch-machine" />
