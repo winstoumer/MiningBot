@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid'; // Импортируем функцию д
 import ReactJson, { InteractionProps } from 'react-json-view';
 import { SendTransactionRequest, useTonConnectUI, useTonWallet, useTonAddress } from "@tonconnect/ui-react";
 import { beginCell } from '@ton/ton'; // Добавлен импорт для beginCell
+import VideoPlayer from '../components/VideoPlayer/VideoPlayer';
 
 type TelegramUserData = {
   id: number;
@@ -188,6 +189,8 @@ const decrementTotal = async (userId: number) => {
       console.error('Error sending transaction:', error);
     });
   };
+
+    const videoSrc = "https://fex.net/ru/s/brvvon2";
 
     return (
         <div className="content">
