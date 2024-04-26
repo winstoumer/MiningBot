@@ -196,7 +196,7 @@ const decrementTotal = async (userId: number) => {
                     <div className="box-body">
                         <div className="count-box">{boxData?.total ?? '0'}</div>
                         <div className={"watch-box" + (boxData?.total ? "" : " hide-box")}>
-                            <img src="https://i.ibb.co/jLcwk8W/IMG-1679.jpg" className="box-image" alt="box" />
+                            <img src="https://i.ibb.co/8rsYM8V/Untitled.png" className="box-image" alt="box" />
                         </div>
                         <div className="box-rewards">
                             <div className="item-box">
