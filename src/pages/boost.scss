@@ -56,7 +56,18 @@
 
 .boost-image {
     width: 100%;
+    position: relative;
+    animation: moveUpDownCapsule 2s infinite alternate; /* Анимация движения вверх и вниз */
 }
+
+@keyframes moveUpDownCapsule {
+    0% {
+      top: -10px; /* Начальная позиция (вверх) */
+    }
+    100% {
+        top: 10px; /* Конечная позиция (вниз) */
+    }
+  }
 
 .boost-info {
     display: flex;

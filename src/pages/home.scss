@@ -70,8 +70,19 @@
 
 .img-comp {
     width: 100%;
-    border-radius: 20px;
+    position: relative;
+    animation: moveUpDownCapsuleHome 2s infinite alternate;
 }
+
+
+@keyframes moveUpDownCapsuleHome {
+    0% {
+      top: -10px; /* Начальная позиция (вверх) */
+    }
+    100% {
+        top: 10px; /* Конечная позиция (вниз) */
+    }
+  }
 
 .actions-mining {
     margin-top: 10px;
