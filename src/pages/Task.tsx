@@ -174,7 +174,7 @@ const Task: React.FC = () => {
                   <div className="task-name">{task.name}</div>
                     <div className="task-rewards">
                       <span className="token-ic-26">
-                          <img src="https://i.ibb.co/M5s2t91/Untitled.png" className="token-icon" />
+                          <img src="https://i.ibb.co/MGwQ044/AA3-A3133-7-AA5-4968-8-C51-4-F5-BE86-F1-D50.png" className="token-icon" />
                       </span>
                         {task.coin_reward}
                     </div>
