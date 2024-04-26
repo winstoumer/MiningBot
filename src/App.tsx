@@ -13,14 +13,12 @@ import Box from './pages/Box';
 import TelegramScript from "./components/TelegramScript/TelegramScript";
 import TelegramUser from "./components/TelegramUser/TelegramUser";
 import './telegram.d.ts';
-import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 import {TonProofDemo} from "./components/TonProofDemo/TonProofDemo";
 
 function App() {
 
   return (
-      <ErrorBoundary>
     <TonConnectUIProvider
       manifestUrl="https://advisory-brandi-webapp.koyeb.app/api/json-x/tonconnect-manifest.json"
       uiPreferences={{ theme: THEME.DARK }}
@@ -65,7 +63,6 @@ function App() {
         </Router>
       </div>
     </TonConnectUIProvider>
-          </ErrorBoundary>
   );
 }
 

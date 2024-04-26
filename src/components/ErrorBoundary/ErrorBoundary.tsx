@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { RouteComponentProps, useHistory } from 'react-router-dom';
 
 interface ErrorBoundaryProps extends RouteComponentProps<any> {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const ErrorBoundary: React.FC  = ({ children }: ErrorBoundaryProps) => {
