@@ -203,7 +203,7 @@ const decrementTotal = async (userId: number) => {
                         </div>
                         <div className="box-rewards">
                             <div className="item-box">
-                                NFT box
+                                NFT
                             </div>
                         </div>
                         <div>
