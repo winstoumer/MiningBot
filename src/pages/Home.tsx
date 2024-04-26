@@ -338,7 +338,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
             <span className="token-ic-50">
                   <img src="https://i.ibb.co/M5s2t91/Untitled.png" className="token-icon" />
               </span>
-            {coins.toFixed(2)}
+            {coins}
         </div>
       </div>
       <div className="content-machine">
