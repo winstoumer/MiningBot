@@ -5,7 +5,7 @@ interface ErrorBoundaryProps extends RouteComponentProps<any> {
   children: React.ReactNode;
 }
 
-const ErrorBoundary: React.FC = ({ children }: ErrorBoundaryProps) => {
+const ErrorBoundary: React.FC  = ({ children }: ErrorBoundaryProps) => {
   const history = useHistory();
 
   const [hasError, setHasError] = React.useState(false);
@@ -29,7 +29,7 @@ const ErrorBoundary: React.FC = ({ children }: ErrorBoundaryProps) => {
     return <div>Oops! Something went wrong.</div>;
   }
 
-  return children;
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
 export default ErrorBoundary;
