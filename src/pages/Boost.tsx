@@ -176,6 +176,9 @@ useEffect(() => {
               </span>
             {balance !== null ? balance : 'Loading...'}
         </div>
+        <div className="title-boost-g">
+            Your capsule
+        </div>
       </div>
           {miners.map((miner) => (
             <div key={miner.miner_id} className="boost-item">
