@@ -5,15 +5,15 @@ import { render } from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App'
 import './index.scss'
-import eruda from "eruda";
-import ErrorBoundary from '..component/ErrorBoundary/ErrorBoundary';
+//import eruda from "eruda";
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 eruda.init();
 
 render(
     <Router>
     <ErrorBoundary>
-        <App />
+            <App />
     </ErrorBoundary>
   </Router>,
     document.getElementById('root') as HTMLElement
