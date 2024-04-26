@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 interface PageComponentProps {
   children: ReactNode;
 }
-
+//
 const PageComponent: React.FC<PageComponentProps> = ({ children }) => {
   const navigate = useNavigate();
 
