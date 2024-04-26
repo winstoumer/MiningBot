@@ -1,12 +1,10 @@
 // ErrorBoundary.tsx
+// ErrorBoundary.tsx
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-interface ErrorBoundaryProps extends RouteComponentProps {
+interface ErrorBoundaryProps extends RouteComponentProps<any> {
   children: React.ReactNode;
-}
-
-interface ErrorBoundaryState {
   hasError: boolean;
 }
 
@@ -26,7 +24,7 @@ class ErrorBoundary extends React.Component
   render() {
     if (this.state.hasError) {
       // Можно добавить пользовательский компонент для отображения ошибки, если необходимо
-      return <div></div>;
+      return <div>Oops! Something went wrong.</div>;
     }
 
     return this.props.children;

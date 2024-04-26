@@ -8,12 +8,14 @@ import './index.scss'
 //import eruda from "eruda";
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
-eruda.init();
+//eruda.init();
 
 render(
     <Router>
     <ErrorBoundary>
+        <StrictMode>
             <App />
+        </StrictMode>
     </ErrorBoundary>
   </Router>,
     document.getElementById('root') as HTMLElement
