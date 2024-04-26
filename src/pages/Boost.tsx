@@ -172,7 +172,7 @@ useEffect(() => {
         <div className="title-ol">Balance</div>
         <div className="total-balance">
             <span className="token-ic-50">
-                  <img src="https://i.ibb.co/SmGd4hs/IMG-1867.jpg" className="token-icon" />
+                  <img src="https://i.ibb.co/M5s2t91/Untitled.png" className="token-icon" />
               </span>
             {balance !== null ? balance : 'Loading...'}
         </div>
@@ -191,7 +191,7 @@ useEffect(() => {
                 {minerInfo.lvl === miner.lvl ? 
     <div></div> : <div className="boost-price">
         <span className="token-ic-26">
-                          <img src="https://i.ibb.co/SmGd4hs/IMG-1867.jpg" className="token-icon" />
+                          <img src="https://i.ibb.co/M5s2t91/Untitled.png" className="token-icon" />
                       </span>
         {`${miner.price_miner}`}
     </div>
