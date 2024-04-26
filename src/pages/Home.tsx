@@ -336,7 +336,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
         <div className="title-ol">Balance</div>
         <div className="total-balance">
             <span className="token-ic-50">
-                  <img src="https://i.ibb.co/nzbVcWv/timeminecoin-icon.png" className="token-icon" />
+                  <img src="https://i.ibb.co/SmGd4hs/IMG-1867.jpg" className="token-icon" />
               </span>
             {coins.toFixed(2)}
         </div>
@@ -356,7 +356,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
           </div>
           <div className="info-miner signature-yellow-color">
               <span className="token-ic-14">
-                  <img src="https://i.ibb.co/nzbVcWv/timeminecoin-icon.png" className="token-icon" />
+                  <img src="https://i.ibb.co/SmGd4hs/IMG-1867.jpg" className="token-icon" />
               </span>
               {minerInfo.coin_mined} / {minerInfo.time_mined}h</div>
         </div>
