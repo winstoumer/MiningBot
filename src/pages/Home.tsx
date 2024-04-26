@@ -343,7 +343,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
       </div>
       <div className="content-machine">
         <div className="watch-machine">
-          <img src={minerInfo.miner_image_url} className="img-comp" alt="watch-machine" />
+          <img src={minerInfo.miner_image_url} className="img-comp" />
         </div>
       </div>
       <div className="general-token">
