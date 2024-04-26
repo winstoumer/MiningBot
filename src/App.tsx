@@ -13,6 +13,7 @@ import Box from './pages/Box';
 import TelegramScript from "./components/TelegramScript/TelegramScript";
 import TelegramUser from "./components/TelegramUser/TelegramUser";
 import './telegram.d.ts';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 import {TonProofDemo} from "./components/TonProofDemo/TonProofDemo";
 
@@ -50,6 +51,7 @@ function App() {
     >
       <div className="app">
         <Router>
+            <ErrorBoundary>
           <Header />
           <TelegramUser />
           <TelegramScript />
@@ -60,6 +62,7 @@ function App() {
             <Route path="/box" element={<Box />} />
           </Routes>
           <Navigation />
+            </ErrorBoundary>
         </Router>
       </div>
     </TonConnectUIProvider>
