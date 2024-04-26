@@ -10,10 +10,9 @@ import './index.scss'
 //eruda.init();
 
 render(
-    <Router>
         <StrictMode>
             <App />
         </StrictMode>
-  </Router>,
+  ,
     document.getElementById('root') as HTMLElement
 )
