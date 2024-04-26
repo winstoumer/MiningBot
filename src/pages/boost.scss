@@ -58,6 +58,7 @@
     width: 100%;
     position: relative;
     animation: moveUpDownCapsule 2s infinite alternate; /* Анимация движения вверх и вниз */
+    z-index: 100;
 }
 
 @keyframes moveUpDownCapsule {
