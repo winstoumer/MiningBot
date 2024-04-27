@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './home.scss';
 import PageComponent from '../components/PageComponent/PageComponent';
+import LoadingScreen from '../components/LoadingScreen';
 
 const fetchMiner = async (userId: string, setMinerInfo: React.Dispatch<any>) => {
   try {
@@ -331,6 +332,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
 
   return (
       <PageComponent>
+          <LoadingScreen />
     <div className="content">
       <div className="balance">
         <div className="title-ol">Balance</div>
