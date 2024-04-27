@@ -20,14 +20,6 @@ import {TonProofDemo} from "./components/TonProofDemo/TonProofDemo";
 
 function App() {
 
-  const [error, setError] = useState(false);
-
-  // Функция для обработки ошибок
-  const handleError = () => {
-    setError(true);
-  };
-
-
   return (
     <TonConnectUIProvider
       manifestUrl="https://advisory-brandi-webapp.koyeb.app/api/json-x/tonconnect-manifest.json"
