@@ -16,10 +16,10 @@ const PageComponent: React.FC<PageComponentProps> = ({ children }) => {
       setLoading(false);
     };
 
-    window.addEventListener('load', handleLoad);
+    document.addEventListener('DOMContentLoaded', handleLoad);
 
     return () => {
-      window.removeEventListener('load', handleLoad);
+      document.removeEventListener('DOMContentLoaded', handleLoad);
     };
   }, []);
   
