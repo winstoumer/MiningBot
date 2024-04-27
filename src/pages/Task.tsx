@@ -153,7 +153,7 @@ const Task: React.FC = () => {
 
      const handleCopyLink = () => {
     const userId = userData && userData.id ? userData.id : 'null';
-    const referralLink = `https://t.me/minerweb3_bot?start=r_${userId}`;
+    const referralLink = `https://t.me/meencapsule_bot?start=r_${userId}`;
     navigator.clipboard.writeText(referralLink)
         .then(() => alert('Link copied to clipboard'))
         .catch((error) => console.error('Error copying link: ', error));
