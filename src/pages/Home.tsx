@@ -352,7 +352,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
             Time left
           </div>
           <div className="token">
-            <span id="counter">{hoursLeft > 0 || minutesLeft > 0 ? `${hoursLeft} : ${minutesLeft} : ${secondsLeft}` : '00 : 00 : 00'}</span>
+            <span id="counter">{hoursLeft > 0 || minutesLeft > 0 ? `${hoursLeft}:${minutesLeft}:${secondsLeft}` : '00:00:00'}</span>
           </div>
           <div className="info-miner signature-yellow-color">
               <span className="token-ic-14">
