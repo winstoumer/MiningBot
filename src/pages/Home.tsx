@@ -36,6 +36,16 @@ const Home: React.FC = () => {
   const [isClaiming, setIsClaiming] = useState<boolean>(false); // Флаг, указывающий, идет ли сбор монет в данный момент
     const [startCoins, setStartCoins] = useState<number>(0.00000000); // Начальное значение для счетчика монет
 
+    const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000); // Предположим, что страница загрузится за 3 секунды
+
+    return () => clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp) {
       setUserData(window.Telegram.WebApp.initDataUnsafe?.user);
@@ -331,6 +341,14 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
 
   return (
       <PageComponent>
+           {loading ? (
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.8)', zIndex: 9999 }}>
+          <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', color: 'white' }}>
+            <h2>Loading...</h2>
+            {/* Можно добавить сюда индикатор загрузки, например, спиннер или анимацию */}
+          </div>
+        </div>
+      ) : (
     <div className="content">
       <div className="balance">
         <div className="title-ol">Balance</div>
@@ -379,6 +397,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
 
       </div>
     </div>
+          )}
           </PageComponent>
   );
 };
