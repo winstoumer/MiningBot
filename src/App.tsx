@@ -14,7 +14,7 @@ import TelegramScript from "./components/TelegramScript/TelegramScript";
 import TelegramUser from "./components/TelegramUser/TelegramUser";
 import './telegram.d.ts';
 
-import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
+//import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 
 import {TonProofDemo} from "./components/TonProofDemo/TonProofDemo";
 
@@ -68,9 +68,6 @@ function App() {
             <Route path="/boost" element={<Boost />} />
             <Route path="/task" element={<Task />} />
             <Route path="/box" element={<Box />} />
-            <Route path="/">
-                <ErrorBoundary onError={handleError} />
-            </Route>
           </Routes>
           <Navigation />
         </Router>
