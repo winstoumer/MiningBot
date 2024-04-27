@@ -18,10 +18,10 @@
 }
 
 .watch-box {
-    min-width: 260px;
-    min-height: 260px;
-    max-width: 260px;
-    max-height: 260px;
+    min-width: 200px;
+    min-height: 200px;
+    max-width: 200px;
+    max-height: 200px;
     margin: 0 auto;
 }
 
@@ -33,10 +33,10 @@
 
   @keyframes moveUpDown {
     0% {
-      top: -20px; /* Начальная позиция (вверх) */
+      top: -10px; /* Начальная позиция (вверх) */
     }
     100% {
-        top: 20px; /* Конечная позиция (вниз) */
+        top: 10px; /* Конечная позиция (вниз) */
     }
   }
 
