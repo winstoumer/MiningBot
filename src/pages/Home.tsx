@@ -342,7 +342,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
   return (
       <PageComponent>
            {loading ? (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(54, 10, 43, 0.9)', zIndex: 9999 }}>
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(17, 5, 4, 0.98)', zIndex: 9999 }}>
           <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', color: 'white' }}>
             <h2>Loading...</h2>
             {/* Можно добавить сюда индикатор загрузки, например, спиннер или анимацию */}
