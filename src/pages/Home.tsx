@@ -376,10 +376,9 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
 >
     {hoursLeft <= 0 && minutesLeft <= 0 && secondsLeft <= 0 ? 'Claim' : 'Mining active..'}
 </button>
-
       </div>
-    </div
-          </PageComponent>
+    </div>
+</PageComponent>
   );
 };
 
