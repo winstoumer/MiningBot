@@ -28,15 +28,15 @@
 .box-image {
     width: 100%;
     position: relative;
-    animation: moveUpDown 2s infinite alternate; /* Анимация движения вверх и вниз */
+    animation: moveUpDown 1.2s infinite alternate; /* Анимация движения вверх и вниз */
   }
 
   @keyframes moveUpDown {
     0% {
-      top: -30px; /* Начальная позиция (вверх) */
+      top: -20px; /* Начальная позиция (вверх) */
     }
     100% {
-        top: 30px; /* Конечная позиция (вниз) */
+        top: 20px; /* Конечная позиция (вниз) */
     }
   }
 

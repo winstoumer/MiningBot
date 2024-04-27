@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid'; // Импортируем функцию д
 import ReactJson, { InteractionProps } from 'react-json-view';
 import { SendTransactionRequest, useTonConnectUI, useTonWallet, useTonAddress } from "@tonconnect/ui-react";
 import { beginCell } from '@ton/ton'; // Добавлен импорт для beginCell
-import VideoPlayer from '../components/VideoPlayer/VideoPlayer';
+//import VideoPlayer from '../components/VideoPlayer/VideoPlayer';
 
 type TelegramUserData = {
   id: number;
