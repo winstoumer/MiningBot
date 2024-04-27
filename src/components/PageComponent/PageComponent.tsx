@@ -1,5 +1,5 @@
 // components/PageComponent/PageComponent.tsx
-import React, { useEffect, ReactNode } from 'react';
+import React, { useEffect, ReactNode, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface PageComponentProps {
@@ -9,6 +9,20 @@ interface PageComponentProps {
 const PageComponent: React.FC<PageComponentProps> = ({ children }) => {
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const handleLoad = () => {
+      setLoading(false);
+    };
+
+    window.addEventListener('load', handleLoad);
+
+    return () => {
+      window.removeEventListener('load', handleLoad);
+    };
+  }, []);
+  
   useEffect(() => {
     const loadScript = () => {
       const script = document.createElement('script');
@@ -47,7 +61,20 @@ const PageComponent: React.FC<PageComponentProps> = ({ children }) => {
     };
   }, [navigate]);
 
-  return <>{children}</>;
+  return <>
+      {loading ? (
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', zIndex: 9999 }}>
+          <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center' }}>
+            <h2>Loading...</h2>
+            {/* Можно добавить сюда индикатор загрузки, например, спиннер или анимацию */}
+          </div>
+        </div>
+      ) : (
+      <>
+          {children}
+      </>
+      )}
+  </>;
 };
 
 export default PageComponent;
