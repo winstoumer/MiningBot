@@ -47,7 +47,7 @@ function App() {
         ]
       }}
       actionsConfiguration={{
-        twaReturnUrl: 'https://t.me/minerweb3_bot/app'
+        twaReturnUrl: 'https://t.me/meencapsule_bot/app'
       }}
     >
       <div className="app">
