@@ -331,8 +331,9 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
 };
 
   return (
+      <>
+      <LoadingScreen />
       <PageComponent>
-          <LoadingScreen />
     <div className="content">
       <div className="balance">
         <div className="title-ol">Balance</div>
@@ -382,6 +383,7 @@ const [hoursLeft, setHoursLeft] = useState<number>(0);
       </div>
     </div>
           </PageComponent>
+          </>
   );
 };
 
