@@ -1,11 +1,11 @@
 // components/PageComponent/PageComponent.tsx
-import React, { useEffect, ReactNode, useState } from 'react';
+import React, { useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface PageComponentProps {
   children: ReactNode;
 }
-//
+
 const PageComponent: React.FC<PageComponentProps> = ({ children }) => {
   const navigate = useNavigate();
   
@@ -22,7 +22,7 @@ const PageComponent: React.FC<PageComponentProps> = ({ children }) => {
           // Set up the back button after the script is loaded and Telegram WebApp is available
           const backButton = window.Telegram.WebApp.BackButton;
           backButton.onClick(() => {
-            console.log('Back button clicked');
+            //console.log('Back button clicked');
             navigate(-1); // Use navigate with a negative number to go back
           });
 

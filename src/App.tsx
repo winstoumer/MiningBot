@@ -11,10 +11,7 @@ import Boost from './pages/Boost';
 import Task from './pages/Task';
 import Box from './pages/Box';
 import TelegramScript from "./components/TelegramScript/TelegramScript";
-import TelegramUser from "./components/TelegramUser/TelegramUser";
 import './telegram.d.ts';
-
-//import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 
 import {TonProofDemo} from "./components/TonProofDemo/TonProofDemo";
 
@@ -53,7 +50,6 @@ function App() {
       <div className="app">
         <Router>
           <Header />
-          <TelegramUser />
           <TelegramScript />
           <Routes>
             <Route path="/" element={<Home />} />
