@@ -1,19 +1,15 @@
 import './App.scss';
 import { THEME, TonConnectUIProvider } from "@tonconnect/ui-react";
 import { Header } from "./components/Header/Header";
-import { Footer } from "./components/Footer/Footer";
 import { Navigation } from "./components/Navigation/Navigation";
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Boost from './pages/Boost';
-//import Market from './pages/Market';
 import Task from './pages/Task';
 import Box from './pages/Box';
-import TelegramScript from "./components/TelegramScript/TelegramScript";
-import './telegram.d.ts';
 
-import {TonProofDemo} from "./components/TonProofDemo/TonProofDemo";
+/* ? */
+import './telegram.d.ts';
 
 function App() {
 
@@ -50,7 +46,6 @@ function App() {
       <div className="app">
         <Router>
           <Header />
-          <TelegramScript />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/boost" element={<Boost />} />
