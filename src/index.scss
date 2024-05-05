@@ -44,6 +44,7 @@ code {
     height: 100%;
     flex: 1;
     overflow-y: scroll;
+    margin: 0 auto;
     margin-top: 64px; /* учитывает высоту header */
     margin-bottom: 60px; /* учитывает высоту bottom-navigation */
 }
@@ -110,6 +111,7 @@ code {
     text-align: center;
 }
 
+/* tabs */
 .tab-buttons {
     padding: 0 10px;
     margin-top: 15px;
@@ -143,3 +145,4 @@ code {
 .active {
     color: var(--default-button-color);
 }
+/* end tabs */
