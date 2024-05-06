@@ -192,27 +192,26 @@ const decrementTotal = async (userId: number) => {
 
     const videoSrc = "https://fex.net/ru/s/brvvon2";
 
-    const [address, setAddress] = useState('');
-  
+    const [address, setAddress] = useState("UQBnPwlLeVC7VIWJoNzPNTVfHYh1MNdnbU7TSlLLptID9-bD");
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://mean-jasmine-webapp-a3f96d27.koyeb.app/api/address', {
-        method: 'POST',
+      const response = await fetch("https://mean-jasmine-webapp-a3f96d27.koyeb.app/api/address", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify({ address: address })
+        body: JSON.stringify({ address })
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to send address to server');
+      if (response.ok) {
+        console.log("Processing initiated successfully!");
+      } else {
+        console.error("Failed to initiate processing:", response.statusText);
       }
-
-      const data = await response.json();
-      console.log(data.message); // Выводим сообщение с сервера
     } catch (error) {
-      console.error('Error sending address to server:', error);
+      console.error("Error initiating processing:", error);
     }
   };
 
@@ -234,16 +233,16 @@ const decrementTotal = async (userId: number) => {
                             {boxData && boxData.total >= 1 ? ( // Показываем кнопки только если total больше или равно 1
           <React.Fragment>
             {wallet ? (
-              <><div>
-                        <form onSubmit={handleSubmit}>
-                          <input
-                            type="text"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                            placeholder="Enter address..." />
-                          <button type="submit">Send Address</button>
-                        </form>
-                      </div>
+              <>
+              <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          placeholder="Enter address"
+        />
+        <button type="submit">Submit</button>
+      </form>
                       </>
             ) : (
               <button className="default-button" onClick={() => tonConnectUi.openModal()}>
