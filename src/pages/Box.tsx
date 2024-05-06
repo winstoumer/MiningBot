@@ -192,7 +192,7 @@ const decrementTotal = async (userId: number) => {
 
     const videoSrc = "https://fex.net/ru/s/brvvon2";
 
-    const [address, setAddress] = useState("UQBnPwlLeVC7VIWJoNzPNTVfHYh1MNdnbU7TSlLLptID9-bD");
+    const [address, setAddress] = useState("EQAkdOYcyM7gGi91u2MNRpm-t90v29PTxImlv6IvJZBwV1P7");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
