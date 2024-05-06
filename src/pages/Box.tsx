@@ -243,9 +243,8 @@ const decrementTotal = async (userId: number) => {
                             placeholder="Enter address..." />
                           <button type="submit">Send Address</button>
                         </form>
-                      </div><button className="default-button" onClick={createTransaction}>
-                          Open for 1 TON
-                        </button></>
+                      </div>
+                      </>
             ) : (
               <button className="default-button" onClick={() => tonConnectUi.openModal()}>
                 Connect wallet
