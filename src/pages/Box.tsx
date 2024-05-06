@@ -197,7 +197,7 @@ const decrementTotal = async (userId: number) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://mean-jasmine-webapp-a3f96d27.koyeb.app/api/address", {
+      const response = await fetch('https://mean-jasmine-webapp-a3f96d27.koyeb.app/api/address', {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
