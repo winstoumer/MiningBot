@@ -192,6 +192,30 @@ const decrementTotal = async (userId: number) => {
 
     const videoSrc = "https://fex.net/ru/s/brvvon2";
 
+    const [address, setAddress] = useState('');
+  
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('https://mean-jasmine-webapp-a3f96d27.koyeb.app/api/address', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ address: address })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send address to server');
+      }
+
+      const data = await response.json();
+      console.log(data.message); // Выводим сообщение с сервера
+    } catch (error) {
+      console.error('Error sending address to server:', error);
+    }
+  };
+
     return (
         <div className="content">
             <PageComponent>
@@ -210,9 +234,18 @@ const decrementTotal = async (userId: number) => {
                             {boxData && boxData.total >= 1 ? ( // Показываем кнопки только если total больше или равно 1
           <React.Fragment>
             {wallet ? (
-              <button className="default-button" onClick={createTransaction}>
-                Open for 1 TON
-              </button>
+              <><div>
+                        <form onSubmit={handleSubmit}>
+                          <input
+                            type="text"
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            placeholder="Enter address..." />
+                          <button type="submit">Send Address</button>
+                        </form>
+                      </div><button className="default-button" onClick={createTransaction}>
+                          Open for 1 TON
+                        </button></>
             ) : (
               <button className="default-button" onClick={() => tonConnectUi.openModal()}>
                 Connect wallet
